@@ -4,14 +4,9 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
+		<UseWpf>true</UseWpf>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="flower.png" />
-		<None Remove="flower2.png" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Dirkster.AvalonDock" Version="4.72.1" />
@@ -19,13 +14,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dance.Common\Dance.Common.csproj" />
+		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 		<ProjectReference Include="..\Dance\Dance.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Resource Include="flower.png" />
-		<Resource Include="flower2.png" />
 	</ItemGroup>
 
 	<ItemGroup>
