@@ -1,5 +1,6 @@
 ﻿using AvalonDock.Controls;
 using Dance.Wpf;
+using DevExpress.Xpf.Core;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +18,7 @@ namespace Dance.WpfTest
     {
         public App()
         {
+            ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             DanceDomain.Current = new();

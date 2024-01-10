@@ -9,11 +9,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="DevExpress.Wpf.Themes.Win11Dark" Version="23.2.3" />
 	  <PackageReference Include="Dirkster.AvalonDock" Version="4.72.1" />
 	  <PackageReference Include="Microsoft.ClearScript.V8" Version="7.4.4" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Dance.Framework.Wpf\Dance.Framework.Wpf.csproj" />
 		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 		<ProjectReference Include="..\Dance\Dance.csproj" />
 	</ItemGroup>

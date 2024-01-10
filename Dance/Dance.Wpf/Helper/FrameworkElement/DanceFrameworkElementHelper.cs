@@ -11,24 +11,24 @@ using System.Xml.Linq;
 namespace Dance.Wpf
 {
     /// <summary>
-    /// 元素事件触发器
+    /// 元素辅助
     /// </summary>
-    public static partial class DanceFrameworkElementEventTrigger
+    public static partial class DanceFrameworkElementHelper
     {
         /// <summary>
         /// 日志
         /// </summary>
-        private readonly static ILog log = LogManager.GetLogger(typeof(DanceFrameworkElementEventTrigger));
+        private readonly static ILog log = LogManager.GetLogger(typeof(DanceFrameworkElementHelper));
 
         #region FrameworkElementEventTriggerCache -- 元素事件触发器缓存
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.FrameworkElementEventTriggerCacheProperty"></inheritdoc>/>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.FrameworkElementEventTriggerCacheProperty"></inheritdoc>/>
         public static Dictionary<string, object?> GetFrameworkElementEventTriggerCache(DependencyObject obj)
         {
             return (Dictionary<string, object?>)obj.GetValue(FrameworkElementEventTriggerCacheProperty);
         }
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.FrameworkElementEventTriggerCacheProperty"></inheritdoc>/>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.FrameworkElementEventTriggerCacheProperty"></inheritdoc>/>
         public static void SetFrameworkElementEventTriggerCache(DependencyObject obj, Dictionary<string, object?> value)
         {
             obj.SetValue(FrameworkElementEventTriggerCacheProperty, value);
@@ -38,7 +38,7 @@ namespace Dance.Wpf
         /// 元素事件触发器缓存
         /// </summary>
         public static readonly DependencyProperty FrameworkElementEventTriggerCacheProperty =
-            DependencyProperty.RegisterAttached("FrameworkElementEventTriggerCache", typeof(Dictionary<string, object?>), typeof(DanceFrameworkElementEventTrigger), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("FrameworkElementEventTriggerCache", typeof(Dictionary<string, object?>), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null));
 
 
         /// <summary>
@@ -95,13 +95,13 @@ namespace Dance.Wpf
 
         #region Loaded -- 加载
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.LoadedCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.LoadedCommandProperty"></inheritdoc>
         public static ICommand GetLoadedCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(LoadedCommandProperty);
         }
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.LoadedCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.LoadedCommandProperty"></inheritdoc>
         public static void SetLoadedCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(LoadedCommandProperty, value);
@@ -111,7 +111,7 @@ namespace Dance.Wpf
         /// 加载命令
         /// </summary>
         public static readonly DependencyProperty LoadedCommandProperty =
-            DependencyProperty.RegisterAttached("LoadedCommand", typeof(ICommand), typeof(DanceFrameworkElementEventTrigger), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
+            DependencyProperty.RegisterAttached("LoadedCommand", typeof(ICommand), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
             {
                 if (s is not FrameworkElement element)
                     return;
@@ -143,13 +143,13 @@ namespace Dance.Wpf
 
         #region UnloadedCommand -- 卸载命令
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.UnloadedCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.UnloadedCommandProperty"></inheritdoc>
         public static ICommand GetUnloadedCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(UnloadedCommandProperty);
         }
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.UnloadedCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.UnloadedCommandProperty"></inheritdoc>
         public static void SetUnloadedCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(UnloadedCommandProperty, value);
@@ -159,7 +159,7 @@ namespace Dance.Wpf
         /// 卸载命令
         /// </summary>
         public static readonly DependencyProperty UnloadedCommandProperty =
-            DependencyProperty.RegisterAttached("UnloadedCommand", typeof(ICommand), typeof(DanceFrameworkElementEventTrigger), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
+            DependencyProperty.RegisterAttached("UnloadedCommand", typeof(ICommand), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
             {
                 if (s is not FrameworkElement element)
                     return;
@@ -195,13 +195,13 @@ namespace Dance.Wpf
         /// </summary>
         public const string LOADED_ONCE_COMMAND__IS_ALREADY_LOADED = "LOADED_ONCE_COMMAND__IS_ALREADY_LOADED";
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.LoadedOnceCommand"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.LoadedOnceCommand"></inheritdoc>
         public static ICommand GetLoadedOnceCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(LoadedOnceCommandProperty);
         }
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.LoadedOnceCommand"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.LoadedOnceCommand"></inheritdoc>
         public static void SetLoadedOnceCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(LoadedOnceCommandProperty, value);
@@ -211,7 +211,7 @@ namespace Dance.Wpf
         /// 加载一次命令
         /// </summary>
         public static readonly DependencyProperty LoadedOnceCommandProperty =
-            DependencyProperty.RegisterAttached("LoadedOnceCommand", typeof(ICommand), typeof(DanceFrameworkElementEventTrigger), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
+            DependencyProperty.RegisterAttached("LoadedOnceCommand", typeof(ICommand), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
             {
                 if (s is not FrameworkElement element)
                     return;
@@ -251,13 +251,13 @@ namespace Dance.Wpf
         /// </summary>
         public const string LOADED_ONCE_COMMAND__IS_ALREADY_UNLOADED = "LOADED_ONCE_COMMAND__IS_ALREADY_UNLOADED";
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.UnloadedOnceCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.UnloadedOnceCommandProperty"></inheritdoc>
         public static ICommand GetUnloadedOnceCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(UnloadedOnceCommandProperty);
         }
 
-        /// <inheritdoc cref="DanceFrameworkElementEventTrigger.UnloadedOnceCommandProperty"></inheritdoc>
+        /// <inheritdoc cref="DanceFrameworkElementHelper.UnloadedOnceCommandProperty"></inheritdoc>
         public static void SetUnloadedOnceCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(UnloadedOnceCommandProperty, value);
@@ -267,7 +267,7 @@ namespace Dance.Wpf
         /// 卸载一次命令
         /// </summary>
         public static readonly DependencyProperty UnloadedOnceCommandProperty =
-            DependencyProperty.RegisterAttached("UnloadedOnceCommand", typeof(ICommand), typeof(DanceFrameworkElementEventTrigger), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
+            DependencyProperty.RegisterAttached("UnloadedOnceCommand", typeof(ICommand), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
             {
                 if (s is not FrameworkElement element)
                     return;
