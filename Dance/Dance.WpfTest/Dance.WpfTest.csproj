@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resource\Image\welcome.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="DevExpress.Wpf.Themes.Win11Dark" Version="23.2.3" />
 	</ItemGroup>
 
@@ -19,9 +23,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Resource\Image\welcome.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Plugin\TestLayout\TestLayoutView2.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Plugin\新文件夹\" />
 	</ItemGroup>
 
 </Project>

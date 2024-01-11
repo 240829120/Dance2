@@ -16,7 +16,7 @@ namespace Dance.Wpf
         public DanceDomain()
         {
             // IOC构建
-            this.IocBuilder.AddAssemblys(Assembly.Load("Dance"), Assembly.Load("Dance.Wpf"));
+            this.IocBuilder.AddAssemblies(Assembly.Load("Dance"), Assembly.Load("Dance.Wpf"));
 
             // 捕获未处理异常
             this.Builders.Add(new DanceDomainBuilder_CatchUnhandledException());

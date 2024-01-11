@@ -23,7 +23,9 @@ namespace Dance.WpfTest
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             DanceDomain.Current = new();
-            DanceDomain.Current.IocBuilder.AddAssemblys(Assembly.Load("Dance.Framework"));
+            DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.Framework"));
+            DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
+            DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
             DanceDomain.Current.Build();
 
             IDanceWindowManager windowManager = DanceDomain.Current.LifeScope.Resolve<IDanceWindowManager>();

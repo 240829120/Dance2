@@ -1,17 +1,15 @@
-﻿using DevExpress.Mvvm.POCO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace Dance.Framework
 {
     /// <summary>
-    /// 布局模型
+    /// Docking项视图模型基类
     /// </summary>
-    public class DanceLayoutViewModel : DanceViewModel
+    public class DanceDockingItemViewModelBase : DanceViewModel
     {
         #region ID -- 编号
 

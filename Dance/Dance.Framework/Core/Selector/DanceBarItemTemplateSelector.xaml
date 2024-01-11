@@ -1,0 +1,137 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+                    xmlns:local="clr-namespace:Dance.Framework">
+
+    <!-- Bar -->
+    <local:DanceBarItemTemplateSelector x:Key="DanceBarItemTemplateSelector">
+        <!-- BarButtonItem -->
+        <local:DanceBarItemTemplateSelector.BarButtonItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarButtonItem CategoryName="{Binding Path=CategoryName}"
+                                       Content="{Binding Content}"
+                                       Glyph="{Binding Glyph}"
+                                       GlyphTemplate="{Binding GlyphTemplate}"
+                                       ToolTip="{Binding ToolTip}"
+                                       IsEnabled="{Binding IsEnabled}"
+                                       KeyGesture="{Binding KeyGesture}"
+                                       Description="{Binding Description}"
+                                       Command="{Binding ClickCommand}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarButtonItem>
+        <!-- BarCheckBoxItem -->
+        <local:DanceBarItemTemplateSelector.BarCheckBoxItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarCheckItem CategoryName="{Binding Path=CategoryName}"
+                                      Content="{Binding Content}"
+                                      Glyph="{Binding Glyph}"
+                                      GlyphTemplate="{Binding GlyphTemplate}"
+                                      ToolTip="{Binding ToolTip}"
+                                      IsEnabled="{Binding IsEnabled}"
+                                      KeyGesture="{Binding KeyGesture}"
+                                      Description="{Binding Description}"
+                                      IsChecked="{Binding IsChecked,Mode=TwoWay}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarCheckBoxItem>
+        <!-- BarContainerItem -->
+        <local:DanceBarItemTemplateSelector.BarContainerItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarContainerControl ItemsSource="{Binding Path=Items}"
+                                             ItemTemplateSelector="{StaticResource DanceBarItemTemplateSelector}"></dxb:BarContainerControl>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarContainerItem>
+        <!-- BarEditItem -->
+        <local:DanceBarItemTemplateSelector.BarEditItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarEditItem CategoryName="{Binding Path=CategoryName}"
+                                     Content="{Binding Content}"
+                                     Glyph="{Binding Glyph}"
+                                     GlyphTemplate="{Binding GlyphTemplate}"
+                                     ToolTip="{Binding ToolTip}"
+                                     IsEnabled="{Binding IsEnabled}"
+                                     KeyGesture="{Binding KeyGesture}"
+                                     Description="{Binding Description}"
+                                     EditWidth="{Binding EditWidth}"
+                                     EditHeight="{Binding EditHeight}"
+                                     EditValue="{Binding EditValue,Mode=TwoWay}"
+                                     EditSettings="{Binding EditSettings}"
+                                     EditTemplate="{Binding EditTemplate}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarEditItem>
+        <!-- BarSeparatorItem -->
+        <local:DanceBarItemTemplateSelector.BarSeparatorItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarItemSeparator />
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarSeparatorItem>
+        <!-- BarSplitButtonItem -->
+        <local:DanceBarItemTemplateSelector.BarSplitButtonItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarSplitButtonItem CategoryName="{Binding Path=CategoryName}"
+                                            Content="{Binding Content}"
+                                            Glyph="{Binding Glyph}"
+                                            GlyphTemplate="{Binding GlyphTemplate}"
+                                            ToolTip="{Binding ToolTip}"
+                                            IsEnabled="{Binding IsEnabled}"
+                                            KeyGesture="{Binding KeyGesture}"
+                                            Description="{Binding Description}"
+                                            PopupControl="{Binding PopupControl}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarSplitButtonItem>
+        <!-- BarStaticItem -->
+        <local:DanceBarItemTemplateSelector.BarStaticItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarStaticItem CategoryName="{Binding Path=CategoryName}"
+                                       Content="{Binding Content}"
+                                       Glyph="{Binding Glyph}"
+                                       GlyphTemplate="{Binding GlyphTemplate}"
+                                       IsEnabled="{Binding IsEnabled}"
+                                       ToolTip="{Binding ToolTip}"
+                                       KeyGesture="{Binding KeyGesture}"
+                                       Description="{Binding Description}"
+                                       ContentTemplate="{Binding ContentTemplate}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarStaticItem>
+        <!-- BarSubItem -->
+        <local:DanceBarItemTemplateSelector.BarSubItem>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:BarSubItem CategoryName="{Binding Path=CategoryName}"
+                                    Content="{Binding Content}"
+                                    Glyph="{Binding Glyph}"
+                                    GlyphTemplate="{Binding GlyphTemplate}"
+                                    IsEnabled="{Binding IsEnabled}"
+                                    ToolTip="{Binding ToolTip}"
+                                    KeyGesture="{Binding KeyGesture}"
+                                    Description="{Binding Description}"
+                                    ItemLinksSource="{Binding Items}"
+                                    ItemTemplateSelector="{StaticResource DanceBarItemTemplateSelector}"/>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.BarSubItem>
+        <!-- ToolBarControl -->
+        <local:DanceBarItemTemplateSelector.ToolBarControl>
+            <DataTemplate>
+                <ContentControl>
+                    <dxb:ToolBarControl ItemsSource="{Binding Path=Items}"
+                                        ItemTemplateSelector="{StaticResource DanceBarItemTemplateSelector}"></dxb:ToolBarControl>
+                </ContentControl>
+            </DataTemplate>
+        </local:DanceBarItemTemplateSelector.ToolBarControl>
+    </local:DanceBarItemTemplateSelector>
+
+</ResourceDictionary>

@@ -82,7 +82,7 @@ namespace Dance.Framework
             this.ProgressMessage = "准备初始化";
 
             // 加载插件
-            foreach (Assembly assembly in DanceDomain.Current.PluginAssemblies)
+            foreach (Assembly assembly in DanceDomain.Current.PluginBuilder.PluginAssemblies)
             {
                 DanceDomain.Current.PluginBuilder.LoadPlugin(assembly);
             }
@@ -99,6 +99,7 @@ namespace Dance.Framework
             }
 
             // 准备启动主界面
+            this.ProgressValue = 1;
             this.ProgressMessage = "准备启动";
 
             await Task.Delay(2000);

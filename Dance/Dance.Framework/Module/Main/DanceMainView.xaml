@@ -3,19 +3,91 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxdove="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
+             xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:local="clr-namespace:Dance.Framework"
+             d:DataContext="{d:DesignInstance Type=local:DanceMainViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             dance:DanceFrameworkElementHelper.LoadedOnceCommand="{Binding Path=LoadedCommand}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dance.Framework;component/Core/Selector/DanceBarItemTemplateSelector.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <local:DanceDockingItemInstanceConverter x:Key="DanceDockingItemInstanceConverter"></local:DanceDockingItemInstanceConverter>
+
+            <!-- Layout -->
+            <DataTemplate DataType="{x:Type local:DanceLayoutViewModel}">
+                <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:DanceDocumentViewModel}">
+                <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
+            </DataTemplate>
+
+            <!-- Document -->
+            <Style TargetType="{x:Type dxdo:LayoutPanel}">
+                <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
+                <Setter Property="BindableName" Value="{Binding ID}" />
+                <Setter Property="Caption" Value="{Binding Path=Caption}"></Setter>
+                <!--<Setter Property="CaptionImage" Value="{Binding Path=CaptionImage}"></Setter>-->
+                <Setter Property="ToolTip" Value="{Binding Path=ToolTip}"></Setter>
+                <Setter Property="Closed" Value="{Binding Path=IsClosed,Mode=TwoWay}"></Setter>
+                <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
+                <Setter Property="CaptionWidth" Value="160"></Setter>
+                <Setter Property="TabCaptionWidth" Value="160"></Setter>
+                <Setter Property="ShowCloseButton" Value="True"></Setter>
+                <!--<Setter Property="CaptionImageStyle">
+                <Setter.Value>
+                    <Style TargetType="dxdove:CaptionImage">
+                        <Setter Property="Width" Value="16"/>
+                        <Setter Property="Height" Value="16"/>
+                        <Setter Property="Stretch" Value="Fill"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>-->
+            </Style>
+
+            <!-- Layout -->
+            <Style TargetType="{x:Type dxdo:DocumentPanel}">
+                <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
+                <Setter Property="BindableName" Value="{Binding Path=ID}" />
+                <Setter Property="Caption" Value="{Binding Path=Name}"></Setter>
+                <Setter Property="ToolTip" Value="{Binding Path=FullPath}"></Setter>
+                <!--<Setter Property="CloseCommand" Value="{Binding Path=CloseCommand}"></Setter>-->
+                <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
+                <Setter Property="ClosingBehavior" Value="ImmediatelyRemove"></Setter>
+                <Setter Property="CaptionWidth" Value="160"></Setter>
+                <Setter Property="TabCaptionWidth" Value="160"></Setter>
+                <Setter Property="ShowCloseButton" Value="True"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- 工具 -->
+        <dxb:BarContainerControl ItemsSource="{Binding Path=ToolBarItems}"
+                                 ItemTemplateSelector="{StaticResource ResourceKey=DanceBarItemTemplateSelector}"></dxb:BarContainerControl>
+
+        <!-- Docking -->
         <dxdo:DockLayoutManager x:Name="PART_DockLayoutManager" Grid.Row="1" ClosedPanelsBarVisibility="Manual">
-
-
             <dxdo:LayoutGroup DestroyOnClosingChildren="False">
                 <dxdo:DocumentGroup ItemsSource="{Binding Path=Documents}" DestroyOnClosingChildren="False"  ClosePageButtonShowMode="InAllTabPageHeaders"></dxdo:DocumentGroup>
                 <dxdo:LayoutGroup ItemsSource="{Binding Path=Layouts}" DestroyOnClosingChildren="False"></dxdo:LayoutGroup>
             </dxdo:LayoutGroup>
         </dxdo:DockLayoutManager>
+
+        <!-- 状态 -->
     </Grid>
 </UserControl>

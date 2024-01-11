@@ -13,6 +13,11 @@ namespace Dance
     /// </summary>
     public class DancePluginBuilder : DanceObject
     {
+        /// <summary>
+        /// 插件程序集
+        /// </summary>
+        public List<Assembly> PluginAssemblies { get; } = [];
+
         #region PluginDomains -- 插件领域集合
 
         private readonly List<DancePluginDomain> pluginDomains = [];

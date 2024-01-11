@@ -38,11 +38,6 @@ namespace Dance
         public List<IDanceDomainBuilder> Builders { get; } = [];
 
         /// <summary>
-        /// 插件程序集
-        /// </summary>
-        public List<Assembly> PluginAssemblies { get; } = [];
-
-        /// <summary>
         /// 插件构建器
         /// </summary>
         public DancePluginBuilder PluginBuilder { get; } = new();

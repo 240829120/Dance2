@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace Dance.Framework
 {
     /// <summary>
-    /// 文档视图模型
+    /// 分隔线模型
     /// </summary>
-    public class DanceDocumentViewModel : DanceLayoutViewModel
+    public class DanceBarSeparatorItemModel : DanceBarItemModelBase
     {
-
     }
 }

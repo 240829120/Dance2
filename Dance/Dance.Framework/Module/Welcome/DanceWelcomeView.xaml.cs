@@ -32,5 +32,24 @@ namespace Dance.Framework
             vm.View = this;
             this.DataContext = vm;
         }
+
+        #region ProgressForeground -- 进度条前景色
+
+        /// <summary>
+        /// <inheritdoc cref="ProgressForegroundProperty"/>
+        /// </summary>
+        public Brush ProgressForeground
+        {
+            get { return (Brush)GetValue(ProgressForegroundProperty); }
+            set { SetValue(ProgressForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// 进度条前景色
+        /// </summary>
+        public static readonly DependencyProperty ProgressForegroundProperty =
+            DependencyProperty.Register("ProgressForeground", typeof(Brush), typeof(DanceWelcomeView), new PropertyMetadata(Brushes.Blue));
+
+        #endregion
     }
 }

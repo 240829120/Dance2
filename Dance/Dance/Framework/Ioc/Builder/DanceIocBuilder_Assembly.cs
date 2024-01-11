@@ -18,7 +18,7 @@ namespace Dance
         /// <param name="builder">Ioc构建器</param>
         /// <param name="assemblyPrefix">程序集前缀</param>
         /// <returns>Ioc构建器</returns>
-        public static DanceIocBuilder AddAssemblys(this DanceIocBuilder builder, string assemblyPrefix)
+        public static DanceIocBuilder AddAssemblies(this DanceIocBuilder builder, string assemblyPrefix)
         {
             List<string> files = [];
             List<Assembly> assemblies = [];
@@ -27,7 +27,7 @@ namespace Dance
 
             assemblies.AddRange(files.Select(p => Assembly.Load(AssemblyName.GetAssemblyName(p))));
 
-            return builder.AddAssemblys(assemblies.ToArray());
+            return builder.AddAssemblies(assemblies.ToArray());
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Dance
         /// <param name="builder">Ioc构建器</param>
         /// <param name="assemblies">程序集集合</param>
         /// <returns>Ioc构建器</returns>
-        public static DanceIocBuilder AddAssemblys(this DanceIocBuilder builder, params Assembly[] assemblies)
+        public static DanceIocBuilder AddAssemblies(this DanceIocBuilder builder, params Assembly[] assemblies)
         {
             foreach (Assembly assembly in assemblies)
             {

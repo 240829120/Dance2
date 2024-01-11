@@ -20,4 +20,10 @@
 		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Module\Main\DanceMainViewMenu.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

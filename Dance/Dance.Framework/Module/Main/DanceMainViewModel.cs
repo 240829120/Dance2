@@ -1,9 +1,13 @@
-﻿using DevExpress.Mvvm.POCO;
+﻿using CommunityToolkit.Mvvm.Input;
+using Dance.Wpf;
+using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
 using DevExpress.Office.Model;
 using DevExpress.Xpf.LayoutControl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,36 +20,127 @@ namespace Dance.Framework
     [DanceSingleton]
     public class DanceMainViewModel : DanceViewModel
     {
+        public DanceMainViewModel()
+        {
+            this.LoadedCommand = new(this.Loaded);
+        }
+
         // =======================================================================================
         // Property
 
-        #region Layouts -- 布局容器视图
-
-        private ObservableCollection<DanceLayoutViewModel>? layouts;
         /// <summary>
         /// 布局容器视图
         /// </summary>
-        public ObservableCollection<DanceLayoutViewModel>? Layouts
-        {
-            get { return layouts; }
-            set { this.SetProperty(ref layouts, value); }
-        }
+        public ObservableCollection<DanceLayoutViewModel> Layouts { get; } = [];
 
-        #endregion
-
-        #region Documents -- 文档集合
-
-        private ObservableCollection<DanceDocumentViewModel>? documents;
         /// <summary>
         /// 文档集合
         /// </summary>
-        public ObservableCollection<DanceDocumentViewModel>? Documents
+        public ObservableCollection<DanceDocumentViewModel> Documents { get; } = [];
+
+        /// <summary>
+        /// 菜单项
+        /// </summary>
+        public ObservableCollection<DanceBarItemModelBase> MenuBarItems { get; } = [];
+
+        /// <summary>
+        /// 工具项
+        /// </summary>
+        public ObservableCollection<DanceBarItemModelBase> ToolBarItems { get; } = [];
+
+        // =======================================================================================
+        // Command
+
+        #region LoadedCommand -- 加载命令
+
+        /// <summary>
+        /// 加载命令
+        /// </summary>
+        public RelayCommand LoadedCommand { get; private set; }
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        private void Loaded()
         {
-            get { return documents; }
-            set { this.SetProperty(ref documents, value); }
+            // 菜单
+            this.LoadMenuBarItems();
+
+            // 工具
+            this.LoadToolBarItems();
+
+            // Docking项
+            this.LoadDockingItem();
         }
 
         #endregion
 
+        // =======================================================================================
+        // Private Function
+
+        /// <summary>
+        /// 加载菜单
+        /// </summary>
+        private void LoadMenuBarItems()
+        {
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceMenuBarItemPluginInfo).ToList();
+
+            foreach (var item in items)
+            {
+                if (item.PluginInfo is not DanceMenuBarItemPluginInfo info)
+                    continue;
+
+                this.MenuBarItems.AddRange(info.BarItems);
+            }
+        }
+
+        /// <summary>
+        /// 加载工具
+        /// </summary>
+        private void LoadToolBarItems()
+        {
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceToolBarItemPluginInfo).ToList();
+
+            foreach (var item in items)
+            {
+                if (item.PluginInfo is not DanceToolBarItemPluginInfo info)
+                    continue;
+
+                this.ToolBarItems.AddRange(info.BarItems);
+            }
+        }
+
+        /// <summary>
+        /// 加载布局项
+        /// </summary>
+        private void LoadDockingItem()
+        {
+            if (this.View is not DanceMainView view || view.PART_DockLayoutManager == null)
+                return;
+
+            // 面板与文档视图
+            var layouts = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceLayoutViewPluginInfo).ToList();
+
+            foreach (var layout in layouts)
+            {
+                if (layout.PluginInfo is not DanceLayoutViewPluginInfo info)
+                    continue;
+
+                this.Layouts.Add(new()
+                {
+                    ID = info.ID,
+                    Caption = info.Name,
+                    ToolTip = info.Name,
+                    ViewType = info.ViewType
+                });
+            }
+
+            // 加载布局文件
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout.xml");
+            if (!File.Exists(path))
+                return;
+
+            view.PART_DockLayoutManager.RestoreLayoutFromXml(path);
+        }
     }
 }
