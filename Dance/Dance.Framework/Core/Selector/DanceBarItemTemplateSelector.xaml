@@ -3,6 +3,7 @@
                     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
                     xmlns:local="clr-namespace:Dance.Framework">
 
+
     <!-- Bar -->
     <local:DanceBarItemTemplateSelector x:Key="DanceBarItemTemplateSelector">
         <!-- BarButtonItem -->
@@ -119,7 +120,7 @@
                                     KeyGesture="{Binding KeyGesture}"
                                     Description="{Binding Description}"
                                     ItemLinksSource="{Binding Items}"
-                                    ItemTemplateSelector="{StaticResource DanceBarItemTemplateSelector}"/>
+                                    ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
                 </ContentControl>
             </DataTemplate>
         </local:DanceBarItemTemplateSelector.BarSubItem>
@@ -128,7 +129,7 @@
             <DataTemplate>
                 <ContentControl>
                     <dxb:ToolBarControl ItemsSource="{Binding Path=Items}"
-                                        ItemTemplateSelector="{StaticResource DanceBarItemTemplateSelector}"></dxb:ToolBarControl>
+                                        ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"></dxb:ToolBarControl>
                 </ContentControl>
             </DataTemplate>
         </local:DanceBarItemTemplateSelector.ToolBarControl>

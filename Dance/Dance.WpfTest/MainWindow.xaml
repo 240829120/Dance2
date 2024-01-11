@@ -8,12 +8,12 @@
                  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                  xmlns:fw="clr-namespace:Dance.Framework;assembly=Dance.Framework"
                  WindowStartupLocation="CenterScreen"
-                 mc:Ignorable="d" Background="White" x:Name="uc" Height="1000" Width="1600">
+                 mc:Ignorable="d" Background="Transparent" x:Name="uc" Height="1000" Width="1600">
     <dx:ThemedWindow.ToolbarItems>
         <fw:DanceMainViewMenu></fw:DanceMainViewMenu>
     </dx:ThemedWindow.ToolbarItems>
 
-    <Grid Background="Black">
+    <Grid Background="#ff1c1c1c">
         <fw:DanceMainView></fw:DanceMainView>
     </Grid>
 

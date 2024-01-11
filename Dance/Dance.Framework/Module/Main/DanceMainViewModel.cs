@@ -48,6 +48,11 @@ namespace Dance.Framework
         /// </summary>
         public ObservableCollection<DanceBarItemModelBase> ToolBarItems { get; } = [];
 
+        /// <summary>
+        /// 状态项
+        /// </summary>
+        public ObservableCollection<DanceBarItemModelBase> StatusBarItems { get; } = [];
+
         // =======================================================================================
         // Command
 
@@ -63,11 +68,14 @@ namespace Dance.Framework
         /// </summary>
         private void Loaded()
         {
-            // 菜单
+            // 菜单项
             this.LoadMenuBarItems();
 
-            // 工具
+            // 工具项
             this.LoadToolBarItems();
+
+            // 状态项
+            this.LoadStatusBarItems();
 
             // Docking项
             this.LoadDockingItem();
@@ -79,7 +87,7 @@ namespace Dance.Framework
         // Private Function
 
         /// <summary>
-        /// 加载菜单
+        /// 加载菜单项
         /// </summary>
         private void LoadMenuBarItems()
         {
@@ -95,7 +103,7 @@ namespace Dance.Framework
         }
 
         /// <summary>
-        /// 加载工具
+        /// 加载工具项
         /// </summary>
         private void LoadToolBarItems()
         {
@@ -107,6 +115,22 @@ namespace Dance.Framework
                     continue;
 
                 this.ToolBarItems.AddRange(info.BarItems);
+            }
+        }
+
+        /// <summary>
+        /// 加载状态项
+        /// </summary>
+        private void LoadStatusBarItems()
+        {
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceStatusBarItemPluginInfo).ToList();
+
+            foreach (var item in items)
+            {
+                if (item.PluginInfo is not DanceStatusBarItemPluginInfo info)
+                    continue;
+
+                this.StatusBarItems.AddRange(info.BarItems);
             }
         }
 

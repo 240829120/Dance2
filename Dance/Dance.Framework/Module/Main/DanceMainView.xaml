@@ -76,9 +76,18 @@
             <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <!-- 工具 -->
-        <dxb:BarContainerControl ItemsSource="{Binding Path=ToolBarItems}"
-                                 ItemTemplateSelector="{StaticResource ResourceKey=DanceBarItemTemplateSelector}"></dxb:BarContainerControl>
+        <!-- 工具栏 -->
+        <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"
+                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            <dxb:BarManager.BarTemplate>
+                <DataTemplate>
+                    <ContentControl>
+                        <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="True" AllowHide="False"
+                                 ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
+                    </ContentControl>
+                </DataTemplate>
+            </dxb:BarManager.BarTemplate>
+        </dxb:BarManager>
 
         <!-- Docking -->
         <dxdo:DockLayoutManager x:Name="PART_DockLayoutManager" Grid.Row="1" ClosedPanelsBarVisibility="Manual">
@@ -88,6 +97,17 @@
             </dxdo:LayoutGroup>
         </dxdo:DockLayoutManager>
 
-        <!-- 状态 -->
+        <!-- 状态栏 -->
+        <dxb:BarManager Grid.Row="2" BarsSource="{Binding Path=StatusBarItems}" AddNewItems="False"
+                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            <dxb:BarManager.BarTemplate>
+                <DataTemplate>
+                    <ContentControl>
+                        <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"
+                                 ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
+                    </ContentControl>
+                </DataTemplate>
+            </dxb:BarManager.BarTemplate>
+        </dxb:BarManager>
     </Grid>
 </UserControl>

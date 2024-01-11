@@ -19,8 +19,8 @@ namespace Dance.WpfTest
     {
         public App()
         {
-            ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
 
             DanceDomain.Current = new();
             DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.Framework"));

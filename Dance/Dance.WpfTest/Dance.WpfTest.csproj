@@ -38,8 +38,4 @@
 	  </Compile>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Plugin\新文件夹\" />
-	</ItemGroup>
-
 </Project>
