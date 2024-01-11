@@ -3,13 +3,21 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWpf>true</UseWpf>
+		<UseWPF>true</UseWPF>
 		<UseWindowsForms>false</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dance\Dance.csproj" />
+		<Folder Include="Storage\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DevExpress.Wpf" Version="23.2.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 	</ItemGroup>
 
 </Project>

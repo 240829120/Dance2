@@ -13,7 +13,7 @@ namespace Dance
     /// <summary>
     /// 模型
     /// </summary>
-    public class DanceModel : DanceObject, IDisposable
+    public class DanceModel : DanceObject, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged
     {
         /// <summary>
         /// 调度检测是否可用

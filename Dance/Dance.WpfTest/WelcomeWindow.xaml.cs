@@ -27,28 +27,13 @@ using DevExpress.Xpf.Core;
 namespace Dance.WpfTest
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WelcomeWindow.xaml
     /// </summary>
-    public partial class MainWindow : ThemedWindow
+    public partial class WelcomeWindow : ThemedWindow
     {
-        public MainWindow()
+        public WelcomeWindow()
         {
             InitializeComponent();
-
-            this.Loaded += MainWindow_Loaded;
-            this.Closed += MainWindow_Closed;
         }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MainWindow_Closed(object? sender, EventArgs e)
-        {
-            DanceDomain.Current?.Dispose();
-            Application.Current.Shutdown();
-        }
-
     }
 }

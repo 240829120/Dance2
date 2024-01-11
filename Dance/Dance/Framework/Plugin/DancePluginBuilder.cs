@@ -11,8 +11,7 @@ namespace Dance
     /// <summary>
     /// 插件管理器
     /// </summary>
-    [DanceSingleton(typeof(IDancePluginManager))]
-    public class DancePluginManager : DanceObject, IDancePluginManager
+    public class DancePluginBuilder : DanceObject
     {
         #region PluginDomains -- 插件领域集合
 
@@ -119,17 +118,16 @@ namespace Dance
         /// <summary>
         /// 初始化插件
         /// </summary>
-        /// <param name="pluginIds">插件ID集合</param>
-        public void InitializePlugin(params string[] pluginIds)
+        /// <param name="pluginDomains">插件集合</param>
+        public void InitializePlugin(params DancePluginDomain[] pluginDomains)
         {
 #if DEBUG
             Stopwatch stopwatch = new();
 
-            foreach (string pluginId in pluginIds)
+            foreach (DancePluginDomain domain in pluginDomains)
             {
                 try
                 {
-                    DancePluginDomain? domain = this.PluginDomains.FirstOrDefault(p => p.PluginInfo.ID == pluginId);
                     if (domain == null || domain.IsInitialized)
                         continue;
 
@@ -145,11 +143,10 @@ namespace Dance
                 }
             }
 #else
-            foreach (string pluginId in pluginIds)
+            foreach (DancePluginDomain domain in pluginDomains)
             {
                 try
                 {
-                    DancePluginDomain? domain = this.PluginDomains.FirstOrDefault(p => p.PluginInfo.ID == pluginId);
                     if (domain == null || domain.IsInitialized)
                         continue;
 

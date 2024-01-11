@@ -12,7 +12,7 @@ namespace Dance
     /// </summary>
     /// <param name="lifescope">插件生命周期</param>
     /// <param name="pluginInfo">插件信息</param>
-    public class DancePluginDomain(IDancePluginLifescope lifescope, IDancePluginInfo pluginInfo) : DanceDomainBase<DancePluginDomain>
+    public class DancePluginDomain(IDancePluginLifescope lifescope, IDancePluginInfo pluginInfo) : DanceDomainBase
     {
         /// <summary>
         /// 插件信息

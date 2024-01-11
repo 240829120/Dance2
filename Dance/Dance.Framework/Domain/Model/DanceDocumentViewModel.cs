@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Framework.Wpf
+namespace Dance.Framework
 {
     /// <summary>
-    /// 主视图模型
+    /// 文档视图模型
     /// </summary>
-    [DanceSingleton]
-    public class MainViewModel : DanceViewModel
+    public class DanceDocumentViewModel : DanceLayoutViewModel
     {
 
     }

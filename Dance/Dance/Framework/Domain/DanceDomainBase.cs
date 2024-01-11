@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Dance
     /// <summary>
     /// 领域基类
     /// </summary>
-    public abstract class DanceDomainBase<TDomain> : DanceObject where TDomain : DanceDomainBase<TDomain>
+    public abstract class DanceDomainBase : DanceObject
     {
         public DanceDomainBase()
         {
@@ -35,6 +36,16 @@ namespace Dance
         /// 构建器集合
         /// </summary>
         public List<IDanceDomainBuilder> Builders { get; } = [];
+
+        /// <summary>
+        /// 插件程序集
+        /// </summary>
+        public List<Assembly> PluginAssemblies { get; } = [];
+
+        /// <summary>
+        /// 插件构建器
+        /// </summary>
+        public DancePluginBuilder PluginBuilder { get; } = new();
 
         /// <summary>
         /// 消息

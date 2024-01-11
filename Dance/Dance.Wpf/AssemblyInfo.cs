@@ -12,4 +12,3 @@ using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.dance.com/wpf", "Dance")]
 [assembly: XmlnsDefinition("http://schemas.dance.com/wpf", "Dance.Wpf")]
-[assembly: XmlnsDefinition("http://schemas.dance.com/wpf", "Dance.Framework.Wpf")]

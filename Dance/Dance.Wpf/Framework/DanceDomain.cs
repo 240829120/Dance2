@@ -11,12 +11,12 @@ namespace Dance.Wpf
     /// <summary>
     /// 领域
     /// </summary>
-    public class DanceDomain : DanceDomainBase<DanceDomain>
+    public class DanceDomain : DanceDomainBase
     {
         public DanceDomain()
         {
             // IOC构建
-            this.IocBuilder.AddAssemblys(Assembly.Load("Dance"), Assembly.Load("Dance.Wpf"), Assembly.Load("Dance.Framework.Wpf"));
+            this.IocBuilder.AddAssemblys(Assembly.Load("Dance"), Assembly.Load("Dance.Wpf"));
 
             // 捕获未处理异常
             this.Builders.Add(new DanceDomainBuilder_CatchUnhandledException());

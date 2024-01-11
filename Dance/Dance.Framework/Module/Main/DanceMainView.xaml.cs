@@ -14,18 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dance.Framework.Wpf
+namespace Dance.Framework
 {
     /// <summary>
-    /// MainView.xaml 的交互逻辑
+    /// DanceMainView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView : System.Windows.Controls.UserControl
+    public partial class DanceMainView : UserControl
     {
-        public MainView()
+        public DanceMainView()
         {
             InitializeComponent();
 
-            MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();
+            if (XamlHelper.IsInDesignMode)
+                return;
+
+            DanceMainViewModel vm = DanceDomain.Current.LifeScope.Resolve<DanceMainViewModel>();
             vm.View = this;
             this.DataContext = vm;
         }

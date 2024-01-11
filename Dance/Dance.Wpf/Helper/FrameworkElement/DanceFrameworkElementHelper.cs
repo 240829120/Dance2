@@ -213,6 +213,9 @@ namespace Dance.Wpf
         public static readonly DependencyProperty LoadedOnceCommandProperty =
             DependencyProperty.RegisterAttached("LoadedOnceCommand", typeof(ICommand), typeof(DanceFrameworkElementHelper), new PropertyMetadata(null, new PropertyChangedCallback((s, e) =>
             {
+                if (XamlHelper.IsInDesignMode)
+                    return;
+
                 if (s is not FrameworkElement element)
                     return;
 
