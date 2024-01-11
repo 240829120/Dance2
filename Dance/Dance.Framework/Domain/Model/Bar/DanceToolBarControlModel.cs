@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DevExpress.Diagram.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Framework.Domain.Model.Bar
+namespace Dance.Framework
 {
     /// <summary>
     /// 工具项模型

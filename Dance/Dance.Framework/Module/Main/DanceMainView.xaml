@@ -19,6 +19,13 @@
                 <ResourceDictionary Source="/Dance.Framework;component/Core/Selector/DanceBarItemTemplateSelector.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
+            <DataTemplate x:Key="BarTemplate">
+                <ContentControl>
+                    <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"
+                             ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
+                </ContentControl>
+            </DataTemplate>
+
             <local:DanceDockingItemInstanceConverter x:Key="DanceDockingItemInstanceConverter"></local:DanceDockingItemInstanceConverter>
 
             <!-- Layout -->
@@ -77,17 +84,21 @@
         </Grid.RowDefinitions>
 
         <!-- 工具栏 -->
-        <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"
-                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
-            <dxb:BarManager.BarTemplate>
-                <DataTemplate>
-                    <ContentControl>
-                        <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="True" AllowHide="False"
-                                 ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
-                    </ContentControl>
-                </DataTemplate>
-            </dxb:BarManager.BarTemplate>
-        </dxb:BarManager>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"
+                            BarTemplate="{StaticResource BarTemplate}"
+                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            </dxb:BarManager>
+            <dxb:BarManager BarsSource="{Binding Path=StatusBarRightTopItems}" AddNewItems="False" Grid.Column="1"
+                            BarTemplate="{StaticResource BarTemplate}"
+                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            </dxb:BarManager>
+        </Grid>
+
 
         <!-- Docking -->
         <dxdo:DockLayoutManager x:Name="PART_DockLayoutManager" Grid.Row="1" ClosedPanelsBarVisibility="Manual">
@@ -98,16 +109,20 @@
         </dxdo:DockLayoutManager>
 
         <!-- 状态栏 -->
-        <dxb:BarManager Grid.Row="2" BarsSource="{Binding Path=StatusBarItems}" AddNewItems="False"
-                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
-            <dxb:BarManager.BarTemplate>
-                <DataTemplate>
-                    <ContentControl>
-                        <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"
-                                 ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
-                    </ContentControl>
-                </DataTemplate>
-            </dxb:BarManager.BarTemplate>
-        </dxb:BarManager>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <dxb:BarManager BarsSource="{Binding Path=StatusBarLeftBottomItems}" AddNewItems="False"
+                            BarTemplate="{StaticResource BarTemplate}"
+                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            </dxb:BarManager>
+            <dxb:BarManager BarsSource="{Binding Path=StatusBarRightBottomItems}" AddNewItems="False" Grid.Column="1" 
+                            BarTemplate="{StaticResource BarTemplate}"
+                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+            </dxb:BarManager>
+        </Grid>
+
     </Grid>
 </UserControl>

@@ -16,7 +16,7 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            DanceMenuBarItemPluginInfo info = new("MenuBar", "MenuBar");
+            DanceMenuBarPluginInfo info = new("MenuBar", "MenuBar");
 
             info.BarItems.Add(new MenuButtonBarItemModel());
 

@@ -16,7 +16,7 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            DanceStatusBarItemPluginInfo info = new("StatusBar", "StatusBar");
+            DanceStatusBarPluginInfo info = new("StatusBar", "StatusBar");
 
             info.BarItems.Add(new StatusBarContainerModel());
             info.BarItems.Add(new StatusBarContainerModel());

@@ -1,5 +1,4 @@
 ﻿using Dance.Framework;
-using Dance.Framework.Domain.Model.Bar;
 using Dance.WpfTest.Plugin.ToolBar;
 using System;
 using System.Collections.Generic;

@@ -128,7 +128,7 @@
         <local:DanceBarItemTemplateSelector.ToolBarControl>
             <DataTemplate>
                 <ContentControl>
-                    <dxb:ToolBarControl ItemsSource="{Binding Path=Items}"
+                    <dxb:ToolBarControl ItemsSource="{Binding Path=Items}" 
                                         ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"></dxb:ToolBarControl>
                 </ContentControl>
             </DataTemplate>

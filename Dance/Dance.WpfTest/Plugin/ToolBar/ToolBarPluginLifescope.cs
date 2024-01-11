@@ -16,7 +16,7 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            DanceToolBarItemPluginInfo info = new("ToolBar", "ToolBar");
+            DanceToolBarPluginInfo info = new("ToolBar", "ToolBar");
 
             info.BarItems.Add(new ToolBarContainerModel());
             info.BarItems.Add(new ToolBarContainerModel());

@@ -46,12 +46,22 @@ namespace Dance.Framework
         /// <summary>
         /// 工具项
         /// </summary>
-        public ObservableCollection<DanceBarItemModelBase> ToolBarItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> ToolBarItems { get; } = [];
 
         /// <summary>
-        /// 状态项
+        /// 状态项 -- 左下
         /// </summary>
-        public ObservableCollection<DanceBarItemModelBase> StatusBarItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> StatusBarLeftBottomItems { get; } = [];
+
+        /// <summary>
+        /// 状态项 -- 右下
+        /// </summary>
+        public ObservableCollection<DanceToolBarControlModel> StatusBarRightBottomItems { get; } = [];
+
+        /// <summary>
+        /// 状态项 -- 右上
+        /// </summary>
+        public ObservableCollection<DanceToolBarControlModel> StatusBarRightTopItems { get; } = [];
 
         // =======================================================================================
         // Command
@@ -91,11 +101,11 @@ namespace Dance.Framework
         /// </summary>
         private void LoadMenuBarItems()
         {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceMenuBarItemPluginInfo).ToList();
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceMenuBarPluginInfo).ToList();
 
             foreach (var item in items)
             {
-                if (item.PluginInfo is not DanceMenuBarItemPluginInfo info)
+                if (item.PluginInfo is not DanceMenuBarPluginInfo info)
                     continue;
 
                 this.MenuBarItems.AddRange(info.BarItems);
@@ -107,11 +117,11 @@ namespace Dance.Framework
         /// </summary>
         private void LoadToolBarItems()
         {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceToolBarItemPluginInfo).ToList();
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceToolBarPluginInfo).ToList();
 
             foreach (var item in items)
             {
-                if (item.PluginInfo is not DanceToolBarItemPluginInfo info)
+                if (item.PluginInfo is not DanceToolBarPluginInfo info)
                     continue;
 
                 this.ToolBarItems.AddRange(info.BarItems);
@@ -123,14 +133,25 @@ namespace Dance.Framework
         /// </summary>
         private void LoadStatusBarItems()
         {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceStatusBarItemPluginInfo).ToList();
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceStatusBarPluginInfo).ToList();
 
             foreach (var item in items)
             {
-                if (item.PluginInfo is not DanceStatusBarItemPluginInfo info)
+                if (item.PluginInfo is not DanceStatusBarPluginInfo info)
                     continue;
 
-                this.StatusBarItems.AddRange(info.BarItems);
+                switch (info.Location)
+                {
+                    case DanceStatusBarLocation.LeftBottom:
+                        this.StatusBarLeftBottomItems.AddRange(info.BarItems);
+                        break;
+                    case DanceStatusBarLocation.RightBottom:
+                        this.StatusBarRightBottomItems.AddRange(info.BarItems);
+                        break;
+                    case DanceStatusBarLocation.RightTop:
+                        this.StatusBarRightTopItems.AddRange(info.BarItems);
+                        break;
+                }
             }
         }
 
