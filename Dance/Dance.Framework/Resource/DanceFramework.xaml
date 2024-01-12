@@ -4,6 +4,7 @@
                     xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
                     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
                     xmlns:dxdove="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
+                    xmlns:dxbt="http://schemas.devexpress.com/winfx/2008/xaml/bars/themekeys"
                     xmlns:dance="http://schemas.dance.com/wpf"
                     xmlns:local="clr-namespace:Dance.Framework">
 
@@ -116,18 +117,16 @@
     <!-- ToolBarControl -->
     <DataTemplate DataType="{x:Type local:DanceToolBarControlModel}">
         <ContentControl>
-            <dxb:ToolBarControl ItemsSource="{Binding Path=Items}"></dxb:ToolBarControl>
+            <dxb:ToolBarControl ItemsSource="{Binding Path=Items}">
+
+            </dxb:ToolBarControl>
         </ContentControl>
     </DataTemplate>
 
-    <!-- BarContainerControl -->
-    <DataTemplate DataType="{x:Type local:DanceBarContainerModel}">
-        <ContentControl>
-            <dxb:BarContainerControl ItemsSource="{Binding Path=Items}"></dxb:BarContainerControl>
-        </ContentControl>
-    </DataTemplate>
-
-
+    <!-- BarContainerControlPanel -->
+    <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">
+        <local:DanceBarContainerControlPanel></local:DanceBarContainerControlPanel>
+    </ItemsPanelTemplate>
 
     <!-- ============================================================================================= -->
     <!-- ****** Docking ****************************************************************************** -->

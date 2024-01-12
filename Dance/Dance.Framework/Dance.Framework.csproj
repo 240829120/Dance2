@@ -9,10 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Storage\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="DevExpress.Wpf" Version="23.2.3" />
 	</ItemGroup>
 
@@ -21,9 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Module\Main\DanceMainViewMenu.xaml.cs">
-	    <SubType>Code</SubType>
-	  </Compile>
+	  <Folder Include="Storage\Config\" />
 	</ItemGroup>
 
 </Project>

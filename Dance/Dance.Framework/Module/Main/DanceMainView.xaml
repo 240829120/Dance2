@@ -16,9 +16,16 @@
     <UserControl.Resources>
         <DataTemplate x:Key="BarTemplate">
             <ContentControl>
-                <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"/>
+                <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="True" AllowHide="False"></dxb:Bar>
             </ContentControl>
         </DataTemplate>
+
+        <DataTemplate x:Key="BarTemplate_Status">
+            <ContentControl>
+                <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False" IsStatusBar="True"/>
+            </ContentControl>
+        </DataTemplate>
+
     </UserControl.Resources>
 
     <Grid>
@@ -29,21 +36,10 @@
         </Grid.RowDefinitions>
 
         <!-- 工具栏 -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"
-                            BarTemplate="{StaticResource BarTemplate}"
-                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
-            </dxb:BarManager>
-            <dxb:BarManager BarsSource="{Binding Path=StatusBarRightTopItems}" AddNewItems="False" Grid.Column="1"
-                            BarTemplate="{StaticResource BarTemplate}"
-                            AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
-            </dxb:BarManager>
-        </Grid>
-
+        <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"
+                        BarTemplate="{StaticResource BarTemplate}"
+                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+        </dxb:BarManager>
 
         <!-- Docking -->
         <dxdo:DockLayoutManager x:Name="PART_DockLayoutManager" Grid.Row="1" ClosedPanelsBarVisibility="Manual">
@@ -59,12 +55,12 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <dxb:BarManager BarsSource="{Binding Path=StatusBarLeftBottomItems}" AddNewItems="False"
-                            BarTemplate="{StaticResource BarTemplate}"
+            <dxb:BarManager BarsSource="{Binding Path=StatusBarLeftItems}" AddNewItems="False"
+                            BarTemplate="{StaticResource BarTemplate_Status}"
                             AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
             </dxb:BarManager>
-            <dxb:BarManager BarsSource="{Binding Path=StatusBarRightBottomItems}" AddNewItems="False" Grid.Column="1" 
-                            BarTemplate="{StaticResource BarTemplate}"
+            <dxb:BarManager BarsSource="{Binding Path=StatusBarRightItems}" AddNewItems="False" Grid.Column="1" 
+                            BarTemplate="{StaticResource BarTemplate_Status}"
                             AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
             </dxb:BarManager>
         </Grid>

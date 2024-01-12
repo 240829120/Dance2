@@ -49,19 +49,14 @@ namespace Dance.Framework
         public ObservableCollection<DanceToolBarControlModel> ToolBarItems { get; } = [];
 
         /// <summary>
-        /// 状态项 -- 左下
+        /// 状态项 -- 左
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> StatusBarLeftBottomItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> StatusBarLeftItems { get; } = [];
 
         /// <summary>
-        /// 状态项 -- 右下
+        /// 状态项 -- 右
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> StatusBarRightBottomItems { get; } = [];
-
-        /// <summary>
-        /// 状态项 -- 右上
-        /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> StatusBarRightTopItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> StatusBarRightItems { get; } = [];
 
         // =======================================================================================
         // Command
@@ -104,9 +99,8 @@ namespace Dance.Framework
 
                 this.MenuBarItems.AddRange(info.MenuBarItems);
                 this.ToolBarItems.AddRange(info.ToolBarItems);
-                this.StatusBarLeftBottomItems.AddRange(info.StatusBarLeftBottomItems);
-                this.StatusBarRightBottomItems.AddRange(info.StatusBarRightBottomItems);
-                this.StatusBarRightTopItems.AddRange(info.StatusBarRightTopItems);
+                this.StatusBarLeftItems.AddRange(info.StatusBarLeftItems);
+                this.StatusBarRightItems.AddRange(info.StatusBarRightItems);
             }
         }
 

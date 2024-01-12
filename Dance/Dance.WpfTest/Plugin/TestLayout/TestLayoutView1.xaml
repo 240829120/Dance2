@@ -9,5 +9,7 @@
     <Grid>
         <TextBlock Text="TestLayoutView_1" VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="36" Foreground="Red"></TextBlock>
+
+        <TextBox Height="30" VerticalAlignment="Bottom"></TextBox>
     </Grid>
 </UserControl>

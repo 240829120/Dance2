@@ -35,18 +35,13 @@ namespace Dance.Framework
         public List<DanceToolBarControlModel> ToolBarItems { get; } = [];
 
         /// <summary>
-        /// 状态项 -- 左下
+        /// 状态项 -- 左
         /// </summary>
-        public List<DanceToolBarControlModel> StatusBarLeftBottomItems { get; } = [];
+        public List<DanceToolBarControlModel> StatusBarLeftItems { get; } = [];
 
         /// <summary>
-        /// 状态项 -- 右下
+        /// 状态项 -- 右
         /// </summary>
-        public List<DanceToolBarControlModel> StatusBarRightBottomItems { get; } = [];
-
-        /// <summary>
-        /// 状态项 -- 右上
-        /// </summary>
-        public List<DanceToolBarControlModel> StatusBarRightTopItems { get; } = [];
+        public List<DanceToolBarControlModel> StatusBarRightItems { get; } = [];
     }
 }
