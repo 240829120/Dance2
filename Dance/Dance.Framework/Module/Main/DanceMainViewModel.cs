@@ -104,6 +104,9 @@ namespace Dance.Framework
 
                 this.MenuBarItems.AddRange(info.MenuBarItems);
                 this.ToolBarItems.AddRange(info.ToolBarItems);
+                this.StatusBarLeftBottomItems.AddRange(info.StatusBarLeftBottomItems);
+                this.StatusBarRightBottomItems.AddRange(info.StatusBarRightBottomItems);
+                this.StatusBarRightTopItems.AddRange(info.StatusBarRightTopItems);
             }
         }
 

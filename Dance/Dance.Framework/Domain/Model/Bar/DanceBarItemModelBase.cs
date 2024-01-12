@@ -87,18 +87,6 @@ namespace Dance.Framework
 
         #endregion
 
-        #region Content2 -- 内容2
-
-        private object? content2;
-
-        public object? Content2
-        {
-            get { return content2; }
-            set { this.SetProperty(ref content2, value); }
-        }
-
-        #endregion
-
         #region ContentTemplate -- 内容模板
 
         private DataTemplate? contentTemplate;
