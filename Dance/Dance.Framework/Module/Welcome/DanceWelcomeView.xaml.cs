@@ -25,7 +25,7 @@ namespace Dance.Framework
         {
             InitializeComponent();
 
-            if (XamlHelper.IsInDesignMode)
+            if (DanceXamlHelper.IsInDesignMode)
                 return;
 
             DanceWelcomeViewModel vm = DanceDomain.Current.LifeScope.Resolve<DanceWelcomeViewModel>();

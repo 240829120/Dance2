@@ -12,7 +12,7 @@ namespace Dance.Wpf
     /// <summary>
     /// Xaml辅助类
     /// </summary>
-    public static class XamlHelper
+    public static class DanceXamlHelper
     {
         /// <summary>
         /// 虚对象

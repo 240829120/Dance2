@@ -17,16 +17,17 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            DanceMenuBarPluginInfo info = new("MenuBar", "MenuBar");
+            DanceBarPluginInfo info = new("MenuBar", "MenuBar");
 
-            DanceBarSubItemModel sub = new() { Content = "Sub" };
-            sub.Items.Add(new DanceBarButtonItemModel());
-            info.BarItems.Add(sub);
-            DanceBarButtonItemModel b = new() { Content = "Button" };
-            b.OnClick += (s, e) => { MessageBox.Show("click"); };
-            info.BarItems.Add(b);
-            info.BarItems.Add(new DanceBarSeparatorItemModel());
-            info.BarItems.Add(new DanceBarCheckBoxItemModel() { Content = "Check" });
+            DanceBarSubItemModel sub = new() { Content = "Sub", Content2 = "Content2", ToolTip = "sub123123123123" };
+            DanceBarButtonItemModel bt = new() { Content = "test111", KeyGesture = new System.Windows.Input.KeyGesture(System.Windows.Input.Key.F3) };
+            bt.OnClick += (s, e) => { MessageBox.Show("1223"); };
+            sub.Items.Add(bt);
+            DanceToolBarControlModel tool = new();
+            tool.Items.Add(sub);
+
+            info.MenuBarItems.Add(tool);
+            info.ToolBarItems.Add(tool);
 
             return info;
         }

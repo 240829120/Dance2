@@ -12,11 +12,18 @@
              d:DataContext="{d:DesignInstance Type=local:DanceMainViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="BarTemplate">
+            <ContentControl>
+                <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False" IsMainMenu="True"/>
+            </ContentControl>
+        </DataTemplate>
+    </UserControl.Resources>
 
     <Grid VerticalAlignment="Center">
-        <dxb:BarContainerControl>
-            <dxb:MainMenuControl ItemsSource="{Binding Path=MenuBarItems}">
-            </dxb:MainMenuControl>
-        </dxb:BarContainerControl>
+        <dxb:BarManager BarsSource="{Binding Path=MenuBarItems}" AddNewItems="False"
+                        BarTemplate="{StaticResource BarTemplate}"
+                        AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False">
+        </dxb:BarManager>
     </Grid>
 </UserControl>

@@ -19,7 +19,7 @@
                             Glyph="{Binding Path=Glyph}"
                             GlyphTemplate="{Binding Path=GlyphTemplate}"
                             IsEnabled="{Binding Path=IsEnabled}"
-                            ToolTip="{Binding Path=ToolTip}"
+                            ToolTip="{Binding Path=Content}"
                             KeyGesture="{Binding Path=KeyGesture}"
                             Description="{Binding Path=Description}"
                             ItemLinksSource="{Binding Path=Items}"/>

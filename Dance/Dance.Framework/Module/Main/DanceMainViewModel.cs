@@ -41,7 +41,7 @@ namespace Dance.Framework
         /// <summary>
         /// 菜单项
         /// </summary>
-        public ObservableCollection<DanceBarItemModelBase> MenuBarItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> MenuBarItems { get; } = [];
 
         /// <summary>
         /// 工具项
@@ -81,12 +81,6 @@ namespace Dance.Framework
             // 菜单项
             this.LoadMenuBarItems();
 
-            // 工具项
-            this.LoadToolBarItems();
-
-            // 状态项
-            this.LoadStatusBarItems();
-
             // Docking项
             this.LoadDockingItem();
         }
@@ -101,57 +95,15 @@ namespace Dance.Framework
         /// </summary>
         private void LoadMenuBarItems()
         {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceMenuBarPluginInfo).ToList();
+            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceBarPluginInfo).ToList();
 
             foreach (var item in items)
             {
-                if (item.PluginInfo is not DanceMenuBarPluginInfo info)
+                if (item.PluginInfo is not DanceBarPluginInfo info)
                     continue;
 
-                this.MenuBarItems.AddRange(info.BarItems);
-            }
-        }
-
-        /// <summary>
-        /// 加载工具项
-        /// </summary>
-        private void LoadToolBarItems()
-        {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceToolBarPluginInfo).ToList();
-
-            foreach (var item in items)
-            {
-                if (item.PluginInfo is not DanceToolBarPluginInfo info)
-                    continue;
-
-                this.ToolBarItems.AddRange(info.BarItems);
-            }
-        }
-
-        /// <summary>
-        /// 加载状态项
-        /// </summary>
-        private void LoadStatusBarItems()
-        {
-            var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceStatusBarPluginInfo).ToList();
-
-            foreach (var item in items)
-            {
-                if (item.PluginInfo is not DanceStatusBarPluginInfo info)
-                    continue;
-
-                switch (info.Location)
-                {
-                    case DanceStatusBarLocation.LeftBottom:
-                        this.StatusBarLeftBottomItems.AddRange(info.BarItems);
-                        break;
-                    case DanceStatusBarLocation.RightBottom:
-                        this.StatusBarRightBottomItems.AddRange(info.BarItems);
-                        break;
-                    case DanceStatusBarLocation.RightTop:
-                        this.StatusBarRightTopItems.AddRange(info.BarItems);
-                        break;
-                }
+                this.MenuBarItems.AddRange(info.MenuBarItems);
+                this.ToolBarItems.AddRange(info.ToolBarItems);
             }
         }
 
