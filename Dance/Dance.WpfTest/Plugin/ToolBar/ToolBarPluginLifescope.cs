@@ -18,10 +18,6 @@ namespace Dance.WpfTest
         {
             DanceToolBarPluginInfo info = new("ToolBar", "ToolBar");
 
-            info.BarItems.Add(new ToolBarContainerModel());
-            info.BarItems.Add(new ToolBarContainerModel());
-
-
             return info;
         }
     }

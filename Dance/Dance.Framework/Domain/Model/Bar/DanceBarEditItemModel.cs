@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpf.Editors.Settings;
+﻿using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Editors.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,13 @@ namespace Dance.Framework
     /// <summary>
     /// 编辑项模型基类
     /// </summary>
-    public abstract class DanceBarEditItemModelBase : DanceBarItemModelBase
+    public class DanceBarEditItemModel : DanceBarItemModelBase
     {
+        /// <summary>
+        /// 值改变时触发
+        /// </summary>
+        public event EventHandler<EditValueChangedEventArgs>? EditValueChanged;
+
         // ======================================================================
         // Property
         // ======================================================================
@@ -29,10 +35,9 @@ namespace Dance.Framework
             set
             {
                 object? oldValue = editValue;
-                object? newValue = value;
 
                 this.SetProperty(ref editValue, value);
-                this.OnEditValueChanged(oldValue, newValue);
+                this.EditValueChanged?.Invoke(oldValue, new EditValueChangedEventArgs(oldValue, value));
             }
         }
 
@@ -93,16 +98,5 @@ namespace Dance.Framework
         }
 
         #endregion
-
-        // ======================================================================
-        // Private Function
-        // ======================================================================
-
-        /// <summary>
-        /// 当值改变时触发
-        /// </summary>
-        /// <param name="oldValue">原始值</param>
-        /// <param name="newValue">新值</param>
-        protected abstract void OnEditValueChanged(object? oldValue, object? newValue);
     }
 }

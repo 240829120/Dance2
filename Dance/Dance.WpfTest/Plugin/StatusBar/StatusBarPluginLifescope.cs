@@ -16,10 +16,48 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            DanceStatusBarPluginInfo info = new("StatusBar", "StatusBar");
+            DanceStatusBarPluginInfo info = new("StatusBar", "StatusBar")
+            {
+                Location = DanceStatusBarLocation.LeftBottom
+            };
 
-            info.BarItems.Add(new StatusBarContainerModel());
-            info.BarItems.Add(new StatusBarContainerModel());
+
+            return info;
+        }
+    }
+
+    public class StatusBarPluginLifescope1 : DanceObject, IDancePluginLifescope
+    {
+        public void Initialize()
+        {
+
+        }
+
+        public IDancePluginInfo Register()
+        {
+            DanceStatusBarPluginInfo info = new("StatusBar", "StatusBar")
+            {
+                Location = DanceStatusBarLocation.RightTop
+            };
+
+
+            return info;
+        }
+    }
+
+    public class StatusBarPluginLifescope2 : DanceObject, IDancePluginLifescope
+    {
+        public void Initialize()
+        {
+
+        }
+
+        public IDancePluginInfo Register()
+        {
+            DanceStatusBarPluginInfo info = new("StatusBar", "StatusBar")
+            {
+                Location = DanceStatusBarLocation.RightBottom
+            };
 
 
             return info;

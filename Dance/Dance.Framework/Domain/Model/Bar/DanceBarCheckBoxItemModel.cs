@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Xpf.Editors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,13 @@ namespace Dance.Framework
     /// <summary>
     /// 勾选项模型基类
     /// </summary>
-    public abstract class DanceBarCheckBoxItemModelBase : DanceBarItemModelBase
+    public class DanceBarCheckBoxItemModel : DanceBarItemModelBase
     {
+        /// <summary>
+        /// 勾选时触发
+        /// </summary>
+        public event EventHandler<EditValueChangedEventArgs>? OnChecked;
+
         // ============================================================================================
         // Property
 
@@ -25,20 +31,13 @@ namespace Dance.Framework
             get { return isChecked; }
             set
             {
+                bool oldValue = isChecked;
+
                 this.SetProperty(ref isChecked, value);
-                this.OnIsCheckedChnaged(value);
+                this.OnChecked?.Invoke(this, new EditValueChangedEventArgs(oldValue, value));
             }
         }
 
         #endregion
-
-        // ============================================================================================
-        // Private Function
-
-        /// <summary>
-        /// 当勾选值发生改变时触发
-        /// </summary>
-        /// <param name="value">是否勾选</param>
-        protected abstract void OnIsCheckedChnaged(bool value);
     }
 }

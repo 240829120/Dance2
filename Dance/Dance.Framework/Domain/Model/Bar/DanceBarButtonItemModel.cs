@@ -10,15 +10,20 @@ namespace Dance.Framework
     /// <summary>
     /// 按钮项模型基类
     /// </summary>
-    public abstract class DanceBarButtonItemModelBase : DanceBarItemModelBase
+    public class DanceBarButtonItemModel : DanceBarItemModelBase
     {
         /// <summary>
         /// 按钮项模型基类
         /// </summary>
-        public DanceBarButtonItemModelBase()
+        public DanceBarButtonItemModel()
         {
             this.ClickCommand = new(this.Click);
         }
+
+        /// <summary>
+        /// 点击时触发
+        /// </summary>
+        public event EventHandler<EventArgs>? OnClick;
 
         // ============================================================================================
         // Command
@@ -28,12 +33,15 @@ namespace Dance.Framework
         /// <summary>
         /// 点击命令
         /// </summary>
-        public RelayCommand? ClickCommand { get; set; }
+        public RelayCommand ClickCommand { get; private set; }
 
         /// <summary>
         /// 点击
         /// </summary>
-        protected abstract void Click();
+        private void Click()
+        {
+            this.OnClick?.Invoke(this, EventArgs.Empty);
+        }
 
         #endregion
     }

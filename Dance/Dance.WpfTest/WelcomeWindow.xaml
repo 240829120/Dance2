@@ -13,7 +13,7 @@
     <Grid Width="500" Height="300">
         <Image Source="Resource/Image/welcome.png"></Image>
         <fw:DanceWelcomeView Foreground="White" Height="40" VerticalAlignment="Bottom" Margin="10,0,10,5"
-                             ProgressForeground="Red"></fw:DanceWelcomeView>
+                             ProgressForeground="#ffe34234"></fw:DanceWelcomeView>
     </Grid>
 
 </Window>

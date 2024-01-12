@@ -14,66 +14,11 @@
              d:DesignHeight="450" d:DesignWidth="800"
              dance:DanceFrameworkElementHelper.LoadedOnceCommand="{Binding Path=LoadedCommand}">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Dance.Framework;component/Core/Selector/DanceBarItemTemplateSelector.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate x:Key="BarTemplate">
-                <ContentControl>
-                    <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"
-                             ItemTemplateSelector="{DynamicResource DanceBarItemTemplateSelector}"/>
-                </ContentControl>
-            </DataTemplate>
-
-            <local:DanceDockingItemInstanceConverter x:Key="DanceDockingItemInstanceConverter"></local:DanceDockingItemInstanceConverter>
-
-            <!-- Layout -->
-            <DataTemplate DataType="{x:Type local:DanceLayoutViewModel}">
-                <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type local:DanceDocumentViewModel}">
-                <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
-            </DataTemplate>
-
-            <!-- Document -->
-            <Style TargetType="{x:Type dxdo:LayoutPanel}">
-                <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
-                <Setter Property="BindableName" Value="{Binding ID}" />
-                <Setter Property="Caption" Value="{Binding Path=Caption}"></Setter>
-                <!--<Setter Property="CaptionImage" Value="{Binding Path=CaptionImage}"></Setter>-->
-                <Setter Property="ToolTip" Value="{Binding Path=ToolTip}"></Setter>
-                <Setter Property="Closed" Value="{Binding Path=IsClosed,Mode=TwoWay}"></Setter>
-                <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
-                <Setter Property="CaptionWidth" Value="160"></Setter>
-                <Setter Property="TabCaptionWidth" Value="160"></Setter>
-                <Setter Property="ShowCloseButton" Value="True"></Setter>
-                <!--<Setter Property="CaptionImageStyle">
-                <Setter.Value>
-                    <Style TargetType="dxdove:CaptionImage">
-                        <Setter Property="Width" Value="16"/>
-                        <Setter Property="Height" Value="16"/>
-                        <Setter Property="Stretch" Value="Fill"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>-->
-            </Style>
-
-            <!-- Layout -->
-            <Style TargetType="{x:Type dxdo:DocumentPanel}">
-                <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
-                <Setter Property="BindableName" Value="{Binding Path=ID}" />
-                <Setter Property="Caption" Value="{Binding Path=Name}"></Setter>
-                <Setter Property="ToolTip" Value="{Binding Path=FullPath}"></Setter>
-                <!--<Setter Property="CloseCommand" Value="{Binding Path=CloseCommand}"></Setter>-->
-                <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
-                <Setter Property="ClosingBehavior" Value="ImmediatelyRemove"></Setter>
-                <Setter Property="CaptionWidth" Value="160"></Setter>
-                <Setter Property="TabCaptionWidth" Value="160"></Setter>
-                <Setter Property="ShowCloseButton" Value="True"></Setter>
-            </Style>
-        </ResourceDictionary>
+        <DataTemplate x:Key="BarTemplate">
+            <ContentControl>
+                <dxb:Bar Caption="{Binding Content}" ItemLinksSource="{Binding Items}" ShowDragWidget="False" AllowHide="False"/>
+            </ContentControl>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
