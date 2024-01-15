@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resource\Image\notification-icon.png" />
 	  <None Remove="Resource\Image\welcome.png" />
 	</ItemGroup>
 
@@ -23,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Resource\Image\notification-icon.png" />
 	  <Resource Include="Resource\Image\welcome.png" />
 	</ItemGroup>
 

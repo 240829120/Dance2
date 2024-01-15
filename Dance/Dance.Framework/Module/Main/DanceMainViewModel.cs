@@ -3,6 +3,7 @@ using Dance.Wpf;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Office.Model;
+using DevExpress.Xpf.Core;
 using DevExpress.Xpf.LayoutControl;
 using System;
 using System.Collections.Generic;

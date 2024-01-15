@@ -12,4 +12,8 @@
 		<ProjectReference Include="..\Dance\Dance.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Widgets\" />
+	</ItemGroup>
+
 </Project>

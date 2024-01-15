@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art
+namespace Dance
 {
     /// <summary>
     /// 服务管理器

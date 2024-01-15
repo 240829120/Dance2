@@ -10,6 +10,6 @@
         <TextBlock Text="TestLayoutView_1" VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="36" Foreground="Red"></TextBlock>
 
-        <TextBox Height="30" VerticalAlignment="Bottom"></TextBox>
+        <Button Height="30" VerticalAlignment="Bottom" Width="200" Content="测试" Click="Button_Click"></Button>
     </Grid>
 </UserControl>

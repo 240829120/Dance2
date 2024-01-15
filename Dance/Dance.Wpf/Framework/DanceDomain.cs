@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Wpf
 {
@@ -13,6 +14,9 @@ namespace Dance.Wpf
     /// </summary>
     public class DanceDomain : DanceDomainBase
     {
+        /// <summary>
+        /// 领域
+        /// </summary>
         public DanceDomain()
         {
             // IOC构建
@@ -26,8 +30,8 @@ namespace Dance.Wpf
             this.Builders.Add(new DanceDomainBuilder_Dispatcher());
             // 日志
             this.Builders.Add(new DanceDomainBuilder_Log());
-            // 释放
-            this.Builders.Add(new DanceDomainBuilder_Dispose());
+            // 缓存
+            this.Builders.Add(new DanceDomainBuilder_Cache());
             // 操作日志
             this.Builders.Add(new DanceDomainBuilder_Record());
             // 延时

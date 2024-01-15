@@ -17,7 +17,7 @@ namespace Dance.Wpf
         /// <summary>
         /// 虚对象
         /// </summary>
-        class VISUAL : FrameworkElement
+        private class VISUAL : FrameworkElement
         {
             public VISUAL()
             {
@@ -169,6 +169,22 @@ namespace Dance.Wpf
             template.Seal();
 
             return template;
+        }
+
+        /// <summary>
+        /// 尝试切换至UI线程执行
+        /// </summary>
+        /// <param name="action">行为</param>
+        public static void Invoke(Action action)
+        {
+            if (Application.Current.Dispatcher.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(action);
+            }
         }
     }
 }

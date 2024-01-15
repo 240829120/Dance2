@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art
+namespace Dance
 {
     /// <summary>
     /// 服务路由

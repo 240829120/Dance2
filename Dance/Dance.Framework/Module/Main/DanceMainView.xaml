@@ -34,6 +34,8 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
         </Grid.RowDefinitions>
+        <!-- 通知 -->
+        <local:DanceMessageNotification></local:DanceMessageNotification>
 
         <!-- 工具栏 -->
         <dxb:BarManager BarsSource="{Binding Path=ToolBarItems}" AddNewItems="False"

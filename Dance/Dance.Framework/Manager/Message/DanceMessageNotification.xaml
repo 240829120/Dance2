@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+                    xmlns:local="clr-namespace:Dance.Framework">
+
+    <DataTemplate x:Key="NotificationTemplate">
+        <Border Background="#ff272727" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border Background="#FF3D3D3D" CornerRadius="10,0,0,10">
+                    <Image x:Name="img" Source="{Binding Path=Image}" Stretch="None" Width="{Binding Path=Height}" Height="{Binding Path=Height}" />
+                </Border>
+                <Border Grid.Column="1">
+                    <StackPanel Margin="10">
+                        <TextBlock FontSize="18" Foreground="White" FontWeight="Bold" Margin="0,0,0,5"
+                                       TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                       Text="{Binding Title}" ToolTip="{Binding Path=Title}"  />
+                        <TextBlock FontSize="14" Foreground="#88FFFFFF" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                      Text="{Binding Text}" ToolTip="{Binding Path=Text}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=Image}" Value="{x:Null}">
+                <Setter TargetName="img" Property="Visibility" Value="Collapsed"></Setter>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <Style x:Key="NotificationStyle" TargetType="ContentControl">
+        <Setter Property="Width" Value="{Binding DataContext.Width, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Height" Value="{Binding DataContext.Height, RelativeSource={RelativeSource Self}}" />
+    </Style>
+
+    <Style TargetType="local:DanceMessageNotification">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DanceMessageNotification">
+                    <Border>
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:NotificationService x:Name="PART_NotificationService"
+                                                        CustomNotificationStyle="{StaticResource NotificationStyle}"
+                                                        Sound="NoSound"
+                                                        UseWin8NotificationsIfAvailable="False"
+                                                        CustomNotificationDuration="00:00:05"
+                                                        CustomNotificationPosition="BottomRight"
+                                                        CustomNotificationVisibleMaxCount="5"
+                                                        CustomNotificationScreen="ApplicationWindow"
+                                                        CustomNotificationTemplate="{StaticResource NotificationTemplate}">
+                            </dxmvvm:NotificationService>
+                        </dxmvvm:Interaction.Behaviors>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dance.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace Dance.WpfTest
         public TestLayoutView1()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            IDanceMessageManager manager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
+            manager.Notify("Lorem ipsum dolor sit amet", "In ornare ante magna, eget volutpat mi bibendum a. Nam ut ullamcorper libero.In ornare ante magna, eget volutpat mi bibendum a. Nam ut ullamcorper libero.", new BitmapImage(new Uri("/Dance.WpfTest;component/Resource/Image/notification-icon.png", UriKind.RelativeOrAbsolute)), 380, 100);
+
+            manager.Notify("In ornare ante magna, eget volutpat mi bibendum a. Nam ut ullamcorper libero.In ornare ante magna, eget volutpat mi bibendum a. Nam ut ullamcorper libero.");
         }
     }
 }
