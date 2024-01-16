@@ -20,8 +20,11 @@ namespace Dance.WpfTest
             DanceBarPluginInfo info = new("MenuBar", "MenuBar");
 
             DanceBarSubItemModel sub = new() { Content = "Sub1(_F)" };
-            DanceBarButtonItemModel bt = new() { Content = "test111", KeyGesture = new System.Windows.Input.KeyGesture(System.Windows.Input.Key.F3) };
-            sub.Items.Add(bt);
+            DanceBarButtonItemModel bt1_1 = new() { Content = "bt1_1" };
+            DanceBarButtonItemModel bt1_2 = new() { Content = "bt1_2" };
+            sub.Items.Add(bt1_1);
+            sub.Items.Add(new DanceBarSeparatorItemModel());
+            sub.Items.Add(bt1_2);
 
             DanceBarSubItemModel sub2 = new() { Content = "Sub2" };
             DanceBarButtonItemModel bt2 = new() { Content = "test111" };
@@ -31,8 +34,9 @@ namespace Dance.WpfTest
 
             info.MenuBarItems.Add(sub);
             info.ToolBarItems.Add(tool2);
-            info.StatusBarLeftItems.Add(bt);
-            info.StatusBarRightItems.Add(bt);
+            info.StatusBarLeftItems.Add(bt1_1);
+            info.StatusBarLeftItems.Add(new DanceBarSeparatorItemModel());
+            info.StatusBarLeftItems.Add(bt1_2);
 
             return info;
         }

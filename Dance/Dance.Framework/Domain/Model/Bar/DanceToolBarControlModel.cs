@@ -17,5 +17,20 @@ namespace Dance.Framework
         /// 子项集合
         /// </summary>
         public ObservableCollection<DanceBarItemModelBase> Items { get; } = [];
+
+        #region Content -- 内容
+
+        private string? content;
+
+        /// <summary>
+        /// 内容
+        /// </summary>
+        public string? Content
+        {
+            get { return content; }
+            set { this.SetProperty(ref content, value); }
+        }
+
+        #endregion
     }
 }

@@ -114,15 +114,10 @@
         </ContentControl>
     </DataTemplate>
 
-    <!-- BarContainerControlPanel -->
-    <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">
-        <local:DanceBarContainerControlPanel></local:DanceBarContainerControlPanel>
-    </ItemsPanelTemplate>
-
     <!-- MainBarControl -->
     <DataTemplate DataType="{x:Type local:DanceMainMenuControlModel}">
         <ContentControl>
-            <dxb:Bar IsMainMenu="True"  dxb:MergingProperties.ElementMergingBehavior="All" >
+            <dxb:Bar IsMainMenu="True" Caption="{Binding Path=Content}" dxb:MergingProperties.ElementMergingBehavior="All" >
                 <dxb:BarLinkContainerItem ItemLinksSource="{Binding Items}"/>
             </dxb:Bar>
         </ContentControl>
@@ -131,7 +126,8 @@
     <!-- ToolBarControl -->
     <DataTemplate DataType="{x:Type local:DanceToolBarControlModel}">
         <ContentControl>
-            <dxb:Bar AllowCustomizationMenu="False"
+            <dxb:Bar Caption="{Binding Path=Content}"
+                     AllowCustomizationMenu="False" 
                      AllowQuickCustomization="False"
                      ItemLinksSource="{Binding Items}">
             </dxb:Bar>
