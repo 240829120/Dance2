@@ -16,16 +16,6 @@ namespace Dance
     public class DanceModel : DanceObject, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged
     {
         /// <summary>
-        /// 调度检测是否可用
-        /// </summary>
-        public static Func<bool>? DispatcherCheckAccess { get; set; }
-
-        /// <summary>
-        /// 调度执行
-        /// </summary>
-        public static Action<Action>? DispatcherInvoke { get; set; }
-
-        /// <summary>
         /// <inheritdoc cref="IDanceHistoryManager"/>
         /// </summary>
         public IDanceHistoryManager? HistoryManager { get; set; }

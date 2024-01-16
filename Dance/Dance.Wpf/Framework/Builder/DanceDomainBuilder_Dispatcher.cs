@@ -23,8 +23,8 @@ namespace Dance.Wpf
         /// </summary>
         public void Build()
         {
-            DanceModel.DispatcherCheckAccess = DispatcherCheckAccess;
-            DanceModel.DispatcherInvoke = DispatcherInvoke;
+            DispatcherCheckAccess = ExecuteDispatcherCheckAccess;
+            DispatcherInvoke = ExecuteDispatcherInvoke;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Dance.Wpf
         /// 调度检测
         /// </summary>
         /// <returns>是否可以执行</returns>
-        private bool DispatcherCheckAccess()
+        private bool ExecuteDispatcherCheckAccess()
         {
             return System.Windows.Application.Current.Dispatcher.CheckAccess();
         }
@@ -48,7 +48,7 @@ namespace Dance.Wpf
         /// 调度执行
         /// </summary>
         /// <param name="action">行为</param>
-        private void DispatcherInvoke(Action action)
+        private void ExecuteDispatcherInvoke(Action action)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {

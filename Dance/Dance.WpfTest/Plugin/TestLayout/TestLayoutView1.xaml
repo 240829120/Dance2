@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:local="clr-namespace:Dance.WpfTest"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -10,6 +11,16 @@
         <TextBlock Text="TestLayoutView_1" VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="36" Foreground="Red"></TextBlock>
 
-        <Button Height="30" VerticalAlignment="Bottom" Width="200" Content="测试" Click="Button_Click"></Button>
+        <Button Height="30" VerticalAlignment="Bottom" Width="200" Content="测试" Command="{Binding ClickCommand}"></Button>
+
+        <ComboBox Margin="0,0,0,100" Width="200" VerticalAlignment="Bottom" SelectionChanged="ComboBox_SelectionChanged" IsEnabled="{Binding Path=SelectedChangedCommand.IsEnabled}">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="SelectionChanged" Command="{Binding Path=SelectedChangedCommand}" PassEventArgsToCommand="True"></dxmvvm:EventToCommand>
+            </dxmvvm:Interaction.Behaviors>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+        </ComboBox>
     </Grid>
 </UserControl>
