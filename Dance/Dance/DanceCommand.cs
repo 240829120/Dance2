@@ -148,6 +148,10 @@ namespace Dance
             {
                 throw;
             }
+            finally
+            {
+                this.IsEnabled = true;
+            }
         }
 
         /// <summary>
@@ -295,17 +299,10 @@ namespace Dance
         {
             this.Record(parameter);
 
-            try
-            {
-                if (!TryGetCommandArgument(parameter, out T? result))
-                    ThrowArgumentExceptionForInvalidCommandArgument(parameter);
+            if (!TryGetCommandArgument(parameter, out T? result))
+                ThrowArgumentExceptionForInvalidCommandArgument(parameter);
 
-                this.Execute(result);
-            }
-            catch
-            {
-                throw;
-            }
+            this.Execute(result);
         }
 
         /// <summary>
@@ -348,6 +345,10 @@ namespace Dance
             catch
             {
                 throw;
+            }
+            finally
+            {
+                this.IsEnabled = true;
             }
         }
 
