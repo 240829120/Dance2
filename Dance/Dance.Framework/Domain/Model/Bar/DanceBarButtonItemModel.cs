@@ -12,35 +12,21 @@ namespace Dance.Framework
     /// </summary>
     public class DanceBarButtonItemModel : DanceBarItemModelBase
     {
-        /// <summary>
-        /// 按钮项模型基类
-        /// </summary>
-        public DanceBarButtonItemModel()
-        {
-            this.ClickCommand = new(this.Click);
-        }
-
-        /// <summary>
-        /// 点击时触发
-        /// </summary>
-        public event EventHandler<EventArgs>? OnClick;
-
-        // ============================================================================================
-        // Command
+        // ===================================================================================================
+        // **** Property ****
+        // ===================================================================================================
 
         #region ClickCommand -- 点击命令
+
+        private DanceCommand? clickCommand;
 
         /// <summary>
         /// 点击命令
         /// </summary>
-        public RelayCommand ClickCommand { get; private set; }
-
-        /// <summary>
-        /// 点击
-        /// </summary>
-        private void Click()
+        public DanceCommand? ClickCommand
         {
-            this.OnClick?.Invoke(this, EventArgs.Empty);
+            get { return clickCommand; }
+            set { this.SetProperty(ref clickCommand, value); }
         }
 
         #endregion

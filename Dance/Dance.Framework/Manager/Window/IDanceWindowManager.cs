@@ -20,12 +20,6 @@ namespace Dance.Framework
         Window? WelcomeWindow { get; set; }
 
         /// <summary>
-        /// 布局管理窗口
-        /// </summary>
-        [NotNull]
-        Window? LayoutManageWindow { get; set; }
-
-        /// <summary>
         /// 主窗口
         /// </summary>
         [NotNull]

@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
+		<ProjectReference Include="..\Dance.Plugin.LayoutManage\Dance.Plugin.LayoutManage.csproj" />
 		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 		<ProjectReference Include="..\Dance\Dance.csproj" />
 	</ItemGroup>

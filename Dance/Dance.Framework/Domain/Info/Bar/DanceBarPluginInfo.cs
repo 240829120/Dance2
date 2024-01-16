@@ -27,7 +27,7 @@ namespace Dance.Framework
         /// <summary>
         /// 菜单项
         /// </summary>
-        public List<DanceToolBarControlModel> MenuBarItems { get; } = [];
+        public List<DanceBarItemModelBase> MenuBarItems { get; } = [];
 
         /// <summary>
         /// 工具项集合
@@ -37,11 +37,11 @@ namespace Dance.Framework
         /// <summary>
         /// 状态项 -- 左
         /// </summary>
-        public List<DanceToolBarControlModel> StatusBarLeftItems { get; } = [];
+        public List<DanceBarItemModelBase> StatusBarLeftItems { get; } = [];
 
         /// <summary>
         /// 状态项 -- 右
         /// </summary>
-        public List<DanceToolBarControlModel> StatusBarRightItems { get; } = [];
+        public List<DanceBarItemModelBase> StatusBarRightItems { get; } = [];
     }
 }

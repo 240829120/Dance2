@@ -11,7 +11,7 @@ namespace Dance.Framework
     /// <summary>
     /// 工具项模型
     /// </summary>
-    public class DanceToolBarControlModel : DanceBarItemModelBase
+    public class DanceToolBarControlModel : DanceModel
     {
         /// <summary>
         /// 子项集合

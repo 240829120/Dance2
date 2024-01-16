@@ -75,8 +75,10 @@ namespace Dance.Framework
         /// </summary>
         private async Task Loaded()
         {
-            this.WindowManager.WelcomeWindow.Closed -= WelcomeWindow_Closed;
-            this.WindowManager.WelcomeWindow.Closed += WelcomeWindow_Closed;
+            this.WindowManager.WelcomeWindow.Closed -= Window_Closed;
+            this.WindowManager.WelcomeWindow.Closed += Window_Closed;
+            this.WindowManager.MainWindow.Closed += Window_Closed;
+            this.WindowManager.MainWindow.Closed += Window_Closed;
 
             this.ProgressValue = 0;
             this.ProgressMessage = "准备初始化";
@@ -104,15 +106,15 @@ namespace Dance.Framework
 
             await Task.Delay(2000);
 
-            this.WindowManager.WelcomeWindow.Closed -= WelcomeWindow_Closed;
+            this.WindowManager.WelcomeWindow.Closed -= Window_Closed;
             WindowManager.WelcomeWindow.Close();
             WindowManager.MainWindow.Show();
         }
 
         /// <summary>
-        /// 欢迎窗口关闭
+        /// 窗口关闭
         /// </summary>
-        private void WelcomeWindow_Closed(object? sender, EventArgs e)
+        private void Window_Closed(object? sender, EventArgs e)
         {
             DanceDomain.Current?.Dispose();
             System.Windows.Application.Current.Shutdown();

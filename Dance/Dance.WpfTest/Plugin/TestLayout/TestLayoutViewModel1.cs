@@ -39,5 +39,6 @@ namespace Dance.WpfTest
 
             await Task.Delay(5000);
         }
+
     }
 }

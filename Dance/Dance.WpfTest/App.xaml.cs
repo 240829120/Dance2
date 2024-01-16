@@ -26,11 +26,13 @@ namespace Dance.WpfTest
             DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.Framework"));
             DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
             DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
+            DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.Plugin.LayoutManage"));
             DanceDomain.Current.Build();
 
             IDanceWindowManager windowManager = DanceDomain.Current.LifeScope.Resolve<IDanceWindowManager>();
             windowManager.WelcomeWindow = new WelcomeWindow();
-            windowManager.MainWindow = new MainWindow();
+            windowManager.MainWindow = new DanceMainWindow();
+            this.MainWindow = windowManager.MainWindow;
 
             windowManager.WelcomeWindow.Show();
         }

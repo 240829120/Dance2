@@ -24,31 +24,23 @@ using System.Collections;
 using Dance;
 using DevExpress.Xpf.Core;
 
-namespace Dance.WpfTest
+namespace Dance.Framework
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DanceMainWindow.xaml
     /// </summary>
-    public partial class MainWindow : ThemedWindow
+    public partial class DanceMainWindow : ThemedWindow
     {
-        public MainWindow()
+        public DanceMainWindow()
         {
             InitializeComponent();
 
-            this.Loaded += MainWindow_Loaded;
-            this.Closed += MainWindow_Closed;
+            if (DanceXamlHelper.IsInDesignMode)
+                return;
+
+            DanceMainWindowModel vm = DanceDomain.Current.LifeScope.Resolve<DanceMainWindowModel>();
+            vm.View = this;
+            this.DataContext = vm;
         }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MainWindow_Closed(object? sender, EventArgs e)
-        {
-            DanceDomain.Current?.Dispose();
-            Application.Current.Shutdown();
-        }
-
     }
 }

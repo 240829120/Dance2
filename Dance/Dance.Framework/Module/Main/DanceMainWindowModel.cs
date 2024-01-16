@@ -19,9 +19,9 @@ namespace Dance.Framework
     /// 主视图模型
     /// </summary>
     [DanceSingleton]
-    public class DanceMainViewModel : DanceViewModel
+    public class DanceMainWindowModel : DanceViewModel
     {
-        public DanceMainViewModel()
+        public DanceMainWindowModel()
         {
             this.LoadedCommand = new(this.Loaded);
         }
@@ -40,24 +40,19 @@ namespace Dance.Framework
         public ObservableCollection<DanceDocumentViewModel> Documents { get; } = [];
 
         /// <summary>
-        /// 菜单项
+        /// Bar集合
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> MenuBarItems { get; } = [];
-
-        /// <summary>
-        /// 工具项
-        /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> ToolBarItems { get; } = [];
+        public ObservableCollection<DanceToolBarControlModel> Bars { get; } = [];
 
         /// <summary>
         /// 状态项 -- 左
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> StatusBarLeftItems { get; } = [];
+        public ObservableCollection<DanceBarItemModelBase> StatusBarLeftItems { get; } = [];
 
         /// <summary>
         /// 状态项 -- 右
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> StatusBarRightItems { get; } = [];
+        public ObservableCollection<DanceBarItemModelBase> StatusBarRightItems { get; } = [];
 
         // =======================================================================================
         // Command
@@ -93,13 +88,17 @@ namespace Dance.Framework
         {
             var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceBarPluginInfo).ToList();
 
+            DanceMainMenuControlModel mainMenu = new();
+            this.Bars.Add(mainMenu);
+
             foreach (var item in items)
             {
                 if (item.PluginInfo is not DanceBarPluginInfo info)
                     continue;
 
-                this.MenuBarItems.AddRange(info.MenuBarItems);
-                this.ToolBarItems.AddRange(info.ToolBarItems);
+                mainMenu.Items.AddRange(info.MenuBarItems);
+
+                this.Bars.AddRange(info.ToolBarItems);
                 this.StatusBarLeftItems.AddRange(info.StatusBarLeftItems);
                 this.StatusBarRightItems.AddRange(info.StatusBarRightItems);
             }
@@ -110,7 +109,7 @@ namespace Dance.Framework
         /// </summary>
         private void LoadDockingItem()
         {
-            if (this.View is not DanceMainView view || view.PART_DockLayoutManager == null)
+            if (this.View is not DanceMainWindow view || view.PART_DockLayoutManager == null)
                 return;
 
             // 面板与文档视图

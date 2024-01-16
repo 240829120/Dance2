@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>#dance_command_t</Title>
+			<Shortcut>#dance_command_t</Shortcut>
+			<Description>命令片段</Description>
+			<Author>Dance</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>summary</ID>
+					<ToolTip>摘要</ToolTip>
+					<Default>MyTest</Default>
+				</Literal>
+				<Literal>
+					<ID>name</ID>
+					<ToolTip>名称</ToolTip>
+					<Default>MyTest</Default>
+				</Literal>
+				<Literal>
+					<ID>type</ID>
+					<ToolTip>参数类型</ToolTip>
+					<Default>int</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[#region $name$Command -- $summary$命令
+
+	/// <summary>
+	/// $summary$命令
+	/// </summary>
+	public DanceCommand<$type$> $name$Command { get; private set; }
+
+	/// <summary>
+	/// $summary$
+	/// </summary>
+	/// <param name="args">参数</param>
+	private async Task $name$($type$? args)
+	{
+	
+	}
+
+	#endregion
+	$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -114,19 +114,29 @@
         </ContentControl>
     </DataTemplate>
 
-    <!-- ToolBarControl -->
-    <DataTemplate DataType="{x:Type local:DanceToolBarControlModel}">
-        <ContentControl>
-            <dxb:ToolBarControl ItemsSource="{Binding Path=Items}">
-
-            </dxb:ToolBarControl>
-        </ContentControl>
-    </DataTemplate>
-
     <!-- BarContainerControlPanel -->
     <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">
         <local:DanceBarContainerControlPanel></local:DanceBarContainerControlPanel>
     </ItemsPanelTemplate>
+
+    <!-- MainBarControl -->
+    <DataTemplate DataType="{x:Type local:DanceMainMenuControlModel}">
+        <ContentControl>
+            <dxb:Bar IsMainMenu="True"  dxb:MergingProperties.ElementMergingBehavior="All" >
+                <dxb:BarLinkContainerItem ItemLinksSource="{Binding Items}"/>
+            </dxb:Bar>
+        </ContentControl>
+    </DataTemplate>
+
+    <!-- ToolBarControl -->
+    <DataTemplate DataType="{x:Type local:DanceToolBarControlModel}">
+        <ContentControl>
+            <dxb:Bar AllowCustomizationMenu="False"
+                     AllowQuickCustomization="False"
+                     ItemLinksSource="{Binding Items}">
+            </dxb:Bar>
+        </ContentControl>
+    </DataTemplate>
 
     <!-- ============================================================================================= -->
     <!-- ****** Docking ****************************************************************************** -->
