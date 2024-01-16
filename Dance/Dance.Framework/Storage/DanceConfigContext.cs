@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LiteDB;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,27 @@ namespace Dance.Framework
     /// </summary>
     public class DanceConfigContext : DanceObject
     {
+        public DanceConfigContext()
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.db");
+            ConnectionString conn = new()
+            {
+                Connection = ConnectionType.Shared,
+                Filename = path
+            };
+            this.Database = new(conn);
 
+            this.Layouts = this.Database.GetCollection<DanceLayoutEntity>();
+        }
+
+        /// <summary>
+        /// 缓存数据库
+        /// </summary>
+        public LiteDatabase Database { get; }
+
+        /// <summary>
+        /// 布局
+        /// </summary>
+        public ILiteCollection<DanceLayoutEntity> Layouts { get; }
     }
 }

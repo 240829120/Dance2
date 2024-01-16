@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Framework;component/Manager/Message/DanceMessageNotification.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Framework;component/Resource/DanceFramework.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

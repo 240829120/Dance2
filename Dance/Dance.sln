@@ -27,7 +27,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "60-Plugin", "60-Plugin", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "80-Client", "80-Client", "{FCB2C7E1-49B5-40CB-BCA6-2930FB0D9517}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Wpf.Win11", "Dance.Wpf.Win11\Dance.Wpf.Win11.csproj", "{A7DB9726-D4CE-4331-B4A5-E07E57E1DC39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Wpf.Win11", "Dance.Wpf.Win11\Dance.Wpf.Win11.csproj", "{A7DB9726-D4CE-4331-B4A5-E07E57E1DC39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippet", "snippet", "{7F518DAB-25AA-4C61-9C0B-8DF93FACFD68}"
+	ProjectSection(SolutionItems) = preProject
+		..\.vs_tool\snippet\dance_property.snippet = ..\.vs_tool\snippet\dance_property.snippet
+		..\.vs_tool\snippet\dance_region.snippet = ..\.vs_tool\snippet\dance_region.snippet
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".vs_tool", ".vs_tool", "{1B722F2A-D668-4DA7-9A29-4D5912EE26E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -174,6 +182,7 @@ Global
 		{B523B86A-BA3F-4B9C-A3EF-046AD5B1162B} = {F6C887D9-C748-4B92-A715-0519644F5BC3}
 		{E368E22F-F952-4924-A0E6-63B7D9040B14} = {07D4199B-1D53-4779-9D4F-7D6484294D57}
 		{A7DB9726-D4CE-4331-B4A5-E07E57E1DC39} = {F6C887D9-C748-4B92-A715-0519644F5BC3}
+		{7F518DAB-25AA-4C61-9C0B-8DF93FACFD68} = {1B722F2A-D668-4DA7-9A29-4D5912EE26E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D45F5D8C-EFB3-4DC8-AAF9-404E4B12D4F3}

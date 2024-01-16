@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace Dance.Framework
 {
     /// <summary>
-    /// 设置管理器
+    /// 配置管理器
     /// </summary>
-    public interface IDanceConfigManager
+    [DanceSingleton(typeof(IDanceConfigManager))]
+    public class DanceConfigManager : IDanceConfigManager
     {
         /// <summary>
         /// 数据上下文
         /// </summary>
-        DanceConfigContext Context { get; }
+        public DanceConfigContext Context { get; } = new();
     }
 }
