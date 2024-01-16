@@ -10,7 +10,7 @@ namespace Dance.Framework
     /// <summary>
     /// 勾选项模型基类
     /// </summary>
-    public class DanceBarCheckBoxItemModel : DanceBarItemModelBase
+    public class DanceBarCheckBoxItemModel : DanceBarDefaultItemModelBase
     {
         /// <summary>
         /// 勾选时触发

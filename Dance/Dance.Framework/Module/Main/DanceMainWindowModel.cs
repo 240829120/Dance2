@@ -47,12 +47,12 @@ namespace Dance.Framework
         /// <summary>
         /// 状态项 -- 左
         /// </summary>
-        public ObservableCollection<DanceBarItemModelBase> StatusBarLeftItems { get; } = [];
+        public ObservableCollection<DanceBarDefaultItemModelBase> StatusBarLeftItems { get; } = [];
 
         /// <summary>
         /// 状态项 -- 右
         /// </summary>
-        public ObservableCollection<DanceBarItemModelBase> StatusBarRightItems { get; } = [];
+        public ObservableCollection<DanceBarDefaultItemModelBase> StatusBarRightItems { get; } = [];
 
         // =======================================================================================
         // Command

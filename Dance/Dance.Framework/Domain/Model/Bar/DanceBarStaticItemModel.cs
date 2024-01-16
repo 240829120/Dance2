@@ -9,7 +9,7 @@ namespace Dance.Framework
     /// <summary>
     /// 静态项模型
     /// </summary>
-    public class DanceBarStaticItemModel : DanceBarItemModelBase
+    public class DanceBarStaticItemModel : DanceBarDefaultItemModelBase
     {
 
     }

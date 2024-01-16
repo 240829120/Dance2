@@ -12,7 +12,7 @@ namespace Dance.Framework
     /// <summary>
     /// 编辑项模型基类
     /// </summary>
-    public class DanceBarEditItemModel : DanceBarItemModelBase
+    public class DanceBarEditItemModel : DanceBarDefaultItemModelBase
     {
         /// <summary>
         /// 值改变时触发

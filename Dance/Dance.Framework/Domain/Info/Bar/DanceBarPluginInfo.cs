@@ -37,11 +37,11 @@ namespace Dance.Framework
         /// <summary>
         /// 状态项 -- 左
         /// </summary>
-        public List<DanceBarItemModelBase> StatusBarLeftItems { get; } = [];
+        public List<DanceBarDefaultItemModelBase> StatusBarLeftItems { get; } = [];
 
         /// <summary>
         /// 状态项 -- 右
         /// </summary>
-        public List<DanceBarItemModelBase> StatusBarRightItems { get; } = [];
+        public List<DanceBarDefaultItemModelBase> StatusBarRightItems { get; } = [];
     }
 }

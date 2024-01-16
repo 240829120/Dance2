@@ -10,7 +10,7 @@ namespace Dance.Framework
     /// <summary>
     /// 分隔项模型
     /// </summary>
-    public class DanceBarSplitButtonItemModel : DanceBarButtonItemModel
+    public class DanceBarSplitButtonItemModel : DanceBarDefaultItemModelBase
     {
         #region PopupControl -- 弹出控件
 

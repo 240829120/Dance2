@@ -38,6 +38,8 @@ namespace Dance.WpfTest
             info.StatusBarLeftItems.Add(new DanceBarSeparatorItemModel());
             info.StatusBarLeftItems.Add(bt1_2);
 
+            info.StatusBarRightItems.Add(new DanceBarButtonItemModel() { Content = "test" });
+
             return info;
         }
     }

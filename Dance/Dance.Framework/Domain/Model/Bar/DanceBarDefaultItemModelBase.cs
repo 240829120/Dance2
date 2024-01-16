@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace Dance.Framework
 {
     /// <summary>
-    /// 分隔线模型
+    /// Bar默认项
     /// </summary>
-    public class DanceBarSeparatorItemModel : DanceBarDefaultItemModelBase
+    public abstract class DanceBarDefaultItemModelBase : DanceBarItemModelBase
     {
+
     }
 }

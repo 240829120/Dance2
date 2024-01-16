@@ -10,7 +10,7 @@ namespace Dance.Framework
     /// <summary>
     /// 按钮项模型基类
     /// </summary>
-    public class DanceBarButtonItemModel : DanceBarItemModelBase
+    public class DanceBarButtonItemModel : DanceBarDefaultItemModelBase
     {
         // ===================================================================================================
         // **** Property ****
