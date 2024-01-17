@@ -32,17 +32,17 @@ namespace Dance.Framework
 
         #endregion
 
-        #region Content -- 内容
+        #region Caption -- 说明
 
-        private string? content;
+        private string? caption;
 
         /// <summary>
-        /// 内容
+        /// 说明
         /// </summary>
-        public string? Content
+        public string? Caption
         {
-            get { return content; }
-            set { this.SetProperty(ref content, value); }
+            get { return caption; }
+            set { this.SetProperty(ref caption, value); }
         }
 
         #endregion

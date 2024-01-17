@@ -20,14 +20,16 @@ namespace Dance
         /// <summary>
         /// 命令
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">执行</param>
         /// <param name="canExecute">是否可以执行</param>
         /// <param name="allowMultiExecute">是否运行多次执行</param>
-        public DanceCommand(string name, Func<Task> execute, Func<bool>? canExecute, bool allowMultiExecute = true)
+        public DanceCommand(string group, string name, Func<Task> execute, Func<bool>? canExecute, bool allowMultiExecute = true)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
             ArgumentNullException.ThrowIfNull(execute, nameof(execute));
+            this.Group = group;
             this.Name = name;
             this.AllowMultiExecute = allowMultiExecute;
             this.execute = execute;
@@ -37,10 +39,11 @@ namespace Dance
         /// <summary>
         /// 执行
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">执行</param>
         /// <param name="allowMultiExecute">是否运行多次执行</param>
-        public DanceCommand(string name, Func<Task> execute, bool allowMultiExecute = true) : this(name, execute, null, allowMultiExecute)
+        public DanceCommand(string group, string name, Func<Task> execute, bool allowMultiExecute = true) : this(group, name, execute, null, allowMultiExecute)
         {
 
         }
@@ -48,9 +51,10 @@ namespace Dance
         /// <summary>
         /// 执行
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">行为</param>
-        public DanceCommand(string name, Func<Task> execute) : this(name, execute, null, true)
+        public DanceCommand(string group, string name, Func<Task> execute) : this(group, name, execute, null, true)
         {
 
         }
@@ -69,6 +73,11 @@ namespace Dance
         /// <inheritdoc cref="ICommand.CanExecuteChanged"/>
         /// </summary>
         public event EventHandler? CanExecuteChanged;
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        public string Group { get; }
 
         /// <summary>
         /// 名称
@@ -167,11 +176,11 @@ namespace Dance
 
                 if (parameter == null || !parameter.GetType().IsPrimitive)
                 {
-                    RecordInvoke.Invoke($"[Command: {this.Name}]");
+                    RecordInvoke.Invoke($"[{this.Group} -- {this.Name}]");
                     return;
                 }
 
-                RecordInvoke.Invoke($"[Command: {this.Name}] parameter: {JsonConvert.SerializeObject(parameter)}");
+                RecordInvoke.Invoke($"[{this.Group} -- {this.Name}] ===> {JsonConvert.SerializeObject(parameter)}");
             }
             catch (Exception ex)
             {
@@ -189,14 +198,16 @@ namespace Dance
         /// <summary>
         /// 命令
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">执行</param>
         /// <param name="canExecute">是否可以执行</param>
         /// <param name="allowMultiExecute">是否运行多次执行</param>
-        public DanceCommand(string name, Func<T?, Task> execute, Func<T?, bool>? canExecute, bool allowMultiExecute = true)
+        public DanceCommand(string group, string name, Func<T?, Task> execute, Func<T?, bool>? canExecute, bool allowMultiExecute = true)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
             ArgumentNullException.ThrowIfNull(execute, nameof(execute));
+            this.Group = group;
             this.Name = name;
             this.AllowMultiExecute = allowMultiExecute;
             this.execute = execute;
@@ -206,10 +217,11 @@ namespace Dance
         /// <summary>
         /// 执行
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">执行</param>
         /// <param name="allowMultiExecute">是否运行多次执行</param>
-        public DanceCommand(string name, Func<T?, Task> execute, bool allowMultiExecute = true) : this(name, execute, null, allowMultiExecute)
+        public DanceCommand(string group, string name, Func<T?, Task> execute, bool allowMultiExecute = true) : this(group, name, execute, null, allowMultiExecute)
         {
 
         }
@@ -217,9 +229,10 @@ namespace Dance
         /// <summary>
         /// 执行
         /// </summary>
+        /// <param name="group">分组</param>
         /// <param name="name">名称</param>
         /// <param name="execute">行为</param>
-        public DanceCommand(string name, Func<T?, Task> execute) : this(name, execute, null, true)
+        public DanceCommand(string group, string name, Func<T?, Task> execute) : this(group, name, execute, null, true)
         {
 
         }
@@ -238,6 +251,11 @@ namespace Dance
         /// <inheritdoc cref="ICommand.CanExecuteChanged"/>
         /// </summary>
         public event EventHandler? CanExecuteChanged;
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        public string Group { get; }
 
         /// <summary>
         /// 名称

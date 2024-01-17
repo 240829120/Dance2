@@ -22,7 +22,7 @@ namespace Dance.WpfTest
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
 
-            DanceDomain.Current = new();
+            DanceDomain.Current = new() { IsDebugMode = true };
             DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.Framework"));
             DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
             DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));

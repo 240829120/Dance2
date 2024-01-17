@@ -14,8 +14,8 @@ namespace Dance.WpfTest
     {
         public TestLayoutViewModel1()
         {
-            this.ClickCommand = new("Click", this.Click, false);
-            this.SelectedChangedCommand = new("选择改变", this.SelectedChanged, false);
+            this.ClickCommand = new("g1", "Click", this.Click, false);
+            this.SelectedChangedCommand = new("g1", "选择改变", this.SelectedChanged, false);
         }
 
         public DanceCommand ClickCommand { get; private set; }

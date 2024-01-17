@@ -27,5 +27,20 @@ namespace Dance.Framework
         /// 内容
         /// </summary>
         public string? Content { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order { get; set; }
+
+        /// <summary>
+        /// 是否是主布局
+        /// </summary>
+        public bool IsMainLayout { get; set; }
+
+        /// <summary>
+        /// 是否是默认布局
+        /// </summary>
+        public bool IsDefaultLayout { get; set; }
     }
 }

@@ -26,8 +26,9 @@ namespace Dance.Framework
             this.LoadedCommand = new(this.Loaded);
         }
 
-        // =======================================================================================
-        // Property
+        // ===================================================================================================
+        // **** Property ****
+        // ===================================================================================================
 
         /// <summary>
         /// 布局容器视图
@@ -44,8 +45,9 @@ namespace Dance.Framework
         /// </summary>
         public ObservableCollection<DanceBarModelBase> Bars { get; } = [];
 
-        // =======================================================================================
-        // Command
+        // ===================================================================================================
+        // **** Command ****
+        // ===================================================================================================
 
         #region LoadedCommand -- 加载命令
 
@@ -68,8 +70,44 @@ namespace Dance.Framework
 
         #endregion
 
-        // =======================================================================================
-        // Private Function
+        // ===================================================================================================
+        // **** Public Function ****
+        // ===================================================================================================
+
+        /// <summary>
+        /// 获取布局
+        /// </summary>
+        /// <returns>布局信息</returns>
+        public string? GetLayout()
+        {
+            if (this.View is not DanceMainWindow window)
+                return null;
+
+            using MemoryStream ms = new();
+            window.PART_DockLayoutManager.SaveLayoutToStream(ms);
+            ms.Position = 0;
+            byte[] buffer = ms.ToArray();
+            string xml = Encoding.UTF8.GetString(buffer);
+
+            return xml;
+        }
+
+        /// <summary>
+        /// 设置布局
+        /// </summary>
+        /// <param name="xml">布局信息</param>
+        public void SetLayout(string xml)
+        {
+            if (this.View is not DanceMainWindow window)
+                return;
+
+            using MemoryStream ms = new(Encoding.UTF8.GetBytes(xml));
+            window.PART_DockLayoutManager.RestoreLayoutFromStream(ms);
+        }
+
+        // ===================================================================================================
+        // **** Private Function ****
+        // ===================================================================================================
 
         /// <summary>
         /// 加载菜单项

@@ -128,7 +128,7 @@
     <!-- 主菜单 -->
     <DataTemplate DataType="{x:Type local:DanceMainMenuModel}">
         <ContentControl>
-            <dxb:Bar IsMainMenu="True" Caption="{Binding Path=Content}" 
+            <dxb:Bar IsMainMenu="True" Caption="{Binding Path=Caption}" 
                      AllowCustomizationMenu="False" 
                      AllowQuickCustomization="False"
                      dxb:MergingProperties.ElementMergingBehavior="All" dxb:BarNameScope.IsScopeOwner="True">
@@ -140,7 +140,7 @@
     <!-- 工具栏 -->
     <DataTemplate DataType="{x:Type local:DanceToolBarModel}">
         <ContentControl>
-            <dxb:Bar Caption="{Binding Path=Content}"
+            <dxb:Bar Caption="{Binding Path=Caption}"
                      AllowCustomizationMenu="False" 
                      AllowQuickCustomization="False"
                      ItemLinksSource="{Binding Items}">
@@ -154,7 +154,7 @@
     <!-- 状态栏 -->
     <DataTemplate DataType="{x:Type local:DanceStatusBarModel}">
         <ContentControl>
-            <dxb:Bar IsStatusBar="True" Caption="{Binding Path=Content}"
+            <dxb:Bar IsStatusBar="True" Caption="{Binding Path=Caption}"
                      AllowCustomizationMenu="False" 
                      AllowQuickCustomization="False"
                      ItemLinksSource="{Binding Path=Items}">

@@ -24,7 +24,7 @@ namespace Dance.Plugin.LayoutManage
         {
             DanceBarPluginInfo info = new("Dance.Plugin.LayoutManage", "布局管理");
 
-            info.MenuItems.Add(this.CreateToolBar());
+            info.MenuItems.Add(this.BarController.CreateMainMenu());
 
             return info;
         }
@@ -38,77 +38,12 @@ namespace Dance.Plugin.LayoutManage
         }
 
         // ===================================================================================================
-        // **** Private Function ****
+        // **** Field ****
         // ===================================================================================================
 
         /// <summary>
-        /// 创建工具项
+        /// Bar控制器
         /// </summary>
-        /// <returns></returns>
-        private DanceBarSubItemModel CreateToolBar()
-        {
-            DanceBarSubItemModel sub = new()
-            {
-                Content = $"布局(_L)"
-            };
-
-            // 保存布局
-            sub.Items.Add(new DanceBarButtonItemModel()
-            {
-                Content = "保存布局",
-                ClickCommand = new DanceCommand("保存布局", this.SaveLayout, false)
-            });
-
-            // 应用布局
-
-
-            // 管理布局
-            sub.Items.Add(new DanceBarButtonItemModel()
-            {
-                Content = "管理布局",
-                ClickCommand = new DanceCommand("管理布局", this.ManageLayout, false)
-            });
-
-            // 重置布局
-            sub.Items.Add(new DanceBarButtonItemModel()
-            {
-                Content = "重置布局",
-                ClickCommand = new DanceCommand("重置布局", this.ResetLayout, false)
-            });
-
-            return sub;
-        }
-
-        /// <summary>
-        /// 保存布局
-        /// </summary>
-        private async Task SaveLayout()
-        {
-
-        }
-
-        /// <summary>
-        /// 应用布局
-        /// </summary>
-        private async Task ApplyLayout()
-        {
-
-        }
-
-        /// <summary>
-        /// 管理布局
-        /// </summary>
-        private async Task ManageLayout()
-        {
-
-        }
-
-        /// <summary>
-        /// 重置布局
-        /// </summary>
-        private async Task ResetLayout()
-        {
-
-        }
+        private readonly BarController BarController = new();
     }
 }

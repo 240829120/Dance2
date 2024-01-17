@@ -23,6 +23,11 @@ namespace Dance
         }
 
         /// <summary>
+        /// 是否是调试模式
+        /// </summary>
+        public bool IsDebugMode { get; set; }
+
+        /// <summary>
         /// Ioc构建器
         /// </summary>
         public DanceIocBuilder IocBuilder { get; } = new();

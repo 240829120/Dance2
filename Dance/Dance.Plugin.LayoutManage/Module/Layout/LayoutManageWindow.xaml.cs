@@ -29,11 +29,16 @@ namespace Dance.Plugin.LayoutManage
     /// <summary>
     /// Interaction logic for DanceLayoutManageWindow.xaml
     /// </summary>
-    public partial class DanceLayoutManageWindow : ThemedWindow
+    public partial class LayoutManageWindow : ThemedWindow
     {
-        public DanceLayoutManageWindow()
+        public LayoutManageWindow()
         {
             InitializeComponent();
+
+            if (DanceXamlHelper.IsInDesignMode)
+                return;
+
+            this.DataContext = new LayoutManageWindowModel() { View = this };
         }
     }
 }
