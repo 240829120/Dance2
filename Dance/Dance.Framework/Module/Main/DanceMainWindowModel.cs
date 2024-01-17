@@ -166,7 +166,8 @@ namespace Dance.Framework
                     ID = info.ID,
                     Caption = info.Name,
                     ToolTip = info.Name,
-                    ViewType = info.ViewType
+                    AllowClose = info.AllowClose,
+                    ViewType = info.ViewType,
                 });
             }
 

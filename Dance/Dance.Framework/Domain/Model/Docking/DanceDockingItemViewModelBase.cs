@@ -81,6 +81,20 @@ namespace Dance.Framework
 
         #endregion
 
+        #region AllowClose -- 是否允许关闭
+
+        private bool allowClose = true;
+        /// <summary>
+        /// 是否允许关闭
+        /// </summary>
+        public bool AllowClose
+        {
+            get { return allowClose; }
+            set { this.SetProperty(ref allowClose, value); }
+        }
+
+        #endregion
+
         #region ViewType -- 视图类型
 
         private Type? viewType;

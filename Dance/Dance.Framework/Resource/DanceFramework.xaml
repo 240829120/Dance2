@@ -189,6 +189,7 @@
         <Setter Property="ToolTip" Value="{Binding Path=ToolTip}"></Setter>
         <Setter Property="Closed" Value="{Binding Path=IsClosed,Mode=TwoWay}"></Setter>
         <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
+        <Setter Property="AllowClose" Value="{Binding Path=AllowClose}"></Setter>
         <Setter Property="CaptionWidth" Value="160"></Setter>
         <Setter Property="TabCaptionWidth" Value="160"></Setter>
         <Setter Property="ShowCloseButton" Value="True"></Setter>

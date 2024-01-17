@@ -28,5 +28,10 @@ namespace Dance.Framework.Plugin
         /// 名称
         /// </summary>
         public string Name { get; set; } = name;
+
+        /// <summary>
+        /// 是否允许关闭
+        /// </summary>
+        public bool AllowClose { get; set; } = true;
     }
 }

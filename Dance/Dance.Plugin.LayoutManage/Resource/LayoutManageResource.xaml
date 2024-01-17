@@ -14,7 +14,7 @@
                               Glyph="{Binding Path=Glyph}"
                               GlyphTemplate="{Binding Path=GlyphTemplate}"
                               ToolTip="{Binding Path=ToolTip}"
-                              IsEnabled="{Binding Path=IsEnabled}"
+                              IsEnabled="{Binding Path=DockingItem.AllowClose}"
                               BarItemDisplayMode="ContentAndGlyph"
                               Alignment="{Binding Path=Alignment}"
                               KeyGesture="{Binding Path=KeyGesture}"
