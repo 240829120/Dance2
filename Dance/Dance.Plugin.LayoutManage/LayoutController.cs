@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Dance.Plugin
 {
     /// <summary>
-    /// Bar控制器
+    /// 布局控制器
     /// </summary>
     /// <remarks>
     /// ---------------------------------------------------------
@@ -25,7 +25,7 @@ namespace Dance.Plugin
     ///       | -- 保存默认布局 [ 该菜单在调试模式下显示 ]
     /// ---------------------------------------------------------
     /// </remarks>
-    public class BarController
+    public class LayoutController
     {
         // ===================================================================================================
         // **** Field ****

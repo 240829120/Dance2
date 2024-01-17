@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dance="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Plugin.LayoutManage"
+                    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars">
+
+    <dance:DanceBoolConverter x:Key="DanceBoolConverter"></dance:DanceBoolConverter>
+
+    <!-- BarCheckItem -->
+    <DataTemplate DataType="{x:Type local:ViewBarCheckBoxItemModel}">
+        <ContentControl>
+            <dxb:BarCheckItem CategoryName="{Binding Path=CategoryName}"
+                              Content="{Binding Path=Content}"
+                              Glyph="{Binding Path=Glyph}"
+                              GlyphTemplate="{Binding Path=GlyphTemplate}"
+                              ToolTip="{Binding Path=ToolTip}"
+                              IsEnabled="{Binding Path=IsEnabled}"
+                              BarItemDisplayMode="ContentAndGlyph"
+                              Alignment="{Binding Path=Alignment}"
+                              KeyGesture="{Binding Path=KeyGesture}"
+                              Description="{Binding Path=Description}"
+                              IsChecked="{Binding Path=DockingItem.IsClosed,Mode=TwoWay,Converter={StaticResource DanceBoolConverter}}"/>
+        </ContentControl>
+    </DataTemplate>
+
+</ResourceDictionary>

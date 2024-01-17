@@ -180,7 +180,7 @@
         <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
     </DataTemplate>
 
-    <!-- Document -->
+    <!-- Layout -->
     <Style TargetType="{x:Type dxdo:LayoutPanel}">
         <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
         <Setter Property="BindableName" Value="{Binding ID}" />
@@ -203,13 +203,14 @@
         </Setter>-->
     </Style>
 
-    <!-- Layout -->
+    <!-- Document -->
     <Style TargetType="{x:Type dxdo:DocumentPanel}">
         <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
         <Setter Property="BindableName" Value="{Binding Path=ID}" />
         <Setter Property="Caption" Value="{Binding Path=Name}"></Setter>
         <Setter Property="ToolTip" Value="{Binding Path=FullPath}"></Setter>
         <!--<Setter Property="CloseCommand" Value="{Binding Path=CloseCommand}"></Setter>-->
+        <Setter Property="Closed" Value="{Binding Path=IsClosed,Mode=TwoWay}"></Setter>
         <Setter Property="IsActive" Value="{Binding Path=IsActive,Mode=TwoWay}"></Setter>
         <Setter Property="ClosingBehavior" Value="ImmediatelyRemove"></Setter>
         <Setter Property="CaptionWidth" Value="160"></Setter>

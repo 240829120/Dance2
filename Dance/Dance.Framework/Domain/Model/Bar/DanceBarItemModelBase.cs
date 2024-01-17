@@ -17,9 +17,6 @@ namespace Dance.Framework
     /// </summary>
     public class DanceBarItemModelBase : DanceModel
     {
-        // ============================================================================================
-        // Property
-
         #region CategoryName -- 类型名称
 
         private string? categoryName;

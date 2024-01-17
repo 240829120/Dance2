@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Dance.Plugin.LayoutManage
 {
     /// <summary>
-    /// 菜单插件生命周期
+    /// 视图插件生命周期
     /// </summary>
-    public class BarPluginLifescope : DanceObject, IDancePluginLifescope
+    public class ViewPluginLifescope : DanceObject, IDancePluginLifescope
     {
         // ===================================================================================================
         // **** IDancePluginLifescope ****
@@ -22,9 +22,9 @@ namespace Dance.Plugin.LayoutManage
         /// <returns></returns>
         public IDancePluginInfo Register()
         {
-            DanceBarPluginInfo info = new("Dance.Plugin.LayoutManage", "布局管理");
+            DanceBarPluginInfo info = new("Dance.Plugin.LayoutManage", "视图");
 
-            info.MenuItems.Add(this.BarController.CreateMainMenu());
+            info.MenuItems.Add(this.ViewController.CreateMainMenu());
 
             return info;
         }
@@ -42,8 +42,8 @@ namespace Dance.Plugin.LayoutManage
         // ===================================================================================================
 
         /// <summary>
-        /// Bar控制器
+        /// 视图控制器
         /// </summary>
-        private readonly BarController BarController = new();
+        private readonly ViewController ViewController = new();
     }
 }

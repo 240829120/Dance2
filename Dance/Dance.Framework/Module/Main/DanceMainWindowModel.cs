@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Wpf;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
@@ -66,6 +67,9 @@ namespace Dance.Framework
 
             // Docking项
             this.LoadDockingItem();
+
+            // 发送初始化完成消息
+            DanceDomain.Current.Messenger.Send(new DanceMainWindowLoadedMessage());
         }
 
         #endregion

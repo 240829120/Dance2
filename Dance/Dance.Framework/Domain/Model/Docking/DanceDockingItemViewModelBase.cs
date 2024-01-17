@@ -53,11 +53,11 @@ namespace Dance.Framework
 
         #endregion
 
-        #region IsClosed -- 是否已经被关闭
+        #region IsClosed -- 是否关闭
 
         private bool isClosed;
         /// <summary>
-        /// 是否已经被关闭
+        /// 是否关闭
         /// </summary>
         public bool IsClosed
         {

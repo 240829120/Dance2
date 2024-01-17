@@ -17,9 +17,17 @@
                  dance:DanceFrameworkElementHelper.LoadedOnceCommand="{Binding Path=LoadedCommand}">
 
     <dx:ThemedWindow.Resources>
-        <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">
-            <local:DanceBarContainerControlPanel></local:DanceBarContainerControlPanel>
-        </ItemsPanelTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dance.Framework;component/Manager/Message/DanceMessageNotification.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Dance.Framework;component/Resource/DanceFramework.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">
+                <local:DanceBarContainerControlPanel></local:DanceBarContainerControlPanel>
+            </ItemsPanelTemplate>
+
+        </ResourceDictionary>
     </dx:ThemedWindow.Resources>
 
     <dx:ThemedWindow.ToolbarItems>

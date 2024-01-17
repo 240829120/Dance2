@@ -12,13 +12,9 @@ namespace Dance.Framework
     /// </summary>
     public class DanceBarCheckBoxItemModel : DanceBarItemModelBase
     {
-        /// <summary>
-        /// 勾选时触发
-        /// </summary>
-        public event EventHandler<EditValueChangedEventArgs>? OnChecked;
-
-        // ============================================================================================
-        // Property
+        // ===================================================================================================
+        // **** Property ****
+        // ===================================================================================================
 
         #region IsChecked -- 是否勾选
 
@@ -29,13 +25,7 @@ namespace Dance.Framework
         public bool IsChecked
         {
             get { return isChecked; }
-            set
-            {
-                bool oldValue = isChecked;
-
-                this.SetProperty(ref isChecked, value);
-                this.OnChecked?.Invoke(this, new EditValueChangedEventArgs(oldValue, value));
-            }
+            set { this.SetProperty(ref isChecked, value); }
         }
 
         #endregion
