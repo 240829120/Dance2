@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace Dance.Framework
 {
     /// <summary>
-    /// Bar默认项
+    /// 状态栏
     /// </summary>
-    public abstract class DanceBarDefaultItemModelBase : DanceBarItemModelBase
+    public class DanceStatusBarModel : DanceBarModelBase
     {
-
     }
 }

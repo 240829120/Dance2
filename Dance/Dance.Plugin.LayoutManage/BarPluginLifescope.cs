@@ -24,7 +24,7 @@ namespace Dance.Plugin.LayoutManage
         {
             DanceBarPluginInfo info = new("Dance.Plugin.LayoutManage", "布局管理");
 
-            info.MenuBarItems.Add(this.CreateToolBar());
+            info.MenuItems.Add(this.CreateToolBar());
 
             return info;
         }

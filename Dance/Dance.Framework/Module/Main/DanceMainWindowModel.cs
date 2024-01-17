@@ -42,17 +42,7 @@ namespace Dance.Framework
         /// <summary>
         /// Bar集合
         /// </summary>
-        public ObservableCollection<DanceToolBarControlModel> Bars { get; } = [];
-
-        /// <summary>
-        /// 状态项 -- 左
-        /// </summary>
-        public ObservableCollection<DanceBarDefaultItemModelBase> StatusBarLeftItems { get; } = [];
-
-        /// <summary>
-        /// 状态项 -- 右
-        /// </summary>
-        public ObservableCollection<DanceBarDefaultItemModelBase> StatusBarRightItems { get; } = [];
+        public ObservableCollection<DanceBarModelBase> Bars { get; } = [];
 
         // =======================================================================================
         // Command
@@ -88,20 +78,29 @@ namespace Dance.Framework
         {
             var items = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is DanceBarPluginInfo).ToList();
 
-            DanceMainMenuControlModel mainMenu = new();
-            this.Bars.Add(mainMenu);
+            List<DanceBarItemModelBase> mainMenuItems = [];
+            List<DanceToolBarModel> toolItems = [];
+            List<DanceBarItemModelBase> statusItems = [];
 
             foreach (var item in items)
             {
                 if (item.PluginInfo is not DanceBarPluginInfo info)
                     continue;
 
-                mainMenu.Items.AddRange(info.MenuBarItems);
-
-                this.Bars.AddRange(info.ToolBarItems);
-                this.StatusBarLeftItems.AddRange(info.StatusBarLeftItems);
-                this.StatusBarRightItems.AddRange(info.StatusBarRightItems);
+                mainMenuItems.AddRange(info.MenuItems);
+                toolItems.AddRange(info.ToolItems);
+                statusItems.AddRange(info.StatusItems);
             }
+
+            DanceMainMenuModel mainMenu = new();
+            mainMenu.Items.AddRange([.. mainMenuItems.OrderBy(p => p.Order)]);
+            this.Bars.Add(mainMenu);
+
+            DanceStatusBarModel statusBar = new();
+            statusBar.Items.AddRange([.. statusItems.OrderBy(p => p.Order)]);
+            this.Bars.Add(statusBar);
+
+            this.Bars.AddRange([.. toolItems.OrderBy(p => p.Order)]);
         }
 
         /// <summary>

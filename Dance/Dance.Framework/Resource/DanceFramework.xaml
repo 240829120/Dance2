@@ -20,6 +20,7 @@
                             Glyph="{Binding Path=Glyph}"
                             GlyphTemplate="{Binding Path=GlyphTemplate}"
                             IsEnabled="{Binding Path=IsEnabled}"
+                            BarItemDisplayMode="ContentAndGlyph"
                             ToolTip="{Binding Path=Content}"
                             KeyGesture="{Binding Path=KeyGesture}"
                             Description="{Binding Path=Description}"
@@ -36,6 +37,8 @@
                                GlyphTemplate="{Binding Path=GlyphTemplate}"
                                ToolTip="{Binding Path=ToolTip}"
                                IsEnabled="{Binding Path=IsEnabled}"
+                               BarItemDisplayMode="ContentAndGlyph" 
+                               Alignment="{Binding Path=Alignment}"
                                KeyGesture="{Binding Path=KeyGesture}"
                                Description="{Binding Path=Description}"
                                Command="{Binding Path=ClickCommand}"/>
@@ -51,6 +54,8 @@
                               GlyphTemplate="{Binding Path=GlyphTemplate}"
                               ToolTip="{Binding Path=ToolTip}"
                               IsEnabled="{Binding Path=IsEnabled}"
+                              BarItemDisplayMode="ContentAndGlyph"
+                              Alignment="{Binding Path=Alignment}"
                               KeyGesture="{Binding Path=KeyGesture}"
                               Description="{Binding Path=Description}"
                               IsChecked="{Binding Path=IsChecked,Mode=TwoWay}"/>
@@ -73,6 +78,8 @@
                              GlyphTemplate="{Binding Path=GlyphTemplate}"
                              ToolTip="{Binding Path=ToolTip}"
                              IsEnabled="{Binding Path=IsEnabled}"
+                             BarItemDisplayMode="ContentAndGlyph"
+                             Alignment="{Binding Path=Alignment}"
                              KeyGesture="{Binding Path=KeyGesture}"
                              Description="{Binding Path=Description}"
                              EditWidth="{Binding Path=EditWidth}"
@@ -92,6 +99,8 @@
                                     GlyphTemplate="{Binding Path=GlyphTemplate}"
                                     ToolTip="{Binding Path=ToolTip}"
                                     IsEnabled="{Binding Path=IsEnabled}"
+                                    BarItemDisplayMode="ContentAndGlyph"
+                                    Alignment="{Binding Path=Alignment}"
                                     KeyGesture="{Binding Path=KeyGesture}"
                                     Description="{Binding Path=Description}"
                                     PopupControl="{Binding Path=PopupControl}"
@@ -107,6 +116,8 @@
                                Glyph="{Binding Path=Glyph}"
                                GlyphTemplate="{Binding Path=GlyphTemplate}"
                                IsEnabled="{Binding Path=IsEnabled}"
+                               BarItemDisplayMode="ContentAndGlyph"
+                               Alignment="{Binding Path=Alignment}"
                                ToolTip="{Binding Path=ToolTip}"
                                KeyGesture="{Binding Path=KeyGesture}"
                                Description="{Binding Path=Description}"
@@ -114,22 +125,42 @@
         </ContentControl>
     </DataTemplate>
 
-    <!-- MainBarControl -->
-    <DataTemplate DataType="{x:Type local:DanceMainMenuControlModel}">
+    <!-- 主菜单 -->
+    <DataTemplate DataType="{x:Type local:DanceMainMenuModel}">
         <ContentControl>
-            <dxb:Bar IsMainMenu="True" Caption="{Binding Path=Content}" dxb:MergingProperties.ElementMergingBehavior="All" >
+            <dxb:Bar IsMainMenu="True" Caption="{Binding Path=Content}" 
+                     AllowCustomizationMenu="False" 
+                     AllowQuickCustomization="False"
+                     dxb:MergingProperties.ElementMergingBehavior="All" dxb:BarNameScope.IsScopeOwner="True">
                 <dxb:BarLinkContainerItem ItemLinksSource="{Binding Items}"/>
             </dxb:Bar>
         </ContentControl>
     </DataTemplate>
 
-    <!-- ToolBarControl -->
-    <DataTemplate DataType="{x:Type local:DanceToolBarControlModel}">
+    <!-- 工具栏 -->
+    <DataTemplate DataType="{x:Type local:DanceToolBarModel}">
         <ContentControl>
             <dxb:Bar Caption="{Binding Path=Content}"
                      AllowCustomizationMenu="False" 
                      AllowQuickCustomization="False"
                      ItemLinksSource="{Binding Items}">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top"></dxb:BarDockInfo>
+                </dxb:Bar.DockInfo>
+            </dxb:Bar>
+        </ContentControl>
+    </DataTemplate>
+
+    <!-- 状态栏 -->
+    <DataTemplate DataType="{x:Type local:DanceStatusBarModel}">
+        <ContentControl>
+            <dxb:Bar IsStatusBar="True" Caption="{Binding Path=Content}"
+                     AllowCustomizationMenu="False" 
+                     AllowQuickCustomization="False"
+                     ItemLinksSource="{Binding Path=Items}">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Bottom"></dxb:BarDockInfo>
+                </dxb:Bar.DockInfo>
             </dxb:Bar>
         </ContentControl>
     </DataTemplate>

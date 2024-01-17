@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Media;
+using DevExpress.Xpf.Bars;
 
 namespace Dance.Framework
 {
@@ -139,6 +140,35 @@ namespace Dance.Framework
         {
             get { return description; }
             set { this.SetProperty(ref description, value); }
+        }
+
+        #endregion
+
+        #region Alignment -- 对齐
+
+        private BarItemAlignment alignment;
+        /// <summary>
+        /// 对齐
+        /// </summary>
+        public BarItemAlignment Alignment
+        {
+            get { return alignment; }
+            set { this.SetProperty(ref alignment, value); }
+        }
+
+        #endregion
+
+        #region Order -- 排序
+
+        private int order;
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order
+        {
+            get { return order; }
+            set { this.SetProperty(ref order, value); }
         }
 
         #endregion

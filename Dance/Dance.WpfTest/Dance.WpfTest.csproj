@@ -9,11 +9,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resource\Image\ImageEdit.svg" />
 	  <None Remove="Resource\Image\notification-icon.png" />
 	  <None Remove="Resource\Image\welcome.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="DevExpress.Wpf.Themes.VS2019Dark" Version="23.2.3" />
 	  <PackageReference Include="DevExpress.Wpf.Themes.Win11Dark" Version="23.2.3" />
 	</ItemGroup>
 
@@ -25,6 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Resource\Image\ImageEdit.svg" />
 	  <Resource Include="Resource\Image\notification-icon.png" />
 	  <Resource Include="Resource\Image\welcome.png" />
 	</ItemGroup>

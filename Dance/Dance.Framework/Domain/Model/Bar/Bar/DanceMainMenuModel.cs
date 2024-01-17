@@ -10,7 +10,7 @@ namespace Dance.Framework
     /// <summary>
     /// 主菜单栏项
     /// </summary>
-    public class DanceMainMenuControlModel : DanceToolBarControlModel
+    public class DanceMainMenuModel : DanceBarModelBase
     {
 
     }
