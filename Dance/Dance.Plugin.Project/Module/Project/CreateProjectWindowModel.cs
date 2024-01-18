@@ -24,19 +24,12 @@ namespace Dance.Plugin.Project
             this.ChooseProjectPathCommand = new(COMMAND_GROUP, "选择项目目录", this.ChooseProjectPath);
             this.EnterCommand = new(COMMAND_GROUP, "确定", this.Enter) { IsEnabled = false };
             this.CancelCommand = new(COMMAND_GROUP, "取消", this.Cancel);
-
-            this.Validate();
         }
 
         /// <summary>
         /// 命令分组
         /// </summary>
         public const string COMMAND_GROUP = "创建项目";
-
-        /// <summary>
-        /// 延时键 -- 校验是否可以创建项目
-        /// </summary>
-        public const string DELAY_KEY__CHECK_CAN_CREATE_PROJECT = "Dance.Plugin.Project.CreateProjectWindowModel.CheckCanCreateProject";
 
         // ===================================================================================================
         // **** Property ****
@@ -49,7 +42,7 @@ namespace Dance.Plugin.Project
         /// <summary>
         /// 项目路径
         /// </summary>
-        [Required(ErrorMessage = "项目路径不能为空")]
+        [Required(ErrorMessage = "路径不能为空")]
         [DanceDirectoryExistsValidation(ErrorMessage = "项目路径不存在")]
         public string? ProjectPath
         {
@@ -66,7 +59,7 @@ namespace Dance.Plugin.Project
         /// <summary>
         /// 项目名称
         /// </summary>
-        [Required(ErrorMessage = "项目名称不能为空"),]
+        [Required(ErrorMessage = "名称不能为空"),]
         public string? ProjectName
         {
             get { return projectName; }
@@ -110,7 +103,7 @@ namespace Dance.Plugin.Project
         /// <summary>
         /// 选中的项目类型
         /// </summary>
-        [ProjectCategoryNotNull(ErrorMessage = "项目类型不能为空")]
+        [Required(ErrorMessage = "类型不能为空")]
         public ProjectCategoryModel? SelectedProjectCategory
         {
             get { return selectedProjectCategory; }
@@ -162,6 +155,8 @@ namespace Dance.Plugin.Project
 
                 this.ProjectCategorys.Add(groupModel);
             }
+
+            this.SelectedProjectCategory = this.ProjectCategorys.FirstOrDefault()?.Items.FirstOrDefault();
 
             await Task.CompletedTask;
         }

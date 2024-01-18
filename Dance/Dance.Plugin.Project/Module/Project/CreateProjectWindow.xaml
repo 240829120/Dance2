@@ -30,7 +30,8 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="类型" Margin="10,10,5,10">
-            <dxa:AccordionControl ItemsSource="{Binding Path=ProjectCategorys}" SelectedItem="{Binding Path=SelectedProjectCategory,Mode=TwoWay}">
+            <dxa:AccordionControl ItemsSource="{Binding Path=ProjectCategorys}" SelectedItem="{Binding Path=SelectedProjectCategory,Mode=TwoWay}" AutoExpandAllItems="True"
+                                  SelectionUnit="SubItem" ShowSearchControl="True" DisplayMemberPath="Name">
                 <dxa:AccordionControl.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                         <Grid>
