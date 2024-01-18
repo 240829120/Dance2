@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,24 +13,6 @@ namespace Dance
     /// </summary>
     public static class DanceIocBuilder_Assembly
     {
-        /// <summary>
-        /// 添加程序集
-        /// </summary>
-        /// <param name="builder">Ioc构建器</param>
-        /// <param name="assemblyPrefix">程序集前缀</param>
-        /// <returns>Ioc构建器</returns>
-        public static DanceIocBuilder AddAssemblies(this DanceIocBuilder builder, string assemblyPrefix)
-        {
-            List<string> files = [];
-            List<Assembly> assemblies = [];
-
-            files.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll").Where(p => Path.GetFileName(p).StartsWith(assemblyPrefix)));
-
-            assemblies.AddRange(files.Select(p => Assembly.Load(AssemblyName.GetAssemblyName(p))));
-
-            return builder.AddAssemblies(assemblies.ToArray());
-        }
-
         /// <summary>
         /// 添加程序集
         /// </summary>
@@ -56,6 +39,25 @@ namespace Dance
                         builder.AddLifeScope(lifescope.Key, lifescope.ServiceType ?? type, type);
                     }
                 }
+            }
+
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加程序集
+        /// </summary>
+        /// <param name="builder">Ioc构建器</param>
+        /// <param name="searchPattern">通配符</param>
+        /// <returns>Ioc构建器</returns>
+        public static DanceIocBuilder AddAssemblies(this DanceIocBuilder builder, string searchPattern)
+        {
+            foreach (string file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, searchPattern, SearchOption.TopDirectoryOnly))
+            {
+                if (!file.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                builder.AddAssemblies(Assembly.LoadFrom(file));
             }
 
             return builder;

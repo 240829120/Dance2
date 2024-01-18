@@ -42,6 +42,7 @@
                                KeyGesture="{Binding Path=KeyGesture}"
                                Description="{Binding Path=Description}"
                                Command="{Binding Path=ClickCommand}"/>
+
         </ContentControl>
     </DataTemplate>
 
@@ -169,15 +170,15 @@
     <!-- ****** Docking ****************************************************************************** -->
     <!-- ============================================================================================= -->
 
-    <local:DanceDockingItemInstanceConverter x:Key="DanceDockingItemInstanceConverter"></local:DanceDockingItemInstanceConverter>
+    <local:DanceDockItemInstanceConverter x:Key="DanceDockItemInstanceConverter"></local:DanceDockItemInstanceConverter>
 
     <!-- Layout -->
     <DataTemplate DataType="{x:Type local:DanceLayoutViewModel}">
-        <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
+        <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockItemInstanceConverter}}"></ContentControl>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:DanceDocumentViewModel}">
-        <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockingItemInstanceConverter}}"></ContentControl>
+        <ContentControl Content="{Binding .,Converter={StaticResource ResourceKey=DanceDockItemInstanceConverter}}"></ContentControl>
     </DataTemplate>
 
     <!-- Layout -->

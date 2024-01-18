@@ -19,9 +19,6 @@ namespace Dance.Wpf
         /// </summary>
         public DanceDomain()
         {
-            // IOC构建
-            this.IocBuilder.AddAssemblies(Assembly.Load("Dance"), Assembly.Load("Dance.Wpf"));
-
             // 捕获未处理异常
             this.Builders.Add(new DanceDomainBuilder_CatchUnhandledException());
             // 单例启动           
@@ -47,5 +44,10 @@ namespace Dance.Wpf
         /// </summary>
         [NotNull]
         public static DanceDomain? Current { get; set; }
+
+        /// <summary>
+        /// 是否是调试模式
+        /// </summary>
+        public bool IsDebugMode { get; set; }
     }
 }

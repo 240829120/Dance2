@@ -23,10 +23,10 @@ namespace Dance.WpfTest
             ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
 
             DanceDomain.Current = new() { IsDebugMode = true };
-            DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.Framework"));
-            DanceDomain.Current.IocBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
+            DanceDomain.Current.IocBuilder.AddAssemblies("Dance.*");
+
+            DanceDomain.Current.PluginBuilder.AddAssemblies("Dance.Plugin.*");
             DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.WpfTest"));
-            DanceDomain.Current.PluginBuilder.AddAssemblies(Assembly.Load("Dance.Plugin.LayoutManage"));
             DanceDomain.Current.Build();
 
             IDanceWindowManager windowManager = DanceDomain.Current.LifeScope.Resolve<IDanceWindowManager>();

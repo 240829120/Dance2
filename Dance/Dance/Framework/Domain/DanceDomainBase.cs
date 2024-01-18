@@ -15,17 +15,12 @@ namespace Dance
     /// <summary>
     /// 领域基类
     /// </summary>
-    public abstract class DanceDomainBase : DanceObject
+    public abstract class DanceDomainBase : DanceModelBase
     {
         public DanceDomainBase()
         {
             this.LifeScope = this.IocBuilder.CreateLifeScope();
         }
-
-        /// <summary>
-        /// 是否是调试模式
-        /// </summary>
-        public bool IsDebugMode { get; set; }
 
         /// <summary>
         /// Ioc构建器

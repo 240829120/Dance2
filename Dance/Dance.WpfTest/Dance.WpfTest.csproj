@@ -6,12 +6,18 @@
 		<Nullable>enable</Nullable>
 		<UseWpf>true</UseWpf>
 		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon>logo.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="logo.ico" />
 	  <None Remove="Resource\Image\ImageEdit.svg" />
 	  <None Remove="Resource\Image\notification-icon.png" />
 	  <None Remove="Resource\Image\welcome.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="logo.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -21,12 +27,14 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
-		<ProjectReference Include="..\Dance.Plugin.LayoutManage\Dance.Plugin.LayoutManage.csproj" />
+		<ProjectReference Include="..\Dance.Plugin.Dock\Dance.Plugin.Dock.csproj" />
+		<ProjectReference Include="..\Dance.Plugin.Project\Dance.Plugin.Project.csproj" />
 		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
 		<ProjectReference Include="..\Dance\Dance.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="logo.ico" />
 	  <Resource Include="Resource\Image\ImageEdit.svg" />
 	  <Resource Include="Resource\Image\notification-icon.png" />
 	  <Resource Include="Resource\Image\welcome.png" />

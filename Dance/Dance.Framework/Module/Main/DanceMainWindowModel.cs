@@ -69,7 +69,7 @@ namespace Dance.Framework
             this.LoadDockingItem();
 
             // 发送初始化完成消息
-            DanceDomain.Current.Messenger.Send(new DanceMainWindowLoadedMessage());
+            DanceDomain.Current.Messenger.Send(new DanceMainWindowLoadedMsg());
         }
 
         #endregion
