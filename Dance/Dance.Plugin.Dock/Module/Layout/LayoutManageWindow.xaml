@@ -9,7 +9,7 @@
                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                  d:DataContext="{d:DesignInstance Type=local:LayoutManageWindowModel}"
                  dance:DanceFrameworkElementHelper.LoadedOnceCommand="{Binding Path=LoadedCommand}"
-                 Title="布局管理" ShowGlow="True"
+                 Title="布局管理" ShowGlow="True" ShowIcon="True"
                  WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
                  mc:Ignorable="d" d:Background="White" Height="500" Width="600">
 

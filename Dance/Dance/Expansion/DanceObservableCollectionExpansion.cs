@@ -42,5 +42,17 @@ namespace Dance
                 action(item);
             }
         }
+
+        /// <summary>
+        /// 转化为<see cref="DanceObservableCollection{T}"/>
+        /// </summary>
+        /// <typeparam name="T">项类型</typeparam>
+        /// <param name="collection">列表</param>
+        /// <returns><see cref="DanceObservableCollection{T}"/></returns>
+        public static DanceObservableCollection<T> ToDanceObservableCollection<T>(this IEnumerable<T> collection)
+        {
+            DanceObservableCollection<T> result = [.. collection];
+            return result;
+        }
     }
 }

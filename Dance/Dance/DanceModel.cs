@@ -1,19 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using log4net;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Dance
 {
     /// <summary>
     /// 模型
     /// </summary>
-    public class DanceModel : DanceModelBase, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged
+    public class DanceModel : DanceModelBase
     {
         /// <summary>
         /// <inheritdoc cref="IDanceHistoryManager"/>

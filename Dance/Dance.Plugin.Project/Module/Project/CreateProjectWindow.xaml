@@ -3,15 +3,21 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:dance="http://schemas.dance.com/Wpf"
+                 xmlns:dance="http://schemas.dance.com/wpf"
                  xmlns:local="clr-namespace:Dance.Plugin.Project"
                  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-                 d:DataContext="{d:DesignInstance Type=local:CreateProjectWindowModel}"
-                 WindowStyle="ToolWindow" ShowGlow="True"
+                 xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+                 WindowStyle="ToolWindow" ShowGlow="True" ShowIcon="True"
                  WindowStartupLocation="CenterOwner"
                  Title="创建项目"
+                 d:DataContext="{d:DesignInstance Type=local:CreateProjectWindowModel}"
+                 dance:DanceFrameworkElementHelper.LoadedOnceCommand="{Binding Path=LoadedCommand}"
                  mc:Ignorable="d" d:Background="White" Height="500" Width="800">
+
+    <dx:ThemedWindow.Resources>
+        <dance:DanceStringEmptyToBoolConverter x:Key="DanceStringEmptyToBoolConverter" TrueResult="True" FalseResult="False"></dance:DanceStringEmptyToBoolConverter>
+    </dx:ThemedWindow.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +30,28 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="类型" Margin="10,10,5,10">
-
+            <dxa:AccordionControl ItemsSource="{Binding Path=ProjectCategorys}" SelectedItem="{Binding Path=SelectedProjectCategory,Mode=TwoWay}">
+                <dxa:AccordionControl.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="icon">
+                                <Image Source="{Binding Path=Icon}" Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Margin="10,0,10,0"></Image>
+                            </Border>
+                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
+                        </Grid>
+                        <HierarchicalDataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=PluginInfo}" Value="{x:Null}">
+                                <Setter TargetName="icon" Property="Visibility" Value="Collapsed"></Setter>
+                            </DataTrigger>
+                        </HierarchicalDataTemplate.Triggers>
+                    </HierarchicalDataTemplate>
+                </dxa:AccordionControl.ItemTemplate>
+            </dxa:AccordionControl>
         </GroupBox>
         <GroupBox Header="属性" Margin="5,10,10,10" Grid.Column="1">
             <Grid Grid.Column="1">
@@ -39,12 +66,12 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Text="路径:" VerticalAlignment="Center" Margin="5,0,10,0" />
                 <dxe:ButtonEdit Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" AllowDefaultButton="False" IsTextEditable="True"
-                                EditValue="{Binding Path=ProjectPath,Mode=TwoWay}">
-                    <dxe:ButtonInfo GlyphKind="Regular" ToolTipService.ToolTip="选择路径" />
+                                EditValue="{Binding Path=ProjectPath,Mode=TwoWay, ValidatesOnDataErrors=True}">
+                    <dxe:ButtonInfo GlyphKind="Regular" ToolTipService.ToolTip="选择路径" Command="{Binding Path=ChooseProjectPathCommand}" />
                 </dxe:ButtonEdit>
                 <TextBlock Grid.Row="1" Text="名称:" VerticalAlignment="Center" Margin="5,0,10,0" />
                 <dxe:TextEdit Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" 
-                              EditValue="{Binding Path=ProjectName,Mode=TwoWay}" />
+                              EditValue="{Binding Path=ProjectName,Mode=TwoWay, ValidatesOnDataErrors=True}" />
                 <TextBlock Grid.Row="2" Text="描述:" VerticalAlignment="Top" Margin="5,8,10,0" />
                 <dxe:TextEdit Grid.Row="2" Grid.Column="1" Margin="0,5,0,5" AcceptsReturn="True" VerticalContentAlignment="Top"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -52,8 +79,12 @@
             </Grid>
         </GroupBox>
 
+        <TextBlock Text="{Binding Path=Error}" Grid.Row="1" Margin="10,0,10,0" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                   Foreground="Red"></TextBlock>
+
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-            <Button VerticalAlignment="Center" Content="确定" Height="25" Width="80" Command="{Binding Path=EnterCommand}"></Button>
+            <Button VerticalAlignment="Center" Content="确定" Height="25" Width="80" Command="{Binding Path=EnterCommand}"
+                    IsEnabled="{Binding Path=Error,Mode=OneWay,Converter={StaticResource DanceStringEmptyToBoolConverter}}"></Button>
             <Button VerticalAlignment="Center" Content="取消" Height="25" Width="80" Command="{Binding Path=CancelCommand}" Margin="10,0,0,0"></Button>
         </StackPanel>
     </Grid>

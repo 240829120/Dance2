@@ -8,7 +8,7 @@
                  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                  d:DataContext="{d:DesignInstance Type=local:LayoutInputNameWindowModel}"
-                 WindowStyle="ToolWindow" ShowGlow="True"
+                 WindowStyle="ToolWindow" ShowGlow="True" ShowIcon="True"
                  WindowStartupLocation="CenterOwner"
                  Title="保存布局"
                  mc:Ignorable="d" d:Background="White" Height="180" Width="400">

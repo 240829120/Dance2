@@ -13,11 +13,8 @@
 	  <None Remove="logo.ico" />
 	  <None Remove="Resource\Image\ImageEdit.svg" />
 	  <None Remove="Resource\Image\notification-icon.png" />
+	  <None Remove="Resource\Image\test.svg" />
 	  <None Remove="Resource\Image\welcome.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="logo.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,6 +34,7 @@
 	  <Resource Include="logo.ico" />
 	  <Resource Include="Resource\Image\ImageEdit.svg" />
 	  <Resource Include="Resource\Image\notification-icon.png" />
+	  <Resource Include="Resource\Image\test.svg" />
 	  <Resource Include="Resource\Image\welcome.png" />
 	</ItemGroup>
 
