@@ -3,7 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:dance="http://schemas.dance.com/Wpf"
+                 xmlns:dance="http://schemas.dance.com/wpf"
                  xmlns:local="clr-namespace:Dance.Plugin.Dock"
                  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
@@ -12,6 +12,10 @@
                  WindowStartupLocation="CenterOwner"
                  Title="保存布局"
                  mc:Ignorable="d" d:Background="White" Height="180" Width="400">
+
+    <dx:ThemedWindow.Resources>
+        <dance:DanceStringEmptyToBoolConverter x:Key="DanceStringEmptyToBoolConverter"></dance:DanceStringEmptyToBoolConverter>
+    </dx:ThemedWindow.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -25,11 +29,12 @@
             </Grid.RowDefinitions>
             <TextBlock Text="布局名称:" VerticalAlignment="Center" Margin="5,0,5,0" />
             <dxe:TextEdit Grid.Row="1" VerticalAlignment="Center" 
-                          EditValue="{Binding Path=LayoutName,Mode=TwoWay}" />
+                          EditValue="{Binding Path=LayoutName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </Grid>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button VerticalAlignment="Center" Content="保存" Height="25" Width="80" Command="{Binding Path=EnterCommand}"></Button>
+            <Button VerticalAlignment="Center" Content="保存" Height="25" Width="80" Command="{Binding Path=EnterCommand}"
+                    IsEnabled="{Binding Path=Error,Converter={StaticResource DanceStringEmptyToBoolConverter}}"></Button>
             <Button VerticalAlignment="Center" Content="取消" Height="25" Width="80" Command="{Binding Path=CancelCommand}" Margin="10,0,0,0"></Button>
         </StackPanel>
     </Grid>

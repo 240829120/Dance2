@@ -86,13 +86,15 @@ namespace Dance.Plugin
         /// <returns>主菜单</returns>
         public DanceBarSubItemModel CreateMainMenu()
         {
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
+
             // 保存布局
             this.SaveLayoutItem.Content = "保存布局";
             this.SaveLayoutItem.ClickCommand = new(COMMAND_GROUP, "保存布局", this.SaveLayout);
 
             // 应用布局
             this.ApplyLayoutItem.Content = "应用布局";
-            var layouts = this.ConfigManager.Context.Layouts.Find(p => !p.IsMainLayout && !p.IsDefaultLayout).OrderBy(p => p.Order);
+            var layouts = layoutCollection.Find(p => !p.IsMainLayout && !p.IsDefaultLayout).OrderBy(p => p.Order);
             foreach (var layout in layouts)
             {
                 DanceBarButtonItemModel layoutItem = new()
@@ -142,6 +144,7 @@ namespace Dance.Plugin
         /// </summary>
         private async Task SaveLayout()
         {
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
             DanceMainWindowModel mainVM = DanceDomain.Current.LifeScope.Resolve<DanceMainWindowModel>();
 
             // 输入布局名称
@@ -158,14 +161,14 @@ namespace Dance.Plugin
             if (string.IsNullOrWhiteSpace(xml))
                 return;
 
-            DanceLayoutEntity layout = new()
+            LayoutEntity layout = new()
             {
                 Name = vm.LayoutName,
                 Content = xml,
-                Order = this.ConfigManager.Context.Layouts.Max(p => p.Order) + 1
+                Order = layoutCollection.Max(p => p.Order) + 1
             };
 
-            this.ConfigManager.Context.Layouts.Upsert(layout);
+            layoutCollection.Upsert(layout);
 
             // 添加布局项菜单
             DanceBarButtonItemModel layoutItem = new()
@@ -184,6 +187,7 @@ namespace Dance.Plugin
         /// </summary>
         private async Task SaveDefaultLayout()
         {
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
             DanceMainWindowModel mainVM = DanceDomain.Current.LifeScope.Resolve<DanceMainWindowModel>();
 
             // 获取并保存布局信息
@@ -191,13 +195,13 @@ namespace Dance.Plugin
             if (string.IsNullOrWhiteSpace(xml))
                 return;
 
-            DanceLayoutEntity layout = this.ConfigManager.Context.Layouts.FindOne(p => p.IsDefaultLayout) ?? new();
+            LayoutEntity layout = layoutCollection.FindOne(p => p.IsDefaultLayout) ?? new();
 
             layout.Name = "DEFAULT";
             layout.Content = xml;
             layout.IsDefaultLayout = true;
 
-            this.ConfigManager.Context.Layouts.Upsert(layout);
+            layoutCollection.Upsert(layout);
 
             await Task.CompletedTask;
         }
@@ -217,7 +221,8 @@ namespace Dance.Plugin
 
             this.ApplyLayoutItem.Items.Clear();
 
-            var layouts = this.ConfigManager.Context.Layouts.Find(p => !p.IsMainLayout && !p.IsDefaultLayout).OrderBy(p => p.Order);
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
+            var layouts = layoutCollection.Find(p => !p.IsMainLayout && !p.IsDefaultLayout).OrderBy(p => p.Order);
             foreach (var layout in layouts)
             {
                 DanceBarButtonItemModel layoutItem = new()
@@ -237,7 +242,8 @@ namespace Dance.Plugin
         /// </summary>
         private async Task ResetLayout()
         {
-            DanceLayoutEntity? layout = this.ConfigManager.Context.Layouts.FindOne(p => p.IsDefaultLayout);
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
+            LayoutEntity? layout = layoutCollection.FindOne(p => p.IsDefaultLayout);
             if (layout == null || string.IsNullOrWhiteSpace(layout.Content))
                 return;
 
@@ -251,7 +257,7 @@ namespace Dance.Plugin
         /// 布局项点击
         /// </summary>
         /// <param name="layout">布局数据</param>
-        private static async Task LayoutItemClick(DanceLayoutEntity layout)
+        private static async Task LayoutItemClick(LayoutEntity layout)
         {
             if (string.IsNullOrWhiteSpace(layout.Content))
                 return;

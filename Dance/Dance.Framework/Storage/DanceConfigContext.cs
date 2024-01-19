@@ -22,18 +22,11 @@ namespace Dance.Framework
                 Filename = path
             };
             this.Database = new(conn);
-
-            this.Layouts = this.Database.GetCollection<DanceLayoutEntity>();
         }
 
         /// <summary>
         /// 缓存数据库
         /// </summary>
         public LiteDatabase Database { get; }
-
-        /// <summary>
-        /// 布局
-        /// </summary>
-        public ILiteCollection<DanceLayoutEntity> Layouts { get; }
     }
 }

@@ -2,6 +2,7 @@
 using Dance.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace Dance.Plugin.Dock
         /// <summary>
         /// 布局名称
         /// </summary>
+        [Required(ErrorMessage = "名称不能为空")]
         public string? LayoutName
         {
             get { return layoutName; }

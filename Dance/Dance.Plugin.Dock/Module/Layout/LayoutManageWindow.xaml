@@ -44,7 +44,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="名称:" VerticalAlignment="Center" />
                 <dxe:TextEdit Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
-                              EditValue="{Binding Path=SelectedLayout.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                              EditValue="{Binding Path=SelectedLayout.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </Grid>
         </GroupBox>
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">

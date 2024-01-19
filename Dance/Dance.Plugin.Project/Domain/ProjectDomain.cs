@@ -11,7 +11,8 @@ namespace Dance.Plugin.Project
     /// 项目领域
     /// </summary>
     /// <param name="workpath">工作路径</param>
-    public class DanceProjectDomain(string workpath) : DanceDomainBase
+    /// <param name="pluginInfo">插件信息</param>
+    public class ProjectDomain(string workpath, ProjectPluginInfo pluginInfo) : DanceDomainBase
     {
         // ===================================================================================================
         // **** Property ****
@@ -21,6 +22,11 @@ namespace Dance.Plugin.Project
         /// 工作路径
         /// </summary>
         public string Workpath { get; } = workpath;
+
+        /// <summary>
+        /// 插件信息
+        /// </summary>
+        public ProjectPluginInfo PluginInfo { get; } = pluginInfo;
 
         #region Name -- 名称
 

@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace Dance
         {
             JObject jObject = JObject.Load(reader);
 
-            JProperty? property = jObject.Property(nameof(IDanceJsonObject.PART_DanceObjectType));
+            JProperty? property = jObject.Property(nameof(IDanceJsonObject.DanceObjectType));
             if (property == null || property.Value.Value<string>() is not string value || string.IsNullOrWhiteSpace(value))
                 return null;
 

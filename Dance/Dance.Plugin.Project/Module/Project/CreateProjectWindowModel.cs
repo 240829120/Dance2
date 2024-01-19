@@ -60,6 +60,7 @@ namespace Dance.Plugin.Project
         /// 项目名称
         /// </summary>
         [Required(ErrorMessage = "名称不能为空"),]
+        [DanceFileNameValidation(ErrorMessage = "名称不合法")]
         public string? ProjectName
         {
             get { return projectName; }

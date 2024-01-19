@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Framework
+namespace Dance.Plugin.Dock
 {
     /// <summary>
     /// 布局实体
     /// </summary>
-    public class DanceLayoutEntity
+    public class LayoutEntity
     {
         /// <summary>
         /// 编号

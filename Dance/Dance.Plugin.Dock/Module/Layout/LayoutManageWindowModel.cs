@@ -33,18 +33,23 @@ namespace Dance.Plugin.Dock
         /// </summary>
         private readonly IDanceConfigManager ConfigManager = DanceDomain.Current.LifeScope.Resolve<IDanceConfigManager>();
 
+        /// <summary>
+        /// 消息管理器
+        /// </summary>
+        private readonly IDanceMessageManager MessageManager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
+
         // ===================================================================================================
         // **** Property ****
         // ===================================================================================================
 
         #region Layouts -- 布局集合
 
-        private DanceObservableCollection<DanceLayoutModel> layouts = [];
+        private DanceObservableCollection<LayoutModel> layouts = [];
 
         /// <summary>
         /// 布局集合
         /// </summary>
-        public DanceObservableCollection<DanceLayoutModel> Layouts
+        public DanceObservableCollection<LayoutModel> Layouts
         {
             get { return layouts; }
             set { this.SetProperty(ref layouts, value); }
@@ -54,11 +59,11 @@ namespace Dance.Plugin.Dock
 
         #region SlectedLayout -- 当前选中布局
 
-        private DanceLayoutModel? selectedLayout;
+        private LayoutModel? selectedLayout;
         /// <summary>
         /// 当前选中布局
         /// </summary>
-        public DanceLayoutModel? SelectedLayout
+        public LayoutModel? SelectedLayout
         {
             get { return selectedLayout; }
             set { this.SetProperty(ref selectedLayout, value); }
@@ -84,10 +89,11 @@ namespace Dance.Plugin.Dock
         {
             await Task.Run(() =>
             {
-                var layouts = this.ConfigManager.Context.Layouts.Find(p => !p.IsMainLayout && !p.IsDefaultLayout);
+                var layoutCollection = this.ConfigManager.Context.GetLayouts();
+                var layouts = layoutCollection.Find(p => !p.IsMainLayout && !p.IsDefaultLayout);
                 foreach (var layout in layouts)
                 {
-                    this.Layouts.Add(new DanceLayoutModel(layout)
+                    this.Layouts.Add(new LayoutModel(layout)
                     {
                         Name = layout.Name,
                         Content = layout.Content
@@ -188,14 +194,21 @@ namespace Dance.Plugin.Dock
             if (this.View is not Window window)
                 return;
 
-            this.ConfigManager.Context.Layouts.DeleteMany(p => !p.IsMainLayout && !p.IsDefaultLayout);
+            if (this.Layouts.Any(p => string.IsNullOrWhiteSpace(p.Name)))
+            {
+                this.MessageManager.Show("布局名称不能为空");
+                return;
+            }
+
+            var layoutCollection = this.ConfigManager.Context.GetLayouts();
+            layoutCollection.DeleteMany(p => !p.IsMainLayout && !p.IsDefaultLayout);
             for (int i = 0; i < this.Layouts.Count; i++)
             {
-                DanceLayoutModel model = this.Layouts[i];
+                LayoutModel model = this.Layouts[i];
                 model.Entity.Order = i;
                 model.Entity.Name = model.Name;
 
-                this.ConfigManager.Context.Layouts.Upsert(model.Entity);
+                layoutCollection.Upsert(model.Entity);
             }
 
             window.DialogResult = true;

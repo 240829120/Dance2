@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance
+namespace Dance.Plugin.Project
 {
     /// <summary>
-    /// Json对象
+    /// 项目设置
     /// </summary>
-    public interface IDanceJsonObject
+    public static class ProjectOptions
     {
         /// <summary>
-        /// 对象类型
+        /// 项目扩展名
         /// </summary>
-        string DanceObjectType { get; }
+        public static string ProjectExtension { get; set; } = ".dance";
     }
 }

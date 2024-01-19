@@ -1,21 +1,23 @@
-﻿using System;
+﻿using Dance.Framework;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Framework
+namespace Dance.Plugin.Dock
 {
     /// <summary>
     /// 布局模型
     /// </summary>
     /// <param name="entity">实体</param>
-    public class DanceLayoutModel(DanceLayoutEntity entity) : DanceModel
+    public class LayoutModel(LayoutEntity entity) : DanceModel
     {
         /// <summary>
-        /// <inheritdoc cref="DanceLayoutEntity"/>
+        /// <inheritdoc cref="LayoutEntity"/>
         /// </summary>
-        public DanceLayoutEntity Entity { get; } = entity;
+        public LayoutEntity Entity { get; } = entity;
 
         #region Name -- 名称
 
@@ -23,6 +25,7 @@ namespace Dance.Framework
         /// <summary>
         /// 名称
         /// </summary>
+        [Required(ErrorMessage = "名称不能为空")]
         public string? Name
         {
             get { return name; }

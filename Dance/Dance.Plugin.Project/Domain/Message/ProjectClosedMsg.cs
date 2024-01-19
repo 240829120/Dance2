@@ -10,11 +10,11 @@ namespace Dance.Plugin.Project
     /// 项目关闭消息
     /// </summary>
     /// <param name="closedProject">关闭的项目</param>
-    public class ProjectClosedMsg(DanceProjectDomain closedProject)
+    public class ProjectClosedMsg(ProjectDomain closedProject)
     {
         /// <summary>
         /// 已经关闭的项目
         /// </summary>
-        public DanceProjectDomain ClosedProject { get; } = closedProject;
+        public ProjectDomain ClosedProject { get; } = closedProject;
     }
 }
