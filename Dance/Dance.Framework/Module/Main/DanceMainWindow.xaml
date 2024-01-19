@@ -20,7 +20,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Dance.Framework;component/Manager/Message/DanceMessageNotification.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Dance.Framework;component/Resource/DanceFramework.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Dance.Framework;component/Themes/Resource/DanceFramework.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <ItemsPanelTemplate x:Key="{dxbt:BarContainerControlThemeKey ResourceKey=ItemsPanelTemplate, IsThemeIndependent=True}">

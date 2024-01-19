@@ -18,7 +18,6 @@
             <dxb:BarSubItem CategoryName="{Binding Path=CategoryName}"
                             Content="{Binding Path=Content}"
                             Glyph="{Binding Path=Glyph}"
-                            GlyphTemplate="{Binding Path=GlyphTemplate}"
                             IsEnabled="{Binding Path=IsEnabled}"
                             BarItemDisplayMode="ContentAndGlyph"
                             ToolTip="{Binding Path=Content}"
@@ -34,7 +33,6 @@
             <dxb:BarButtonItem CategoryName="{Binding Path=CategoryName}"
                                Content="{Binding Path=Content}"
                                Glyph="{Binding Path=Glyph}"
-                               GlyphTemplate="{Binding Path=GlyphTemplate}"
                                ToolTip="{Binding Path=ToolTip}"
                                IsEnabled="{Binding Path=IsEnabled}"
                                BarItemDisplayMode="ContentAndGlyph" 
@@ -52,7 +50,6 @@
             <dxb:BarCheckItem CategoryName="{Binding Path=CategoryName}"
                               Content="{Binding Path=Content}"
                               Glyph="{Binding Path=Glyph}"
-                              GlyphTemplate="{Binding Path=GlyphTemplate}"
                               ToolTip="{Binding Path=ToolTip}"
                               IsEnabled="{Binding Path=IsEnabled}"
                               BarItemDisplayMode="ContentAndGlyph"
@@ -76,7 +73,6 @@
             <dxb:BarEditItem CategoryName="{Binding Path=CategoryName}"
                              Content="{Binding Path=Content}"
                              Glyph="{Binding Path=Glyph}"
-                             GlyphTemplate="{Binding Path=GlyphTemplate}"
                              ToolTip="{Binding Path=ToolTip}"
                              IsEnabled="{Binding Path=IsEnabled}"
                              BarItemDisplayMode="ContentAndGlyph"
@@ -97,7 +93,6 @@
             <dxb:BarSplitButtonItem CategoryName="{Binding Path=CategoryName}"
                                     Content="{Binding Path=Content}"
                                     Glyph="{Binding Path=Glyph}"
-                                    GlyphTemplate="{Binding Path=GlyphTemplate}"
                                     ToolTip="{Binding Path=ToolTip}"
                                     IsEnabled="{Binding Path=IsEnabled}"
                                     BarItemDisplayMode="ContentAndGlyph"
@@ -115,14 +110,12 @@
             <dxb:BarStaticItem CategoryName="{Binding Path=CategoryName}"
                                Content="{Binding Path=Content}"
                                Glyph="{Binding Path=Glyph}"
-                               GlyphTemplate="{Binding Path=GlyphTemplate}"
                                IsEnabled="{Binding Path=IsEnabled}"
                                BarItemDisplayMode="ContentAndGlyph"
                                Alignment="{Binding Path=Alignment}"
                                ToolTip="{Binding Path=ToolTip}"
                                KeyGesture="{Binding Path=KeyGesture}"
-                               Description="{Binding Path=Description}"
-                               ContentTemplate="{Binding Path=ContentTemplate}"/>
+                               Description="{Binding Path=Description}"/>
         </ContentControl>
     </DataTemplate>
 

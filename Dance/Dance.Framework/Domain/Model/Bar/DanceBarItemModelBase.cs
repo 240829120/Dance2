@@ -43,20 +43,6 @@ namespace Dance.Framework
 
         #endregion
 
-        #region GlyphTemplate -- 图标模板
-
-        private DataTemplate? glyphTemplate;
-        /// <summary>
-        /// 图标模板
-        /// </summary>
-        public DataTemplate? GlyphTemplate
-        {
-            get { return glyphTemplate; }
-            set { this.SetProperty(ref glyphTemplate, value); }
-        }
-
-        #endregion
-
         #region IsEnabled -- 是否可用
 
         private bool isEnabled = true;
@@ -81,20 +67,6 @@ namespace Dance.Framework
         {
             get { return content; }
             set { this.SetProperty(ref content, value); }
-        }
-
-        #endregion
-
-        #region ContentTemplate -- 内容模板
-
-        private DataTemplate? contentTemplate;
-        /// <summary>
-        /// 内容模板
-        /// </summary>
-        public DataTemplate? ContentTemplate
-        {
-            get { return contentTemplate; }
-            set { this.SetProperty(ref contentTemplate, value); }
         }
 
         #endregion
