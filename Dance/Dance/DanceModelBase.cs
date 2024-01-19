@@ -14,18 +14,8 @@ namespace Dance
     /// <summary>
     /// 模型基类
     /// </summary>
-    public abstract class DanceModelBase : DanceObject, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged, IDataErrorInfo
+    public abstract class DanceModelBase : DanceObject, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged
     {
-        /// <summary>
-        /// 错误集合
-        /// </summary>
-        private readonly Dictionary<string, string> ErrorDic = [];
-
-        /// <summary>
-        /// 属性集合
-        /// </summary>
-        private readonly Dictionary<string, PropertyInfo?> PropertyDic = [];
-
         /// <summary>
         /// <inheritdoc cref="INotifyPropertyChanging.PropertyChanging"/>
         /// </summary>
@@ -35,73 +25,6 @@ namespace Dance
         /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// 对象错误信息
-        /// </summary>
-        public string Error => this.ErrorDic.FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.Value)).Value;
-
-        /// <summary>
-        /// 错误信息
-        /// </summary>
-        /// <param name="columnName">属性名</param>
-        public string this[string columnName] => this.ValidateProperty(columnName);
-
-        /// <summary>
-        /// 验证属性
-        /// </summary>
-        /// <param name="propertyName">属性名</param>
-        /// <returns>错误信息</returns>
-        public virtual string ValidateProperty([CallerMemberName] string? propertyName = null)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                return string.Empty;
-
-            if (!this.PropertyDic.TryGetValue(propertyName, out PropertyInfo? property))
-            {
-                property = this.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-                this.PropertyDic[propertyName] = property;
-            }
-
-            if (property == null)
-                return string.Empty;
-
-            if (!property.CanRead || !property.CanWrite)
-                return string.Empty;
-
-            ValidationContext context = new(this, null, null)
-            {
-                MemberName = propertyName
-            };
-
-            List<ValidationResult> results = [];
-            Validator.TryValidateProperty(property?.GetValue(this, null), context, results);
-
-            if (results.Count == 0)
-            {
-                this.ErrorDic[propertyName] = string.Empty;
-                this.NotifyPropertyChanged(nameof(Error));
-                return string.Empty;
-            }
-
-            string error = string.Join(Environment.NewLine, results.Select(r => r.ErrorMessage).ToArray());
-            this.ErrorDic[propertyName] = error;
-            this.NotifyPropertyChanged(nameof(Error));
-
-            return error;
-        }
-
-        /// <summary>
-        /// 验证对象
-        /// </summary>
-        public virtual void Validate()
-        {
-            var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite && p.CanRead);
-            foreach (var property in properties)
-            {
-                this.ValidateProperty(property.Name);
-            }
-        }
 
         /// <summary>
         /// 通知属性改变之前

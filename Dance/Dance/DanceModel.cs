@@ -19,12 +19,50 @@ namespace Dance
     /// <summary>
     /// 模型
     /// </summary>
-    public class DanceModel : DanceModelBase
+    public class DanceModel : DanceModelBase, IDataErrorInfo
     {
+        /// <summary>
+        /// 错误集合
+        /// </summary>
+        internal readonly Dictionary<string, DanceValidatePropertyInfo?> ErrorDic = [];
+
         /// <summary>
         /// <inheritdoc cref="IDanceHistoryManager"/>
         /// </summary>
         public IDanceHistoryManager? HistoryManager { get; set; }
+
+        /// <summary>
+        /// 对象错误信息
+        /// </summary>
+        public string Error => this.ErrorDic.Values.FirstOrDefault(p => p != null)?.ErrorMessage ?? string.Empty;
+
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+        /// <param name="propertyName">属性名</param>
+        public string this[string propertyName] => DanceValidateHelper.ValidateProperty(this, propertyName)?.ErrorMessage ?? string.Empty;
+
+        /// <summary>
+        /// 验证属性
+        /// </summary>
+        /// <param name="propertyName">属性名</param>
+        /// <returns>验证结果</returns>
+        public DanceValidatePropertyInfo? ValidateProperty([CallerMemberName] string? propertyName = null)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                return null;
+
+            return DanceValidateHelper.ValidateProperty(this, propertyName);
+        }
+
+        /// <summary>
+        /// 验证对象
+        /// </summary>
+        /// <returns>验证结果</returns>
+        public List<DanceValidatePropertyInfo> Validate()
+        {
+            return DanceValidateHelper.Validate(this);
+        }
 
         /// <summary>
         /// 设置属性
