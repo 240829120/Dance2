@@ -30,6 +30,7 @@ namespace Dance.Plugin.Project
     {
         public ProjectController()
         {
+            DanceDomain.Current.Messenger.Register<ProjectClosedMsg>(this, this.ProjectClosed);
             DanceDomain.Current.Messenger.Register<ProjectOpendMsg>(this, this.ProjectOpend);
         }
 
@@ -92,9 +93,26 @@ namespace Dance.Plugin.Project
         /// </summary>
         private readonly DanceBarButtonItemModel CloseProjectItem = new();
 
+        /// <summary>
+        /// 项目名项
+        /// </summary>
+        private readonly BarProjectNameItemModel ProjectNameItem = new();
+
         // ===================================================================================================
         // **** Message ****
         // ===================================================================================================
+
+        #region ProjectClosedMsg -- 项目关闭消息
+
+        /// <summary>
+        /// 项目关闭消息
+        /// </summary>
+        private void ProjectClosed(object sender, ProjectClosedMsg msg)
+        {
+            this.ProjectNameItem.Content = string.Empty;
+        }
+
+        #endregion
 
         #region ProjectOpendMsg -- 项目打开消息
 
@@ -106,6 +124,8 @@ namespace Dance.Plugin.Project
             ProjectDomain? project = this.ProjectManager.Current;
             if (project == null)
                 return;
+
+            this.ProjectNameItem.Content = project;
 
             var collection = this.ConfigManager.Context.GetRecentlyUsedProjects();
             RecentlyUsedProjectEntity entity = new()
@@ -153,8 +173,10 @@ namespace Dance.Plugin.Project
         /// 创建主菜单
         /// </summary>
         /// <returns>主菜单</returns>
-        public DanceBarSubItemModel CreateMainMenu()
+        public List<DanceBarItemModelBase> CreateMainMenu()
         {
+            List<DanceBarItemModelBase> result = [];
+
             // 新建项目
             this.CreateProjectItem.Content = "新建项目";
             this.CreateProjectItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Project;component/Themes/Icons/create_project.svg");
@@ -196,8 +218,15 @@ namespace Dance.Plugin.Project
             this.MainSubItem.Items.Add(this.RecentlyUsedProjectItem);
             this.MainSubItem.Items.Add(this.CloseProjectItem);
 
-            return this.MainSubItem;
+            result.Add(this.MainSubItem);
+
+            result.Add(new DanceBarSeparatorItemModel() { Order = 1001 });
+            this.ProjectNameItem.Order = 1002;
+            result.Add(this.ProjectNameItem);
+
+            return result;
         }
+
 
         // ===================================================================================================
         // **** Private Function ****

@@ -24,7 +24,7 @@ namespace Dance.Plugin.Project
         {
             DanceBarPluginInfo info = new("Dance.Plugin.Project", "项目");
 
-            info.MenuItems.Add(this.ProjectController.CreateMainMenu());
+            info.MenuItems.AddRange(this.ProjectController.CreateMainMenu());
 
             return info;
         }

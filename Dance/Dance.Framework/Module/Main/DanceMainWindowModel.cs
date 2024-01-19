@@ -132,6 +132,7 @@ namespace Dance.Framework
                 mainMenuItems.AddRange(info.MenuItems);
                 toolItems.AddRange(info.ToolItems);
                 statusItems.AddRange(info.StatusItems);
+
             }
 
             DanceMainMenuModel mainMenu = new();
