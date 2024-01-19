@@ -173,7 +173,7 @@ namespace Dance.Plugin
             {
                 Name = vm.LayoutName,
                 Content = xml,
-                Order = layoutCollection.Max(p => p.Order) + 1
+                Order = layoutCollection.Count() > 0 ? (layoutCollection.Max(p => p.Order) + 1) : 0
             };
 
             layoutCollection.Upsert(layout);

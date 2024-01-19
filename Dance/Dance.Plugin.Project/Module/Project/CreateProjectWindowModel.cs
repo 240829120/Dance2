@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,22 +33,31 @@ namespace Dance.Plugin.Project
         public const string COMMAND_GROUP = "创建项目";
 
         // ===================================================================================================
+        // **** Field ****
+        // ===================================================================================================
+
+        /// <summary>
+        /// 消息管理器
+        /// </summary>
+        private readonly IDanceMessageManager MessageManager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
+
+        // ===================================================================================================
         // **** Property ****
         // ===================================================================================================
 
-        #region ProjectPath -- 项目路径
+        #region Workpath -- 项目路径
 
-        private string? projectPath;
+        private string? workPath;
 
         /// <summary>
         /// 项目路径
         /// </summary>
         [Required(ErrorMessage = "路径不能为空")]
         [DanceDirectoryExistsValidation(ErrorMessage = "项目路径不存在")]
-        public string? ProjectPath
+        public string? WorkPath
         {
-            get { return projectPath; }
-            set { this.SetProperty(ref projectPath, value); }
+            get { return workPath; }
+            set { this.SetProperty(ref workPath, value); }
         }
 
         #endregion
@@ -180,7 +190,7 @@ namespace Dance.Plugin.Project
             if (dialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(dialog.SelectedPath))
                 return;
 
-            this.ProjectPath = dialog.SelectedPath;
+            this.WorkPath = dialog.SelectedPath;
 
             await Task.CompletedTask;
         }
@@ -201,6 +211,16 @@ namespace Dance.Plugin.Project
         {
             if (this.View is not Window window)
                 return;
+
+            if (string.IsNullOrWhiteSpace(this.WorkPath) || string.IsNullOrWhiteSpace(this.ProjectName))
+                return;
+
+            string path = Path.Combine(this.WorkPath, $"{this.ProjectName}{ProjectOptions.ProjectExtension}");
+            if (File.Exists(path))
+            {
+                if (this.MessageManager.Show("创建项目", "项目文件已经存在，是否覆盖?", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                    return;
+            }
 
             window.DialogResult = true;
             window.Close();

@@ -67,7 +67,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Text="路径:" VerticalAlignment="Center" Margin="5,0,10,0" />
                 <dxe:ButtonEdit Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" AllowDefaultButton="False" IsTextEditable="True"
-                                EditValue="{Binding Path=ProjectPath,Mode=TwoWay, ValidatesOnDataErrors=True}">
+                                EditValue="{Binding Path=WorkPath,Mode=TwoWay, ValidatesOnDataErrors=True}">
                     <dxe:ButtonInfo GlyphKind="Regular" ToolTipService.ToolTip="选择路径" Command="{Binding Path=ChooseProjectPathCommand}" />
                 </dxe:ButtonEdit>
                 <TextBlock Grid.Row="1" Text="名称:" VerticalAlignment="Center" Margin="5,0,10,0" />

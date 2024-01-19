@@ -9,13 +9,13 @@ namespace Dance.Plugin.Project
     /// <summary>
     /// 项目打开之前消息
     /// </summary>
-    /// <param name="workpath">工作路径</param>
-    public class ProjectOpeningMsg(string workpath)
+    /// <param name="workPath">工作路径</param>
+    public class ProjectOpeningMsg(string workPath)
     {
         /// <summary>
         /// 工作路径
         /// </summary>
-        public string Workpath { get; } = workpath;
+        public string WorkPath { get; } = workPath;
 
         /// <summary>
         /// 是否取消

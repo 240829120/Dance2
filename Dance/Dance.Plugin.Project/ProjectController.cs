@@ -232,11 +232,11 @@ namespace Dance.Plugin.Project
                 if (string.IsNullOrWhiteSpace(vm.ProjectName) || vm.SelectedProjectCategory == null || vm.SelectedProjectCategory.PluginInfo == null)
                     return;
 
-                if (string.IsNullOrWhiteSpace(vm.ProjectPath) || !Directory.Exists(vm.ProjectPath))
+                if (string.IsNullOrWhiteSpace(vm.WorkPath) || !Directory.Exists(vm.WorkPath))
                     return;
 
                 // 保存项目文件
-                string path = Path.Combine(vm.ProjectPath, $"{vm.ProjectName}{ProjectOptions.ProjectExtension}");
+                string path = Path.Combine(vm.WorkPath, $"{vm.ProjectName}{ProjectOptions.ProjectExtension}");
                 ProjectConfig config = new()
                 {
                     Name = vm.ProjectName,
@@ -248,7 +248,7 @@ namespace Dance.Plugin.Project
                 config.ToJsonFile(path);
 
                 // 打开项目
-                this.OpenProjectCore(vm.ProjectPath, path, config);
+                this.OpenProjectCore(vm.WorkPath, path, config);
             }
             catch (Exception ex)
             {
@@ -284,14 +284,14 @@ namespace Dance.Plugin.Project
                 return;
 
             ProjectConfig? config = FromJsonFile<ProjectConfig>(ofd.FileName);
-            if (config == null || Path.GetDirectoryName(ofd.FileName) is not string workpath)
+            if (config == null || Path.GetDirectoryName(ofd.FileName) is not string workPath)
             {
                 log.Error($"读取项目配置文件失败, 路径: {ofd.FileName}");
                 this.MessageManager.ShowError("读取项目配置文件失败");
                 return;
             }
 
-            this.OpenProjectCore(workpath, ofd.FileName, config);
+            this.OpenProjectCore(workPath, ofd.FileName, config);
 
             await Task.CompletedTask;
         }
@@ -317,14 +317,14 @@ namespace Dance.Plugin.Project
             }
 
             ProjectConfig? config = FromJsonFile<ProjectConfig>(projectPath);
-            if (config == null || Path.GetDirectoryName(projectPath) is not string workpath)
+            if (config == null || Path.GetDirectoryName(projectPath) is not string workPath)
             {
                 log.Error($"读取项目配置文件失败, 路径: {projectPath}");
                 this.MessageManager.ShowError("读取项目配置文件失败");
                 return false;
             }
 
-            this.OpenProjectCore(workpath, projectPath, config);
+            this.OpenProjectCore(workPath, projectPath, config);
 
             await Task.CompletedTask;
             return true;
