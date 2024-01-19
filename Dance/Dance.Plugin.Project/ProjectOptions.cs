@@ -15,5 +15,10 @@ namespace Dance.Plugin.Project
         /// 项目扩展名
         /// </summary>
         public static string ProjectExtension { get; set; } = ".dance";
+
+        /// <summary>
+        /// 最近使用项目个数
+        /// </summary>
+        public static int RecentlyUsedProjectCount { get; set; } = 10;
     }
 }

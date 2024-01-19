@@ -9,7 +9,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Themes\Icons\project.svg" />
+		<None Remove="Themes\Icons\close_project.svg" />
+		<None Remove="Themes\Icons\create_project.svg" />
+		<None Remove="Themes\Icons\open_project.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -17,7 +19,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Themes\Icons\project.svg" />
+		<Resource Include="Themes\Icons\close_project.svg" />
+		<Resource Include="Themes\Icons\create_project.svg" />
+		<Resource Include="Themes\Icons\open_project.svg" />
 	</ItemGroup>
 
 </Project>

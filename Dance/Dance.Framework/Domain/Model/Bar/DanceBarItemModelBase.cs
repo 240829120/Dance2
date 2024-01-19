@@ -169,5 +169,19 @@ namespace Dance.Framework
         }
 
         #endregion
+
+        #region Tag -- 标志
+
+        private object? tag;
+        /// <summary>
+        /// 标志
+        /// </summary>
+        public object? Tag
+        {
+            get { return tag; }
+            set { this.SetProperty(ref tag, value); }
+        }
+
+        #endregion
     }
 }

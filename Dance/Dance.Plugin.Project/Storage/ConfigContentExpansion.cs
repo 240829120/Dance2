@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Plugin.Dock
+namespace Dance.Plugin.Project
 {
     /// <summary>
     /// 配置上下文扩展
@@ -14,13 +14,13 @@ namespace Dance.Plugin.Dock
     public static class ConfigContentExpansion
     {
         /// <summary>
-        /// 获取布局列表
+        /// 获取最近使用的项目列表
         /// </summary>
         /// <param name="context">配置上下文</param>
-        /// <returns>布局列表</returns>
-        public static ILiteCollection<LayoutEntity> GetLayouts(this DanceConfigContext context)
+        /// <returns>最近使用的项目列表</returns>
+        public static ILiteCollection<RecentlyUsedProjectEntity> GetRecentlyUsedProjects(this DanceConfigContext context)
         {
-            return context.Database.GetCollection<LayoutEntity>();
+            return context.Database.GetCollection<RecentlyUsedProjectEntity>();
         }
     }
 }

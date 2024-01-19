@@ -28,6 +28,11 @@ namespace Dance.Plugin.Project
     /// ---------------------------------------------------------
     public class ProjectController : DanceObject
     {
+        public ProjectController()
+        {
+            DanceDomain.Current.Messenger.Register<ProjectOpendMsg>(this, this.ProjectOpend);
+        }
+
         // ===================================================================================================
         // **** Field ****
         // ===================================================================================================
@@ -36,6 +41,11 @@ namespace Dance.Plugin.Project
         /// 命令分组
         /// </summary>
         public const string COMMAND_GROUP = "项目菜单";
+
+        /// <summary>
+        /// 配置管理器
+        /// </summary>
+        private readonly IDanceConfigManager ConfigManager = DanceDomain.Current.LifeScope.Resolve<IDanceConfigManager>();
 
         /// <summary>
         /// 缓存管理器
@@ -75,12 +85,65 @@ namespace Dance.Plugin.Project
         /// <summary>
         /// 打开最近使用的项目菜单
         /// </summary>
-        private readonly DanceBarSubItemModel OpenUsedProjectItem = new();
+        private readonly DanceBarSubItemModel RecentlyUsedProjectItem = new();
 
         /// <summary>
         /// 关闭项目菜单
         /// </summary>
         private readonly DanceBarButtonItemModel CloseProjectItem = new();
+
+        // ===================================================================================================
+        // **** Message ****
+        // ===================================================================================================
+
+        #region ProjectOpendMsg -- 项目打开消息
+
+        /// <summary>
+        /// 项目打开消息
+        /// </summary>
+        private void ProjectOpend(object sender, ProjectOpendMsg msg)
+        {
+            ProjectDomain? project = this.ProjectManager.Current;
+            if (project == null)
+                return;
+
+            var collection = this.ConfigManager.Context.GetRecentlyUsedProjects();
+            RecentlyUsedProjectEntity entity = new()
+            {
+                ProjectPath = project.ProjectPath,
+                LastOpenTime = DateTime.Now
+            };
+
+            collection.DeleteMany(p => p.ProjectPath == entity.ProjectPath);
+            collection.Insert(entity);
+
+            var deletes = collection.FindAll().OrderByDescending(p => p.LastOpenTime).Skip(ProjectOptions.RecentlyUsedProjectCount);
+            foreach (var delete in deletes)
+            {
+                collection.Delete(delete.ID);
+            }
+
+            DanceBarButtonItemModel item = new()
+            {
+                Content = project.ProjectPath,
+                Tag = entity,
+                ClickCommand = new DanceCommand(COMMAND_GROUP, "最近项目", async () => await this.OpenProject(project.ProjectPath))
+            };
+
+            var oldItem = this.RecentlyUsedProjectItem.Items.FirstOrDefault(p => p.Tag is RecentlyUsedProjectEntity tag && tag.ProjectPath == entity.ProjectPath);
+            if (oldItem != null)
+            {
+                this.RecentlyUsedProjectItem.Items.Remove(oldItem);
+            }
+
+            this.RecentlyUsedProjectItem.Items.Insert(0, item);
+            if (this.RecentlyUsedProjectItem.Items.Count > ProjectOptions.RecentlyUsedProjectCount)
+            {
+                this.RecentlyUsedProjectItem.Items.RemoveAt(this.RecentlyUsedProjectItem.Items.Count - 1);
+            }
+        }
+
+        #endregion
 
         // ===================================================================================================
         // **** Public Function ****
@@ -94,18 +157,34 @@ namespace Dance.Plugin.Project
         {
             // 新建项目
             this.CreateProjectItem.Content = "新建项目";
-            this.CreateProjectItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Project;component/Themes/Icons/project.svg");
+            this.CreateProjectItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Project;component/Themes/Icons/create_project.svg");
             this.CreateProjectItem.ClickCommand = new(COMMAND_GROUP, "新建项目", this.CreateProject);
 
             // 打开项目
             this.OpenProjectItem.Content = "打开项目";
+            this.OpenProjectItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Project;component/Themes/Icons/open_project.svg");
             this.OpenProjectItem.ClickCommand = new(COMMAND_GROUP, "打开项目", this.OpenProject);
 
             // 最近项目
-            this.OpenUsedProjectItem.Content = "最近项目";
+            this.RecentlyUsedProjectItem.Content = "最近项目";
+            var recentlyUsedProjects = this.ConfigManager.Context.GetRecentlyUsedProjects();
+            var projects = recentlyUsedProjects.FindAll().OrderByDescending(p => p.LastOpenTime).Take(ProjectOptions.RecentlyUsedProjectCount);
+            foreach (var project in projects)
+            {
+                if (project == null || string.IsNullOrWhiteSpace(project.ProjectPath))
+                    continue;
+
+                this.RecentlyUsedProjectItem.Items.Add(new DanceBarButtonItemModel()
+                {
+                    Content = project.ProjectPath,
+                    Tag = project,
+                    ClickCommand = new DanceCommand(COMMAND_GROUP, "最近项目", async () => await this.OpenProject(project.ProjectPath))
+                });
+            }
 
             // 关闭项目
             this.CloseProjectItem.Content = "关闭项目";
+            this.CloseProjectItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Project;component/Themes/Icons/close_project.svg");
             this.CloseProjectItem.ClickCommand = new(COMMAND_GROUP, "关闭项目", this.CloseProject);
 
             // 主菜单
@@ -114,7 +193,7 @@ namespace Dance.Plugin.Project
 
             this.MainSubItem.Items.Add(this.CreateProjectItem);
             this.MainSubItem.Items.Add(this.OpenProjectItem);
-            this.MainSubItem.Items.Add(this.OpenUsedProjectItem);
+            this.MainSubItem.Items.Add(this.RecentlyUsedProjectItem);
             this.MainSubItem.Items.Add(this.CloseProjectItem);
 
             return this.MainSubItem;
@@ -169,7 +248,7 @@ namespace Dance.Plugin.Project
                 config.ToJsonFile(path);
 
                 // 打开项目
-                this.OpenProjectCore(vm.ProjectPath, config);
+                this.OpenProjectCore(vm.ProjectPath, path, config);
             }
             catch (Exception ex)
             {
@@ -212,9 +291,43 @@ namespace Dance.Plugin.Project
                 return;
             }
 
-            this.OpenProjectCore(workpath, config);
+            this.OpenProjectCore(workpath, ofd.FileName, config);
 
             await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 打开项目
+        /// </summary>
+        /// <param name="projectPath">项目路径</param>
+        /// <returns>是否成功打开</returns>
+        private async Task<bool> OpenProject(string projectPath)
+        {
+            // 如果当前项目未关闭，那么提示
+            if (this.ProjectManager.Current != null)
+            {
+                if (this.ProjectManager.Current.ProjectPath == projectPath)
+                    return false;
+
+                if (this.MessageManager.Show("关闭项目", "是否关闭当前项目?", MessageBoxButton.YesNo, MessageBoxImage.Question, null) != MessageBoxResult.Yes)
+                    return false;
+
+                if (!this.CloseProjectCore())
+                    return false;
+            }
+
+            ProjectConfig? config = FromJsonFile<ProjectConfig>(projectPath);
+            if (config == null || Path.GetDirectoryName(projectPath) is not string workpath)
+            {
+                log.Error($"读取项目配置文件失败, 路径: {projectPath}");
+                this.MessageManager.ShowError("读取项目配置文件失败");
+                return false;
+            }
+
+            this.OpenProjectCore(workpath, projectPath, config);
+
+            await Task.CompletedTask;
+            return true;
         }
 
         /// <summary>
@@ -231,9 +344,10 @@ namespace Dance.Plugin.Project
         /// 打开项目
         /// </summary>
         /// <param name="workPath">工作路径</param>
+        /// <param name="projectPath">项目路径</param>
         /// <param name="config">项目配置文件</param>
         /// <returns>是否成功打开</returns>
-        private bool OpenProjectCore(string workPath, ProjectConfig config)
+        private bool OpenProjectCore(string workPath, string projectPath, ProjectConfig config)
         {
             if (this.ProjectManager.Current != null)
                 return false;
@@ -250,7 +364,7 @@ namespace Dance.Plugin.Project
             if (openingMsg.IsCancel)
                 return false;
 
-            ProjectDomain project = new(workPath, pluginInfo)
+            ProjectDomain project = new(workPath, projectPath, pluginInfo)
             {
                 Name = config.Name,
                 Detail = config.Detail

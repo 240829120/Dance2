@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
+    <None Remove="Themes\Icons\manage_layout.svg" />
+    <None Remove="Themes\Icons\reset_layout.svg" />
+    <None Remove="Themes\Icons\save_layout.svg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Themes\Icons\" />
+    <Resource Include="Themes\Icons\manage_layout.svg" />
+    <Resource Include="Themes\Icons\reset_layout.svg" />
+    <Resource Include="Themes\Icons\save_layout.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,9 @@ namespace Dance.Plugin.Project
     /// 项目领域
     /// </summary>
     /// <param name="workpath">工作路径</param>
+    /// <param name="projectPath">项目路径</param>
     /// <param name="pluginInfo">插件信息</param>
-    public class ProjectDomain(string workpath, ProjectPluginInfo pluginInfo) : DanceDomainBase
+    public class ProjectDomain(string workpath, string projectPath, ProjectPluginInfo pluginInfo) : DanceDomainBase
     {
         // ===================================================================================================
         // **** Property ****
@@ -22,6 +24,11 @@ namespace Dance.Plugin.Project
         /// 工作路径
         /// </summary>
         public string Workpath { get; } = workpath;
+
+        /// <summary>
+        /// 项目路径
+        /// </summary>
+        public string ProjectPath { get; } = projectPath;
 
         /// <summary>
         /// 插件信息

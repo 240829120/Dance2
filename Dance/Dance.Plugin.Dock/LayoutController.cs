@@ -47,6 +47,11 @@ namespace Dance.Plugin
         private readonly IDanceWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IDanceWindowManager>();
 
         /// <summary>
+        /// 缓存管理器
+        /// </summary>
+        private readonly IDanceCacheManager CacheManager = DanceDomain.Current.LifeScope.Resolve<IDanceCacheManager>();
+
+        /// <summary>
         /// 主菜单
         /// </summary>
         private readonly DanceBarSubItemModel MainSubItem = new();
@@ -90,6 +95,7 @@ namespace Dance.Plugin
 
             // 保存布局
             this.SaveLayoutItem.Content = "保存布局";
+            this.SaveLayoutItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Dock;component/Themes/Icons/save_layout.svg");
             this.SaveLayoutItem.ClickCommand = new(COMMAND_GROUP, "保存布局", this.SaveLayout);
 
             // 应用布局
@@ -108,10 +114,12 @@ namespace Dance.Plugin
 
             // 管理布局
             this.ManageLayoutItem.Content = "管理布局";
+            this.ManageLayoutItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Dock;component/Themes/Icons/manage_layout.svg");
             this.ManageLayoutItem.ClickCommand = new(COMMAND_GROUP, "管理布局", this.ManageLayout);
 
             // 重置布局
             this.ResetLayoutItem.Content = "重置布局";
+            this.ResetLayoutItem.Glyph = this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Dock;component/Themes/Icons/reset_layout.svg");
             this.ResetLayoutItem.ClickCommand = new(COMMAND_GROUP, "重置布局", this.ResetLayout);
 
             // 保存默认布局
