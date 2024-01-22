@@ -22,7 +22,7 @@
                                Description="{Binding Path=Description}">
                 <dxb:BarStaticItem.ContentTemplate>
                     <DataTemplate>
-                        <Border x:Name="border" Background="#337d7d7d" Padding="15,3,15,3" UseLayoutRounding="True" SnapsToDevicePixels="True"
+                        <Border x:Name="border" Background="#337d7d7d" Padding="15,0,15,0" Margin="0,-2,0,-3" CornerRadius="3"
                                 ToolTip="{Binding Path=ProjectPath}">
                             <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"></TextBlock>
                         </Border>
