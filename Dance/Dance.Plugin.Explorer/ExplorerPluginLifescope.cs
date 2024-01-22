@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Plugin.Dock
+namespace Dance.Plugin.Explorer
 {
     /// <summary>
-    /// 视图插件生命周期
+    /// 资源管理器插件生命周期
     /// </summary>
-    public class ViewPluginLifescope : DanceObject, IDancePluginLifescope
+    public class ExplorerPluginLifescope : DanceObject, IDancePluginLifescope
     {
         // ===================================================================================================
         // **** IDancePluginLifescope ****
@@ -22,11 +22,7 @@ namespace Dance.Plugin.Dock
         /// <returns></returns>
         public IDancePluginInfo Register()
         {
-            DanceBarPluginInfo info = new("Dance.Plugin.Dock<View>", "视图");
-
-            info.MenuItems.Add(this.ViewController.CreateMainMenu());
-
-            return info;
+            return new DanceLayoutViewPluginInfo("Dance_Plugin_Explorer", "资源管理器", typeof(ExplorerView));
         }
 
         /// <summary>
@@ -41,9 +37,5 @@ namespace Dance.Plugin.Dock
         // **** Field ****
         // ===================================================================================================
 
-        /// <summary>
-        /// 视图控制器
-        /// </summary>
-        private readonly ViewController ViewController = new();
     }
 }

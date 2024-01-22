@@ -22,7 +22,7 @@ namespace Dance.Plugin.Dock
         /// <returns></returns>
         public IDancePluginInfo Register()
         {
-            DanceBarPluginInfo info = new("Dance.Plugin.Dock", "布局");
+            DanceBarPluginInfo info = new("Dance.Plugin.Dock<Layout>", "布局");
 
             info.MenuItems.Add(this.LayoutController.CreateMainMenu());
 
