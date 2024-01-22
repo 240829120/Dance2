@@ -30,6 +30,10 @@
         </ResourceDictionary>
     </dx:ThemedWindow.Resources>
 
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="Closed" Command="{Binding Path=ClosedCommand}"></dxmvvm:EventToCommand>
+    </dxmvvm:Interaction.Behaviors>
+
     <dx:ThemedWindow.ToolbarItems>
         <dxb:MainMenuControl VerticalAlignment="Center" AllowCustomizationMenu="False"/>
     </dx:ThemedWindow.ToolbarItems>

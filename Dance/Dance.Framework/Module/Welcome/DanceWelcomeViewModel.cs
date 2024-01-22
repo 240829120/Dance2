@@ -18,11 +18,16 @@ namespace Dance.Framework
     {
         public DanceWelcomeViewModel()
         {
-            this.LoadedCommand = new(this.Loaded);
+            this.LoadedCommand = new(COMMAND_GROUP, "加载", this.Loaded);
         }
 
         // =======================================================================================
         // Field
+
+        /// <summary>
+        /// 命令分组
+        /// </summary>
+        private const string COMMAND_GROUP = "欢迎";
 
         /// <summary>
         /// 窗口管理器
@@ -68,7 +73,7 @@ namespace Dance.Framework
         /// <summary>
         /// 加载命令
         /// </summary>
-        public AsyncRelayCommand LoadedCommand { get; private set; }
+        public DanceCommand LoadedCommand { get; private set; }
 
         /// <summary>
         /// 加载

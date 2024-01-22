@@ -24,8 +24,18 @@ namespace Dance.Framework
     {
         public DanceMainWindowModel()
         {
-            this.LoadedCommand = new(this.Loaded);
+            this.LoadedCommand = new(COMMAND_GROUP, "加载", this.Loaded);
+            this.ClosedCommand = new(COMMAND_GROUP, "关闭", this.Closed);
         }
+
+        // ===================================================================================================
+        // **** Field ****
+        // ===================================================================================================
+
+        /// <summary>
+        /// 命令分组
+        /// </summary>
+        private const string COMMAND_GROUP = "主窗口";
 
         // ===================================================================================================
         // **** Property ****
@@ -55,12 +65,12 @@ namespace Dance.Framework
         /// <summary>
         /// 加载命令
         /// </summary>
-        public RelayCommand LoadedCommand { get; private set; }
+        public DanceCommand LoadedCommand { get; private set; }
 
         /// <summary>
         /// 加载
         /// </summary>
-        private void Loaded()
+        private async Task Loaded()
         {
             // 菜单项
             this.LoadMenuBarItems();
@@ -70,6 +80,31 @@ namespace Dance.Framework
 
             // 发送初始化完成消息
             DanceDomain.Current.Messenger.Send(new DanceMainWindowLoadedMsg());
+
+            await Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region ClosedCommand -- 关闭命令
+
+        /// <summary>
+        /// 关闭命令
+        /// </summary>
+        public DanceCommand ClosedCommand { get; private set; }
+
+        /// <summary>
+        /// 关闭
+        /// </summary>
+        private async Task Closed()
+        {
+            if (this.View is not DanceMainWindow view)
+                return;
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout.xml");
+            view.PART_DockLayoutManager.SaveLayoutToXml(path);
+
+            await Task.CompletedTask;
         }
 
         #endregion

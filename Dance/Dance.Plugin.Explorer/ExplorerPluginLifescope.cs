@@ -22,7 +22,7 @@ namespace Dance.Plugin.Explorer
         /// <returns></returns>
         public IDancePluginInfo Register()
         {
-            return new DanceLayoutViewPluginInfo(new("Dance", "Explorer", "Layout"), "资源管理器面板", typeof(ExplorerView));
+            return new DanceLayoutViewPluginInfo(new("Dance", "Explorer", "ExplorerLayout"), "资源管理器面板", typeof(ExplorerView));
         }
 
         /// <summary>

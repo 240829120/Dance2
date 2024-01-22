@@ -25,8 +25,10 @@
         <GroupBox Header="插件" Margin="10,10,5,10">
             <dxg:GridControl Name="grid" Grid.Column="0" ItemsSource="{Binding Path=PluginInfos}" ShowBorder="False">
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="ID" ReadOnly="True" Width="200" AllowAutoFilter="False" ></dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Name" ReadOnly="True" Width="200" AllowAutoFilter="False"></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ID.NameSpace" Header="命名空间" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ID.Group" Header="分组" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ID.ID" Header="编号" ReadOnly="True" Width="200" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Name" Header="名称" ReadOnly="True" Width="200" AllowAutoFilter="False"></dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
                     <dxg:TableView  AllowScrollAnimation="True" ShowGroupFooters="False" ShowGroupPanel="False" ShowSearchPanelMode="Always"
