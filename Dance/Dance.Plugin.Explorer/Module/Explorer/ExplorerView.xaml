@@ -1,12 +1,34 @@
 ﻿<UserControl x:Class="Dance.Plugin.Explorer.ExplorerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:local="clr-namespace:Dance.Plugin.Explorer"
+             d:DataContext="{d:DesignInstance Type=local:ExplorerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:ExplorerNodeImageSelector x:Key="ExplorerNodeImageSelector"></local:ExplorerNodeImageSelector>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <dxg:TreeViewControl ChildNodesPath="Items"
+                             HasChildNodesPath="HasItems"
+                             ShowSearchPanel="True"
+                             ItemsSource="{Binding Path=Nodes}"
+                             TreeDerivationMode="ChildNodesSelector"
+                             TreeViewFieldName="FileName"
+                             ShowNodeImages="True"
+                             NodeImageSize="12,12"
+                             NodeImageSelector="{StaticResource ExplorerNodeImageSelector}"
+                             ShowBorder="False">
+
+        </dxg:TreeViewControl>
     </Grid>
 </UserControl>

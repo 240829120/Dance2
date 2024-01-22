@@ -8,7 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Icons\folder.svg" />
+    <None Remove="Themes\Icons\project.svg" />
+    <None Remove="Themes\Icons\txt.svg" />
+    <None Remove="Themes\Icons\unknow.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
+    <ProjectReference Include="..\Dance.Plugin.Project\Dance.Plugin.Project.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Icons\folder.svg" />
+    <Resource Include="Themes\Icons\project.svg" />
+    <Resource Include="Themes\Icons\txt.svg" />
+    <Resource Include="Themes\Icons\unknow.svg" />
   </ItemGroup>
 
 </Project>
