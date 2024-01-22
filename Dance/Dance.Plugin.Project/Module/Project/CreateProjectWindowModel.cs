@@ -94,16 +94,32 @@ namespace Dance.Plugin.Project
 
         #endregion
 
-        #region ProjectCategorys -- 项目类型集合
+        #region ProjectCategoryGroups -- 项目类型分组集合
 
-        private DanceObservableCollection<ProjectCategoryModel> projectCategorys = [];
+        private DanceObservableCollection<ProjectCategoryGroupModel> projectCategoryGroups = [];
+
         /// <summary>
-        /// 项目类型集合
+        /// 项目类型分组集合
         /// </summary>
-        public DanceObservableCollection<ProjectCategoryModel> ProjectCategorys
+        public DanceObservableCollection<ProjectCategoryGroupModel> ProjectCategoryGroups
         {
-            get { return projectCategorys; }
-            set { this.SetProperty(ref projectCategorys, value); }
+            get { return projectCategoryGroups; }
+            set { this.SetProperty(ref projectCategoryGroups, value); }
+        }
+
+        #endregion
+
+        #region SelectedProjectCategoryGroup -- 选中的项目类型分组
+
+        private ProjectCategoryGroupModel? selectedProjectCategoryGroup;
+
+        /// <summary>
+        /// 选中的项目类型分组
+        /// </summary>
+        public ProjectCategoryGroupModel? SelectedProjectCategoryGroup
+        {
+            get { return selectedProjectCategoryGroup; }
+            set { this.SetProperty(ref selectedProjectCategoryGroup, value); }
         }
 
         #endregion
@@ -145,11 +161,7 @@ namespace Dance.Plugin.Project
 
             foreach (var group in groups)
             {
-                ProjectCategoryModel groupModel = new()
-                {
-                    Name = group.Key,
-                    Detail = group.Key
-                };
+                ProjectCategoryGroupModel groupModel = new() { GroupName = group.Key };
 
                 foreach (var item in group)
                 {
@@ -158,16 +170,18 @@ namespace Dance.Plugin.Project
                         Name = item.Name,
                         Icon = item.Icon,
                         Detail = item.Detail,
-                        PluginInfo = item
+                        PluginInfo = item,
+                        Tags = item.Tags,
                     };
 
                     groupModel.Items.Add(itemModel);
                 }
 
-                this.ProjectCategorys.Add(groupModel);
+                this.ProjectCategoryGroups.Add(groupModel);
             }
 
-            this.SelectedProjectCategory = this.ProjectCategorys.FirstOrDefault()?.Items.FirstOrDefault();
+            this.SelectedProjectCategoryGroup = this.ProjectCategoryGroups.FirstOrDefault();
+            this.SelectedProjectCategory = this.SelectedProjectCategoryGroup?.Items?.FirstOrDefault();
 
             await Task.CompletedTask;
         }

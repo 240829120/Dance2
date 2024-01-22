@@ -31,7 +31,7 @@
     </dx:ThemedWindow.Resources>
 
     <dx:ThemedWindow.ToolbarItems>
-        <dxb:MainMenuControl VerticalAlignment="Center"/>
+        <dxb:MainMenuControl VerticalAlignment="Center" AllowCustomizationMenu="False"/>
     </dx:ThemedWindow.ToolbarItems>
 
     <Grid>

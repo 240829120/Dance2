@@ -40,6 +40,9 @@ namespace Dance.Plugin.Project
         /// </summary>
         public ImageSource? Icon { get; set; }
 
-
+        /// <summary>
+        /// 标签集合
+        /// </summary>
+        public List<string> Tags { get; set; } = [];
     }
 }

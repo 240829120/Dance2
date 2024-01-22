@@ -17,6 +17,7 @@
 
     <dx:ThemedWindow.Resources>
         <dance:DanceStringEmptyToBoolConverter x:Key="DanceStringEmptyToBoolConverter" TrueResult="True" FalseResult="False"></dance:DanceStringEmptyToBoolConverter>
+        <dance:DanceEasyMathConverter x:Key="DanceEasyMathConverter"></dance:DanceEasyMathConverter>
     </dx:ThemedWindow.Resources>
 
     <Grid>
@@ -30,29 +31,51 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="类型" Margin="10,10,5,10">
-            <dxa:AccordionControl ItemsSource="{Binding Path=ProjectCategorys}" SelectedItem="{Binding Path=SelectedProjectCategory,Mode=TwoWay}" AutoExpandAllItems="True"
-                                  SelectionUnit="SubItem" ShowSearchControl="True" DisplayMemberPath="Name">
-                <dxa:AccordionControl.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Border x:Name="icon">
-                                <Image Source="{Binding Path=Icon}" Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Margin="10,0,10,0"></Image>
-                            </Border>
-                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
-                        </Grid>
-                        <HierarchicalDataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Path=PluginInfo}" Value="{x:Null}">
-                                <Setter TargetName="icon" Property="Visibility" Value="Collapsed"></Setter>
-                            </DataTrigger>
-                        </HierarchicalDataTemplate.Triggers>
-                    </HierarchicalDataTemplate>
-                </dxa:AccordionControl.ItemTemplate>
-            </dxa:AccordionControl>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=ProjectCategoryGroups}" DisplayMember="GroupName" IsTextEditable="False" VerticalAlignment="Center"
+                                  SelectedItem="{Binding Path=SelectedProjectCategoryGroup,Mode=TwoWay}"></dxe:ComboBoxEdit>
+                <dxe:ListBoxEdit Grid.Row="1" ItemsSource="{Binding Path=SelectedProjectCategoryGroup.Items}"
+                                 SelectedItem="{Binding Path=SelectedProjectCategory,Mode=TwoWay}">
+                    <dxe:ListBoxEdit.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type dxe:ListBoxEdit}},Converter={StaticResource DanceEasyMathConverter},ConverterParameter=-20}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Path=Icon}" Width="30" Height="30" Grid.RowSpan="3" VerticalAlignment="Top"></Image>
+                                <TextBlock Text="{Binding Path=Name}" Grid.Column="1" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding Path=Name}"></TextBlock>
+                                <TextBlock Text="{Binding Path=Detail}" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding Path=Detail}" Opacity="0.7"></TextBlock>
+                                <ItemsControl Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Path=Tags}" VerticalAlignment="Center">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"></StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#337d7d7d" Padding="10,5,10,5" Margin="0,0,5,0">
+                                                <TextBlock Text="{Binding .}"></TextBlock>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </dxe:ListBoxEdit.ItemTemplate>
+                </dxe:ListBoxEdit>
+            </Grid>
         </GroupBox>
         <GroupBox Header="属性" Margin="5,10,10,10" Grid.Column="1">
             <Grid Grid.Column="1">

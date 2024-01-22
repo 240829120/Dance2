@@ -22,7 +22,11 @@ namespace Dance.WpfTest
         {
             return new ProjectPluginInfo("TestProject", "测试项目1", "测试")
             {
-                Icon = this.CacheManager.GetImage("pack://application:,,,/Dance.WpfTest;component/Resource/Image/test.svg")
+                Icon = this.CacheManager.GetImage("pack://application:,,,/Dance.WpfTest;component/Resource/Image/test.svg"),
+                Detail = "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述" +
+                " 描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描" +
+                " 述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述",
+                Tags = ["面板", "虚幻", "JavaScript"]
             };
         }
     }

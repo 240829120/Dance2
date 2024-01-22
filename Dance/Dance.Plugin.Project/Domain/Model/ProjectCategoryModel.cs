@@ -71,12 +71,17 @@ namespace Dance.Plugin.Project
 
         #endregion
 
-        #region Items -- 子项集合
+        #region Tags -- 标签
 
+        private List<string>? tags;
         /// <summary>
-        /// 子项集合
+        /// 标签
         /// </summary>
-        public DanceObservableCollection<ProjectCategoryModel> Items { get; } = [];
+        public List<string>? Tags
+        {
+            get { return tags; }
+            set { this.SetProperty(ref tags, value); }
+        }
 
         #endregion
     }

@@ -25,7 +25,7 @@
         <GroupBox Header="插件" Margin="10,10,5,10">
             <dxg:GridControl Name="grid" Grid.Column="0" ItemsSource="{Binding Path=PluginInfos}" ShowBorder="False">
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="ID" ReadOnly="True" Width="200" AllowAutoFilter="False"></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ID" ReadOnly="True" Width="200" AllowAutoFilter="False" ></dxg:GridColumn>
                     <dxg:GridColumn FieldName="Name" ReadOnly="True" Width="200" AllowAutoFilter="False"></dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
