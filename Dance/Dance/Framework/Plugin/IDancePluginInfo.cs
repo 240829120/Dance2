@@ -12,9 +12,9 @@ namespace Dance
     public interface IDancePluginInfo
     {
         /// <summary>
-        /// 编号
+        /// 插件ID
         /// </summary>
-        string ID { get; }
+        DancePluginID ID { get; }
 
         /// <summary>
         /// 名称

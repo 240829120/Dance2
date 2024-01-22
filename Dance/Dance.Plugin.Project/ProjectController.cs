@@ -270,7 +270,7 @@ namespace Dance.Plugin.Project
                 {
                     Name = vm.ProjectName,
                     Detail = vm.ProjectDetail,
-                    PluginID = vm.SelectedProjectCategory.PluginInfo.ID,
+                    PluginKey = vm.SelectedProjectCategory.PluginInfo.ID.Key,
                     PluginName = vm.SelectedProjectCategory.PluginInfo.Name
                 };
 
@@ -381,10 +381,10 @@ namespace Dance.Plugin.Project
             if (this.ProjectManager.Current != null)
                 return false;
 
-            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo.ID == config.PluginID);
+            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo.ID.Key == config.PluginKey);
             if (pluginDomain == null || pluginDomain.PluginInfo is not ProjectPluginInfo pluginInfo)
             {
-                log.Error($"未找到项目插件: {config.PluginID}, {config.PluginName}");
+                log.Error($"未找到项目插件: {config.PluginKey}");
                 return false;
             }
 

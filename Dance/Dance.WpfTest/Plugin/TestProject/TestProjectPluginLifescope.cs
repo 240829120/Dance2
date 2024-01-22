@@ -20,7 +20,7 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            return new ProjectPluginInfo("TestProject", "测试项目1", "测试")
+            return new ProjectPluginInfo(new("TEST", "测试项目", "TestProject"), "测试项目1", "测试")
             {
                 Icon = this.CacheManager.GetImage("pack://application:,,,/Dance.WpfTest;component/Resource/Image/test.svg"),
                 Detail = "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述" +

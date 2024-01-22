@@ -22,7 +22,7 @@ namespace Dance.Plugin.Plugin
         /// <returns></returns>
         public IDancePluginInfo Register()
         {
-            DanceBarPluginInfo info = new("Dance.Plugin.Plugin", "插件");
+            DanceBarPluginInfo info = new(new("Dance", "Plugin", "MainMenu"), "插件主菜单");
 
             info.MenuItems.Add(this.PluginController.CreateMainMenu());
 

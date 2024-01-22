@@ -164,7 +164,7 @@ namespace Dance.Framework
 
                 this.Layouts.Add(new()
                 {
-                    ID = info.ID,
+                    Key = info.ID.Key,
                     Caption = info.Name,
                     ToolTip = info.Name,
                     AllowClose = info.AllowClose,

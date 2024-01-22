@@ -11,16 +11,16 @@ namespace Dance.Framework
     /// </summary>
     public class DanceDockItemViewModelBase : DanceViewModel
     {
-        #region ID -- 编号
+        #region Key -- 键
 
-        private string? id;
+        private string? key;
         /// <summary>
-        /// 编号
+        /// 键
         /// </summary>
-        public string? ID
+        public string? Key
         {
-            get { return id; }
-            set { this.SetProperty(ref id, value); }
+            get { return key; }
+            set { this.SetProperty(ref key, value); }
         }
 
         #endregion

@@ -16,7 +16,7 @@ namespace Dance.WpfTest
 
         public IDancePluginInfo Register()
         {
-            return new DanceLayoutViewPluginInfo("TestLayout2", "测试面板2", typeof(TestLayoutView2));
+            return new DanceLayoutViewPluginInfo(new("TEST", "Layout", "TestLayout2"), "测试面板2", typeof(TestLayoutView2));
         }
     }
 }

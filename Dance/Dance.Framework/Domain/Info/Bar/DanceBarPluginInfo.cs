@@ -10,14 +10,14 @@ namespace Dance.Framework
     /// <summary>
     /// 菜单插件信息
     /// </summary>
-    /// <param name="id">编号</param>
+    /// <param name="id">插件编号</param>
     /// <param name="name">名称</param>
-    public class DanceBarPluginInfo(string id, string name) : IDancePluginInfo
+    public class DanceBarPluginInfo(DancePluginID id, string name) : IDancePluginInfo
     {
         /// <summary>
-        /// 编号
+        /// 插件编号
         /// </summary>
-        public string ID { get; } = id;
+        public DancePluginID ID { get; } = id;
 
         /// <summary>
         /// 名称

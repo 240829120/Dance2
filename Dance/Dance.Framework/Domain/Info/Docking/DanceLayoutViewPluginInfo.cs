@@ -10,10 +10,10 @@ namespace Dance.Framework
     /// <summary>
     /// 面板视图插件信息
     /// </summary>
-    /// <param name="id">编号</param>
+    /// <param name="id">插件编号</param>
     /// <param name="name">名称</param>
     /// <param name="viewType">视图类型</param>
-    public class DanceLayoutViewPluginInfo(string id, string name, Type viewType) : DanceDockingItemPluginInfoBase(id, name, viewType)
+    public class DanceLayoutViewPluginInfo(DancePluginID id, string name, Type viewType) : DanceDockingItemPluginInfoBase(id, name, viewType)
     {
 
     }

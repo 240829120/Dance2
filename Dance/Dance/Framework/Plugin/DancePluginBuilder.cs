@@ -95,7 +95,7 @@ namespace Dance
                     DancePluginDomain domain = new(lifescope, info);
                     this.pluginDomains.Add(domain);
 
-                    Debug.WriteLine($"注册插件 ID: {info.ID}, Name: {info.Name}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+                    Debug.WriteLine($"注册插件 {info.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +140,7 @@ namespace Dance
                     domain.Lifescope.Initialize();
                     domain.IsInitialized = true;
 
-                    Debug.WriteLine($"初始化插件 ID: {domain.PluginInfo.ID}, Name: {domain.PluginInfo.Name}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+                    Debug.WriteLine($"初始化插件 {domain.PluginInfo.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
                 }
                 catch (Exception ex)
                 {
@@ -178,7 +178,7 @@ namespace Dance
             {
                 stopwatch.Restart();
                 domain.Dispose();
-                Debug.WriteLine($"注册插件 ID: {domain.PluginInfo.ID}, Name: {domain.PluginInfo.Name}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+                Debug.WriteLine($"注册插件 {domain.PluginInfo.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
             }
 #else
             foreach (DancePluginDomain domain in this.PluginDomains)

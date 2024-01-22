@@ -10,15 +10,15 @@ namespace Dance.Plugin.Project
     /// <summary>
     /// 项目插件信息
     /// </summary>
-    /// <param name="id">编号</param>
+    /// <param name="id">插件ID</param>
     /// <param name="name">名称</param>
-    /// <param name="group">分组</param>
-    public class ProjectPluginInfo(string id, string name, string group) : IDancePluginInfo
+    /// <param name="categoryGroup">分类分组</param>
+    public class ProjectPluginInfo(DancePluginID id, string name, string categoryGroup) : IDancePluginInfo
     {
         /// <summary>
-        /// 编号
+        /// 插件ID
         /// </summary>
-        public string ID { get; } = id;
+        public DancePluginID ID { get; } = id;
 
         /// <summary>
         /// 名称
@@ -26,9 +26,9 @@ namespace Dance.Plugin.Project
         public string Name { get; } = name;
 
         /// <summary>
-        /// 分组
+        /// 分类分组
         /// </summary>
-        public string Group { get; } = group;
+        public string CategoryGroup { get; } = categoryGroup;
 
         /// <summary>
         /// 描述

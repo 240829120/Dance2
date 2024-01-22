@@ -157,7 +157,7 @@ namespace Dance.Plugin.Project
         {
             var groups = DanceDomain.Current.PluginBuilder.PluginDomains.Where(p => p.PluginInfo is ProjectPluginInfo)
                                                                         .Select(p => (ProjectPluginInfo)p.PluginInfo)
-                                                                        .GroupBy(p => p.Group);
+                                                                        .GroupBy(p => p.CategoryGroup);
 
             foreach (var group in groups)
             {
