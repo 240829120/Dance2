@@ -34,7 +34,7 @@ namespace Dance.Wpf
         /// </summary>
         public void Build()
         {
-            RecordInvoke = ExecuteRecordInvoke;
+            DanceModelBase.RecordInvoke = ExecuteRecordInvoke;
 
             this.LoopManager = DanceDomain.Current.LifeScope.Resolve<IDanceLoopManager>();
             this.LoopManager.Register("IDanceRecordManager.Flush", 30, () =>

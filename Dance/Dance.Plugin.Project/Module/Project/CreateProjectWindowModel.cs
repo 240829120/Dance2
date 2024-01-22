@@ -186,7 +186,10 @@ namespace Dance.Plugin.Project
         /// </summary>
         private async Task ChooseProjectPath()
         {
-            FolderBrowserDialog dialog = new();
+            FolderBrowserDialog dialog = new()
+            {
+                SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects")
+            };
             if (dialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(dialog.SelectedPath))
                 return;
 

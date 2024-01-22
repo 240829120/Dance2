@@ -21,10 +21,23 @@ namespace Dance
     /// </summary>
     public class DanceModel : DanceModelBase, IDataErrorInfo
     {
+        // ===================================================================================================
+        // **** Field ****
+        // ===================================================================================================
+
         /// <summary>
         /// 错误集合
         /// </summary>
         internal readonly Dictionary<string, DanceValidatePropertyInfo?> ErrorDic = [];
+
+        /// <summary>
+        /// 验证类型信息
+        /// </summary>
+        private DanceValidateTypeInfo? ValidateTypeInfo;
+
+        // ===================================================================================================
+        // **** Property ****
+        // ===================================================================================================
 
         /// <summary>
         /// <inheritdoc cref="IDanceHistoryManager"/>
@@ -40,7 +53,11 @@ namespace Dance
         /// 错误信息
         /// </summary>
         /// <param name="propertyName">属性名</param>
-        public string this[string propertyName] => DanceValidateHelper.ValidateProperty(this, propertyName)?.ErrorMessage ?? string.Empty;
+        public string this[string propertyName] => DanceValidateHelper.ValidateProperty(this, propertyName, ref this.ValidateTypeInfo)?.ErrorMessage ?? string.Empty;
+
+        // ===================================================================================================
+        // **** Public Function ****
+        // ===================================================================================================
 
         /// <summary>
         /// 验证属性
@@ -52,7 +69,7 @@ namespace Dance
             if (string.IsNullOrWhiteSpace(propertyName))
                 return null;
 
-            return DanceValidateHelper.ValidateProperty(this, propertyName);
+            return DanceValidateHelper.ValidateProperty(this, propertyName, ref this.ValidateTypeInfo);
         }
 
         /// <summary>
@@ -61,7 +78,7 @@ namespace Dance
         /// <returns>验证结果</returns>
         public List<DanceValidatePropertyInfo> Validate()
         {
-            return DanceValidateHelper.Validate(this);
+            return DanceValidateHelper.Validate(this, ref this.ValidateTypeInfo);
         }
 
         /// <summary>

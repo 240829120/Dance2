@@ -48,13 +48,13 @@ namespace Dance
                 }
             }
 
-            if (DanceModel.DispatcherCheckAccess == null || DanceModel.DispatcherCheckAccess())
+            if (DanceModelBase.DispatcherCheckAccess == null || DanceModelBase.DispatcherCheckAccess())
             {
                 base.OnCollectionChanged(e);
             }
             else
             {
-                DanceModel.DispatcherInvoke?.Invoke(() =>
+                DanceModelBase.DispatcherInvoke?.Invoke(() =>
                 {
                     base.OnCollectionChanged(e);
                 });

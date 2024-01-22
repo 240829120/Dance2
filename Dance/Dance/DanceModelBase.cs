@@ -15,7 +15,30 @@ namespace Dance
     /// 模型基类
     /// </summary>
     public abstract class DanceModelBase : DanceObject, IDisposable, INotifyPropertyChanging, INotifyPropertyChanged
-    {
+    {       
+        // ===================================================================================================
+        // **** Static ****
+        // ===================================================================================================
+
+        /// <summary>
+        /// 调度检测是否可用
+        /// </summary>
+        public static Func<bool>? DispatcherCheckAccess { get; set; }
+
+        /// <summary>
+        /// 调度执行
+        /// </summary>
+        public static Action<Action>? DispatcherInvoke { get; set; }
+
+        /// <summary>
+        /// 日志执行
+        /// </summary>
+        public static Action<string>? RecordInvoke { get; set; }
+
+        // ===================================================================================================
+        // **** Event ****
+        // ===================================================================================================
+
         /// <summary>
         /// <inheritdoc cref="INotifyPropertyChanging.PropertyChanging"/>
         /// </summary>
@@ -25,6 +48,10 @@ namespace Dance
         /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        // ===================================================================================================
+        // **** Public Function ****
+        // ===================================================================================================
 
         /// <summary>
         /// 通知属性改变之前

@@ -25,15 +25,16 @@ namespace Dance
         /// </summary>
         /// <param name="target">验证目标</param>
         /// <param name="propertyName">属性</param>
+        /// <param name="typeInfo">验证类型信息</param>
         /// <returns>验证信息</returns>
-        public static DanceValidatePropertyInfo? ValidateProperty(DanceModel target, string? propertyName)
+        public static DanceValidatePropertyInfo? ValidateProperty(DanceModel target, string? propertyName, ref DanceValidateTypeInfo? typeInfo)
         {
             if (target == null || string.IsNullOrWhiteSpace(propertyName))
                 return null;
 
             Type type = target.GetType();
 
-            DanceValidateTypeInfo typeInfo = GetValidateTypeInfo(type);
+            typeInfo ??= GetValidateTypeInfo(type);
             if (!typeInfo.Properties.TryGetValue(propertyName, out PropertyInfo? property))
                 return null;
 
@@ -41,13 +42,26 @@ namespace Dance
         }
 
         /// <summary>
+        /// 验证属性
+        /// </summary>
+        /// <param name="target">验证目标</param>
+        /// <param name="propertyName">属性</param>
+        /// <returns>验证信息</returns>
+        public static DanceValidatePropertyInfo? ValidateProperty(DanceModel target, string? propertyName)
+        {
+            DanceValidateTypeInfo? typeInfo = null;
+            return ValidateProperty(target, propertyName, ref typeInfo);
+        }
+
+        /// <summary>
         /// 验证对象
         /// </summary>
         /// <param name="target">验证结果</param>
-        public static List<DanceValidatePropertyInfo> Validate(DanceModel target)
+        /// <param name="typeInfo">验证类型信息</param>
+        public static List<DanceValidatePropertyInfo> Validate(DanceModel target, ref DanceValidateTypeInfo? typeInfo)
         {
             Type type = target.GetType();
-            DanceValidateTypeInfo typeInfo = GetValidateTypeInfo(type);
+            typeInfo ??= GetValidateTypeInfo(type);
 
             List<DanceValidatePropertyInfo> result = [];
 
@@ -61,6 +75,16 @@ namespace Dance
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 验证对象
+        /// </summary>
+        /// <param name="target">验证结果</param>
+        public static List<DanceValidatePropertyInfo> Validate(DanceModel target)
+        {
+            DanceValidateTypeInfo? typeInfo = null;
+            return Validate(target, ref typeInfo);
         }
 
         /// <summary>

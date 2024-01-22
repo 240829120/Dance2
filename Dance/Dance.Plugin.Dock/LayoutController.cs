@@ -128,7 +128,7 @@ namespace Dance.Plugin
 
             // 主菜单
             this.MainSubItem.Content = "布局(_L)";
-            this.MainSubItem.Order = 1000;
+            this.MainSubItem.Order = DefaultMainMenuOrders.Layout;
 
             this.MainSubItem.Items.Add(this.SaveLayoutItem);
             this.MainSubItem.Items.Add(this.ApplyLayoutItem);

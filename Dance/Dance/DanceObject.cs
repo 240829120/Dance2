@@ -41,21 +41,6 @@ namespace Dance
         /// </summary>
         private readonly static DanceJsonObjectConverter JsonObjectConverter = new();
 
-        /// <summary>
-        /// 调度检测是否可用
-        /// </summary>
-        public static Func<bool>? DispatcherCheckAccess { get; set; }
-
-        /// <summary>
-        /// 调度执行
-        /// </summary>
-        public static Action<Action>? DispatcherInvoke { get; set; }
-
-        /// <summary>
-        /// 日志执行
-        /// </summary>
-        public static Action<string>? RecordInvoke { get; set; }
-
         // ===================================================================================================
         // **** Static Function ****
         // ===================================================================================================

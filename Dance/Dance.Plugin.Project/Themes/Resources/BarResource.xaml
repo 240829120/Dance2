@@ -5,6 +5,7 @@
                     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
                     xmlns:dxdove="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
                     xmlns:dxbt="http://schemas.devexpress.com/winfx/2008/xaml/bars/themekeys"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:Dance.Plugin.Project">
 
     <!-- BarStaticItem -->
@@ -13,7 +14,6 @@
             <dxb:BarStaticItem CategoryName="{Binding Path=CategoryName}"
                                Content="{Binding Path=Content}"
                                Glyph="{Binding Path=Glyph}"
-                               GlyphTemplate="{Binding Path=GlyphTemplate}"
                                IsEnabled="{Binding Path=IsEnabled}"
                                BarItemDisplayMode="ContentAndGlyph"
                                Alignment="{Binding Path=Alignment}"
@@ -22,12 +22,15 @@
                                Description="{Binding Path=Description}">
                 <dxb:BarStaticItem.ContentTemplate>
                     <DataTemplate>
-                        <Border x:Name="border" Background="#227d7d7d" Padding="10,3,10,3" UseLayoutRounding="True" SnapsToDevicePixels="True"
+                        <Border x:Name="border" Background="#337d7d7d" Padding="15,3,15,3" UseLayoutRounding="True" SnapsToDevicePixels="True"
                                 ToolTip="{Binding Path=ProjectPath}">
                             <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"></TextBlock>
                         </Border>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding .}" Value="{x:Null}">
+                                <Setter TargetName="border" Property="Visibility" Value="Collapsed"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding .}" Value="{x:Static Member=sys:String.Empty}">
                                 <Setter TargetName="border" Property="Visibility" Value="Collapsed"></Setter>
                             </DataTrigger>
                         </DataTemplate.Triggers>

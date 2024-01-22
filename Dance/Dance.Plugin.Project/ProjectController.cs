@@ -211,7 +211,7 @@ namespace Dance.Plugin.Project
 
             // 主菜单
             this.MainSubItem.Content = "项目(_P)";
-            this.MainSubItem.Order = -1000;
+            this.MainSubItem.Order = DefaultMainMenuOrders.Project;
 
             this.MainSubItem.Items.Add(this.CreateProjectItem);
             this.MainSubItem.Items.Add(this.OpenProjectItem);
@@ -220,8 +220,8 @@ namespace Dance.Plugin.Project
 
             result.Add(this.MainSubItem);
 
-            result.Add(new DanceBarSeparatorItemModel() { Order = 1001 });
-            this.ProjectNameItem.Order = 1002;
+            result.Add(new DanceBarSeparatorItemModel() { Order = DefaultMainMenuOrders.MenuSeparator });
+            this.ProjectNameItem.Order = DefaultMainMenuOrders.ProjectName;
             result.Add(this.ProjectNameItem);
 
             return result;

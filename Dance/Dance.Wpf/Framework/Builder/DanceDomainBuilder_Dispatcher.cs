@@ -23,8 +23,8 @@ namespace Dance.Wpf
         /// </summary>
         public void Build()
         {
-            DispatcherCheckAccess = ExecuteDispatcherCheckAccess;
-            DispatcherInvoke = ExecuteDispatcherInvoke;
+            DanceModelBase.DispatcherCheckAccess = ExecuteDispatcherCheckAccess;
+            DanceModelBase.DispatcherInvoke = ExecuteDispatcherInvoke;
         }
 
         /// <summary>

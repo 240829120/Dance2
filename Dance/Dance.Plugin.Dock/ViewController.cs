@@ -81,6 +81,7 @@ namespace Dance.Plugin.Dock
         public DanceBarSubItemModel CreateMainMenu()
         {
             this.MainSubItem.Content = "视图(_V)";
+            this.MainSubItem.Order = DefaultMainMenuOrders.View;
 
             return this.MainSubItem;
         }
