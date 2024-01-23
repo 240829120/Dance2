@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
+using DevExpress.Xpf.Grid.TreeList;
+using System.Windows.Input;
 
 namespace Dance.Plugin.Explorer
 {
@@ -18,6 +20,9 @@ namespace Dance.Plugin.Explorer
     {
         public ExplorerViewModel()
         {
+            this.NodeDoubleClickCommand = new(COMMAND_GROUP, "节点双击", this.NodeDoubleClick);
+            this.NodeEditingCommand = new(COMMAND_GROUP, "节点编辑", this.NodeEditing);
+
             DanceDomain.Current.Messenger.Register<ProjectClosedMsg>(this, this.OnProjectClosed);
             DanceDomain.Current.Messenger.Register<ProjectOpendMsg>(this, this.OnProjectOpend);
         }
@@ -32,6 +37,11 @@ namespace Dance.Plugin.Explorer
         private const string COMMAND_GROUP = "资源管理器";
 
         /// <summary>
+        /// 资源管理器管理器
+        /// </summary>
+        private readonly IExplorerManager ExplorerManager = DanceDomain.Current.LifeScope.Resolve<IExplorerManager>();
+
+        /// <summary>
         /// 项目管理器
         /// </summary>
         private readonly IProjectManager ProjectManager = DanceDomain.Current.LifeScope.Resolve<IProjectManager>();
@@ -42,11 +52,11 @@ namespace Dance.Plugin.Explorer
 
         #region Nodes -- 节点集合
 
-        private DanceObservableCollection<ExplorerNodeModel> nodes = [];
+        private DanceObservableCollection<ExplorerNodeModel>? nodes;
         /// <summary>
         /// 节点集合
         /// </summary>
-        public DanceObservableCollection<ExplorerNodeModel> Nodes
+        public DanceObservableCollection<ExplorerNodeModel>? Nodes
         {
             get { return nodes; }
             set { this.SetProperty(ref nodes, value); }
@@ -54,9 +64,74 @@ namespace Dance.Plugin.Explorer
 
         #endregion
 
+        #region SelectedNode -- 当前选中节点
+
+        private ExplorerNodeModel? selectedNode;
+        /// <summary>
+        /// 当前选中节点
+        /// </summary>
+        public ExplorerNodeModel? SelectedNode
+        {
+            get { return selectedNode; }
+            set
+            {
+                if (selectedNode != null)
+                {
+                    selectedNode.IsEditing = false;
+                }
+                this.SetProperty(ref selectedNode, value);
+            }
+        }
+
+        #endregion
+
         // ===================================================================================================
         // **** Command ****
         // ===================================================================================================
+
+        #region NodeDoubleClickCommand -- 节点双击命令
+
+        /// <summary>
+        /// 节点双击命令
+        /// </summary>
+        public DanceCommand<NodeDoubleClickEventArgs> NodeDoubleClickCommand { get; private set; }
+
+        /// <summary>
+        /// 节点双击
+        /// </summary>
+        private async Task NodeDoubleClick(NodeDoubleClickEventArgs? e)
+        {
+            if (e == null || this.SelectedNode == null || this.SelectedNode.IsEditing)
+                return;
+
+            this.SelectedNode.IsExpanded = !this.SelectedNode.IsExpanded;
+
+            await Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region NodeEditingCommand -- 节点编辑命令
+
+        /// <summary>
+        /// 节点编辑命令
+        /// </summary>
+        public DanceCommand NodeEditingCommand { get; private set; }
+
+        /// <summary>
+        /// 节点编辑
+        /// </summary>
+        private async Task NodeEditing()
+        {
+            if (this.SelectedNode == null)
+                return;
+
+            this.SelectedNode.IsEditing = true;
+
+            await Task.CompletedTask;
+        }
+
+        #endregion
 
         // ===================================================================================================
         // **** Message ****
@@ -69,7 +144,7 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         private void OnProjectClosed(object sender, ProjectClosedMsg msg)
         {
-            this.Nodes.Clear();
+            this.ExplorerManager.UnInitialize();
         }
 
         #endregion
@@ -85,10 +160,8 @@ namespace Dance.Plugin.Explorer
             if (project == null)
                 return;
 
-            ExplorerNodeModel root = new(ExplorerNodeType.Project, project.WorkPath) { HasItems = true };
-            root.Expand();
-
-            this.Nodes.Add(root);
+            this.ExplorerManager.Initialize(project);
+            this.Nodes = this.ExplorerManager.Nodes;
         }
 
         #endregion

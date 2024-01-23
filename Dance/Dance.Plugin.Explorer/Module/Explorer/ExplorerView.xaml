@@ -4,10 +4,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:framework="clr-namespace:Dance.Framework;assembly=Dance.Framework"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:local="clr-namespace:Dance.Plugin.Explorer"
              d:DataContext="{d:DesignInstance Type=local:ExplorerViewModel}"
              mc:Ignorable="d" 
@@ -15,20 +17,46 @@
 
     <UserControl.Resources>
         <local:ExplorerNodeImageSelector x:Key="ExplorerNodeImageSelector"></local:ExplorerNodeImageSelector>
+        <local:ExplorerNodesSelector x:Key="ExplorerNodesSelector"></local:ExplorerNodesSelector>
     </UserControl.Resources>
 
     <Grid>
-        <dxg:TreeViewControl ChildNodesPath="Items"
-                             HasChildNodesPath="HasItems"
+        <dxg:TreeViewControl ExpandStateFieldName="IsExpanded"
                              ShowSearchPanel="True"
-                             ItemsSource="{Binding Path=Nodes}"
+                             ItemsSource="{Binding Path=Nodes,Mode=OneWay}"
+                             SelectedItem="{Binding Path=SelectedNode,Mode=TwoWay}"
                              TreeDerivationMode="ChildNodesSelector"
-                             TreeViewFieldName="FileName"
+                             TreeViewFieldName="FileName" SelectionMode="Row"
                              ShowNodeImages="True"
-                             NodeImageSize="12,12"
+                             NodeImageSize="14,14" FetchSublevelChildrenOnExpand="True"
                              NodeImageSelector="{StaticResource ExplorerNodeImageSelector}"
-                             ShowBorder="False">
-
+                             ChildNodesSelector="{StaticResource ExplorerNodesSelector}"
+                             ShowBorder="False"
+                             AllowEditing="False">
+            <dxg:TreeViewControl.NodeContentTemplate>
+                <DataTemplate>
+                    <Grid Height="25">
+                        <TextBlock x:Name="tb" Text="{Binding Path=Row.FileName}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                   Margin="3,0,3,0"></TextBlock>
+                        <dxe:TextEdit x:Name="edit" Text="{Binding Path=Row.FileName,UpdateSourceTrigger=LostFocus}" ShowBorder="True" Visibility="Collapsed">
+                            <dxmvvm:Interaction.Behaviors>
+                                <framework:TextEditorIsVisibleSelectAllBehavior></framework:TextEditorIsVisibleSelectAllBehavior>
+                                <dxmvvm:KeyToCommand KeyGesture="Enter" Command="{Binding Path=Row.EnterCommand}"></dxmvvm:KeyToCommand>
+                            </dxmvvm:Interaction.Behaviors>
+                        </dxe:TextEdit>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Row.IsEditing}" Value="True">
+                            <Setter TargetName="tb" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter TargetName="edit" Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </dxg:TreeViewControl.NodeContentTemplate>
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="NodeDoubleClick" Command="{Binding Path=NodeDoubleClickCommand}" PassEventArgsToCommand="True"></dxmvvm:EventToCommand>
+                <dxmvvm:KeyToCommand KeyGesture="F2" Command="{Binding Path=NodeEditingCommand}"></dxmvvm:KeyToCommand>
+            </dxmvvm:Interaction.Behaviors>
         </dxg:TreeViewControl>
     </Grid>
 </UserControl>

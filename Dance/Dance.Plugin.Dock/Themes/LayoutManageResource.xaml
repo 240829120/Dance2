@@ -12,7 +12,6 @@
             <dxb:BarCheckItem CategoryName="{Binding Path=CategoryName}"
                               Content="{Binding Path=Content}"
                               Glyph="{Binding Path=Glyph}"
-                              GlyphTemplate="{Binding Path=GlyphTemplate}"
                               ToolTip="{Binding Path=ToolTip}"
                               IsEnabled="{Binding Path=DockingItem.AllowClose}"
                               BarItemDisplayMode="ContentAndGlyph"

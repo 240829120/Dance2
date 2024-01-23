@@ -27,6 +27,7 @@
 		<ProjectReference Include="..\Dance.Plugin.Dock\Dance.Plugin.Dock.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Explorer\Dance.Plugin.Explorer.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Help\Dance.Plugin.Help.csproj" />
+		<ProjectReference Include="..\Dance.Plugin.Log\Dance.Plugin.Log.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Plugin\Dance.Plugin.Plugin.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Project\Dance.Plugin.Project.csproj" />
 		<ProjectReference Include="..\Dance.Wpf\Dance.Wpf.csproj" />
@@ -44,6 +45,9 @@
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\log.config">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

@@ -22,7 +22,7 @@ namespace Dance.WpfTest
 
         private async Task Click()
         {
-            Debug.WriteLine("1");
+            log.Info("this is a try.");
 
             await Task.Delay(5000);
         }

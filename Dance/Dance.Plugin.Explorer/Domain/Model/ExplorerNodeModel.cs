@@ -1,6 +1,8 @@
 ﻿using Dance.Wpf;
+using DevExpress.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +12,44 @@ namespace Dance.Plugin.Explorer
     /// <summary>
     /// 资源管理器节点模型
     /// </summary>
-    /// <param name="nodeType">节点类型</param>
-    /// <param name="path">路径</param>
-    public class ExplorerNodeModel(ExplorerNodeType nodeType, string path) : DanceModel
+    public class ExplorerNodeModel : DanceModel
     {
+        /// <summary>
+        /// 资源管理器节点模型
+        /// </summary>
+        /// <param name="nodeType">节点类型</param>
+        /// <param name="path">路径</param>
+        /// <param name="parent">父级节点</param>
+        public ExplorerNodeModel(ExplorerNodeType nodeType, string path, ExplorerNodeModel? parent)
+        {
+            this.nodeType = nodeType;
+            this.path = path;
+            this.directoryName = System.IO.Path.GetDirectoryName(path);
+            this.fileName = System.IO.Path.GetFileName(path);
+            this.extension = System.IO.Path.GetExtension(path);
+            this.parent = parent;
+
+            this.EnterCommand = new(COMMAND_GROUP, "确定", this.Enter);
+        }
+
         // ===================================================================================================
         // **** Field ****
         // ===================================================================================================
 
         /// <summary>
-        /// 是否已经展开过
+        /// 命令分组
         /// </summary>
-        private bool IsExpanded;
+        private const string COMMAND_GROUP = "资源管理器节点";
+
+        /// <summary>
+        /// 是否加载了子项
+        /// </summary>
+        private bool IsLoadedItems;
+
+        /// <summary>
+        /// 消息管理器
+        /// </summary>
+        private readonly static IDanceMessageManager MessageManager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
 
         // ===================================================================================================
         // **** Property ****
@@ -32,23 +60,44 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         public DanceObservableCollection<ExplorerNodeModel> Items { get; } = [];
 
-        #region HasItems -- 是否拥有子项
+        #region Parent -- 父级节点
 
-        private bool hasItems;
+        private ExplorerNodeModel? parent;
         /// <summary>
-        /// 是否拥有子项
+        /// 父级节点
         /// </summary>
-        public bool HasItems
+        public ExplorerNodeModel? Parent
         {
-            get { return hasItems; }
-            set { this.SetProperty(ref hasItems, value); }
+            get { return parent; }
+            set { this.SetProperty(ref parent, value); }
+        }
+
+        #endregion
+
+        #region IsExpanded -- 是否展开
+
+        private bool isExpanded;
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set
+            {
+                this.SetProperty(ref isExpanded, value);
+                if (value)
+                {
+                    this.Expand();
+                }
+            }
         }
 
         #endregion
 
         #region NodeType -- 节点类型
 
-        private ExplorerNodeType nodeType = nodeType;
+        private ExplorerNodeType nodeType;
         /// <summary>
         /// 节点类型
         /// </summary>
@@ -62,7 +111,7 @@ namespace Dance.Plugin.Explorer
 
         #region DirectoryName -- 文件夹名称
 
-        private string? directoryName = System.IO.Path.GetDirectoryName(path);
+        private string? directoryName;
         /// <summary>
         /// 文件夹名称
         /// </summary>
@@ -76,21 +125,28 @@ namespace Dance.Plugin.Explorer
 
         #region FileName -- 文件名
 
-        private string? fileName = System.IO.Path.GetFileName(path);
+        private string? fileName;
         /// <summary>
         /// 文件名
         /// </summary>
         public string? FileName
         {
             get { return fileName; }
-            set { this.SetProperty(ref fileName, value); }
+            set
+            {
+                if (!this.TryRename(fileName, value))
+                {
+                    MessageManager.ShowError($"路径: \"{value}\" 已经存在");
+                    return;
+                }
+            }
         }
 
         #endregion
 
         #region Path -- 路径
 
-        private string path = path;
+        private string path;
 
         /// <summary>
         /// 路径
@@ -105,7 +161,7 @@ namespace Dance.Plugin.Explorer
 
         #region Extension -- 扩展名
 
-        private string? extension = System.IO.Path.GetExtension(path);
+        private string? extension;
         /// <summary>
         /// 扩展名
         /// </summary>
@@ -131,16 +187,70 @@ namespace Dance.Plugin.Explorer
 
         #endregion
 
+        #region IsEditing -- 是否正在编辑
+
+        private bool isEditing;
+        /// <summary>
+        /// 是否正在编辑
+        /// </summary>
+        public bool IsEditing
+        {
+            get { return isEditing; }
+            set { this.SetProperty(ref isEditing, value); }
+        }
+
+        #endregion
+
+        // ===================================================================================================
+        // **** Command ****
+        // ===================================================================================================
+
+        #region EnterCommand -- 确定命令
+
+        /// <summary>
+        /// 确定命令
+        /// </summary>
+        public DanceCommand EnterCommand { get; private set; }
+
+        /// <summary>
+        /// 确定
+        /// </summary>
+        /// <returns></returns>
+        private async Task Enter()
+        {
+            this.IsEditing = false;
+            await Task.CompletedTask;
+        }
+
+        #endregion
+
         // ===================================================================================================
         // **** Public Function ****
         // ===================================================================================================
+
+        /// <summary>
+        /// 初始化路径
+        /// </summary>
+        /// <param name="path">路径</param>
+        public void InitPath(string path)
+        {
+            this.path = path;
+            this.directoryName = System.IO.Path.GetDirectoryName(path);
+            this.fileName = System.IO.Path.GetFileName(path);
+            this.extension = System.IO.Path.GetExtension(path);
+
+            this.NotifyPropertyChanged(nameof(this.DirectoryName));
+            this.NotifyPropertyChanged(nameof(this.FileName));
+            this.NotifyPropertyChanged(nameof(this.DirectoryName));
+            this.NotifyPropertyChanged(nameof(this.Path));
+        }
 
         /// <summary>
         /// 展开
         /// </summary>
         public void Expand()
         {
-            if (this.IsExpanded)
+            if (this.IsLoadedItems)
                 return;
 
             this.Items.Clear();
@@ -149,16 +259,16 @@ namespace Dance.Plugin.Explorer
             {
                 foreach (var folder in System.IO.Directory.GetDirectories(this.Path))
                 {
-                    this.Items.Add(new(ExplorerNodeType.Folder, folder) { HasItems = true });
+                    this.Items.Add(new(ExplorerNodeType.Folder, folder, this));
                 }
 
                 foreach (var file in System.IO.Directory.GetFiles(this.Path))
                 {
-                    this.Items.Add(new(ExplorerNodeType.File, file) { HasItems = false });
+                    this.Items.Add(new(ExplorerNodeType.File, file, this));
                 }
             }
 
-            this.IsExpanded = true;
+            this.IsLoadedItems = true;
         }
 
         /// <summary>
@@ -166,8 +276,35 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         public void Refresh()
         {
-            this.IsExpanded = false;
+            this.IsLoadedItems = false;
             this.Expand();
+        }
+
+        /// <summary>
+        /// 尝试重命名
+        /// </summary>
+        /// <param name="oldName">原始名字</param>
+        /// <param name="newName">新名字</param>
+        /// <returns>是否成功重命名</returns>
+        public bool TryRename(string? oldName, string? newName)
+        {
+            if (string.IsNullOrWhiteSpace(oldName) || string.IsNullOrWhiteSpace(newName))
+                return false;
+
+            string newPath = System.IO.Path.Combine(this.DirectoryName ?? string.Empty, newName);
+            if (System.IO.Path.Exists(newPath))
+                return false;
+
+            if (this.NodeType == ExplorerNodeType.File)
+            {
+                File.Move(this.Path, newPath);
+            }
+            else
+            {
+                Directory.Move(this.Path, newPath);
+            }
+
+            return true;
         }
     }
 }
