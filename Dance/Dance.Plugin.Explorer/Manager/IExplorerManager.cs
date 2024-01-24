@@ -23,6 +23,11 @@ namespace Dance.Plugin.Explorer
         DanceObservableCollection<ExplorerNodeModel> Nodes { get; }
 
         /// <summary>
+        /// 扩展名过滤器
+        /// </summary>
+        List<string> ExtensionFilters { get; }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="project">项目领域</param>

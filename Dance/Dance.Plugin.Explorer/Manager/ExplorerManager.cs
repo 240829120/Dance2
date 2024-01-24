@@ -40,6 +40,11 @@ namespace Dance.Plugin.Explorer
         public List<ExplorerInfo> ExplorerInfos { get; } = [];
 
         /// <summary>
+        /// 扩展名过滤器
+        /// </summary>
+        public List<string> ExtensionFilters { get; } = [ProjectOptions.ProjectExtension];
+
+        /// <summary>
         /// 节点集合
         /// </summary>
         public DanceObservableCollection<ExplorerNodeModel> Nodes { get; } = [];
@@ -103,6 +108,9 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         private void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
+            if (this.ExtensionFilters.Any(p => e.FullPath.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                return;
+
             string? parent = Path.GetDirectoryName(e.FullPath);
             if (string.IsNullOrWhiteSpace(parent))
                 return;
@@ -133,6 +141,9 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         private void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
         {
+            if (this.ExtensionFilters.Any(p => e.FullPath.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                return;
+
             string? parent = Path.GetDirectoryName(e.FullPath);
             if (string.IsNullOrWhiteSpace(parent))
                 return;
@@ -156,6 +167,9 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         private void FileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
+            if (this.ExtensionFilters.Any(p => e.FullPath.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                return;
+
             string? parent = Path.GetDirectoryName(e.OldFullPath);
             if (string.IsNullOrWhiteSpace(parent))
                 return;
@@ -181,6 +195,10 @@ namespace Dance.Plugin.Explorer
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
                 return;
+
+            if (this.ExtensionFilters.Any(p => e.FullPath.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                return;
+
 
         }
 

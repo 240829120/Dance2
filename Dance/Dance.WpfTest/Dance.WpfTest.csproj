@@ -51,10 +51,4 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Plugin\TestLayout\TestLayoutView2.xaml.cs">
-	    <SubType>Code</SubType>
-	  </Compile>
-	</ItemGroup>
-
 </Project>

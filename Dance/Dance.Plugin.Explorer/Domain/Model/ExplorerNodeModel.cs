@@ -51,6 +51,11 @@ namespace Dance.Plugin.Explorer
         /// </summary>
         private readonly static IDanceMessageManager MessageManager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
 
+        /// <summary>
+        /// 资源管理器管理器
+        /// </summary>
+        private readonly static IExplorerManager ExplorerManager = DanceDomain.Current.LifeScope.Resolve<IExplorerManager>();
+
         // ===================================================================================================
         // **** Property ****
         // ===================================================================================================
@@ -201,6 +206,20 @@ namespace Dance.Plugin.Explorer
 
         #endregion
 
+        #region IsCuting -- 是否正在剪切
+
+        private bool isCuting;
+        /// <summary>
+        /// 是否正在剪切
+        /// </summary>
+        public bool IsCuting
+        {
+            get { return isCuting; }
+            set { this.SetProperty(ref isCuting, value); }
+        }
+
+        #endregion
+
         // ===================================================================================================
         // **** Command ****
         // ===================================================================================================
@@ -257,13 +276,19 @@ namespace Dance.Plugin.Explorer
 
             if (this.NodeType == ExplorerNodeType.Project || this.NodeType == ExplorerNodeType.Folder)
             {
-                foreach (var folder in System.IO.Directory.GetDirectories(this.Path))
+                foreach (var folder in Directory.GetDirectories(this.Path))
                 {
+                    if (ExplorerManager.ExtensionFilters.Any(p => folder.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                        continue;
+
                     this.Items.Add(new(ExplorerNodeType.Folder, folder, this));
                 }
 
-                foreach (var file in System.IO.Directory.GetFiles(this.Path))
+                foreach (var file in Directory.GetFiles(this.Path))
                 {
+                    if (ExplorerManager.ExtensionFilters.Any(p => file.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                        continue;
+
                     this.Items.Add(new(ExplorerNodeType.File, file, this));
                 }
             }

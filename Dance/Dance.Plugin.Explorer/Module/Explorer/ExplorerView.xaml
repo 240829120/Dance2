@@ -6,22 +6,25 @@
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:framework="clr-namespace:Dance.Framework;assembly=Dance.Framework"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:local="clr-namespace:Dance.Plugin.Explorer"
              d:DataContext="{d:DesignInstance Type=local:ExplorerViewModel}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="uc"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
         <local:ExplorerNodeImageSelector x:Key="ExplorerNodeImageSelector"></local:ExplorerNodeImageSelector>
         <local:ExplorerNodesSelector x:Key="ExplorerNodesSelector"></local:ExplorerNodesSelector>
+        <local:ExplorerNodeType2BoolConverter x:Key="ExplorerNodeType2BoolConverter_ProjectOrFolder" Mode="ProjectOrFolder"></local:ExplorerNodeType2BoolConverter>
+        <local:ExplorerNodeType2BoolConverter x:Key="ExplorerNodeType2BoolConverter_File" Mode="File"></local:ExplorerNodeType2BoolConverter>
     </UserControl.Resources>
 
     <Grid>
-        <dxg:TreeViewControl ExpandStateFieldName="IsExpanded"
+        <dxg:TreeViewControl x:Name="tvc" ExpandStateFieldName="IsExpanded"
                              ShowSearchPanel="True"
                              ItemsSource="{Binding Path=Nodes,Mode=OneWay}"
                              SelectedItem="{Binding Path=SelectedNode,Mode=TwoWay}"
@@ -31,16 +34,16 @@
                              NodeImageSize="14,14" FetchSublevelChildrenOnExpand="True"
                              NodeImageSelector="{StaticResource ExplorerNodeImageSelector}"
                              ChildNodesSelector="{StaticResource ExplorerNodesSelector}"
-                             ShowBorder="False"
-                             AllowEditing="False">
+                             ShowBorder="False" AllowEditing="False"
+                             AllowDragDrop="True" ShowDragDropHint="False" ShowTargetInfoInDragDropHint="False">
             <dxg:TreeViewControl.NodeContentTemplate>
                 <DataTemplate>
-                    <Grid Height="25">
+                    <Grid x:Name="root" Height="25">
                         <TextBlock x:Name="tb" Text="{Binding Path=Row.FileName}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                    Margin="3,0,3,0"></TextBlock>
                         <dxe:TextEdit x:Name="edit" Text="{Binding Path=Row.FileName,UpdateSourceTrigger=LostFocus}" ShowBorder="True" Visibility="Collapsed">
                             <dxmvvm:Interaction.Behaviors>
-                                <framework:TextEditorIsVisibleSelectAllBehavior></framework:TextEditorIsVisibleSelectAllBehavior>
+                                <local:FileNameTextEditorIsVisibleBehavior></local:FileNameTextEditorIsVisibleBehavior>
                                 <dxmvvm:KeyToCommand KeyGesture="Enter" Command="{Binding Path=Row.EnterCommand}"></dxmvvm:KeyToCommand>
                             </dxmvvm:Interaction.Behaviors>
                         </dxe:TextEdit>
@@ -50,12 +53,53 @@
                             <Setter TargetName="tb" Property="Visibility" Value="Collapsed"></Setter>
                             <Setter TargetName="edit" Property="Visibility" Value="Visible"></Setter>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Row.IsCuting}" Value="True">
+                            <Setter Property="Opacity" Value="0.4"></Setter>
+                        </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </dxg:TreeViewControl.NodeContentTemplate>
+            <dxg:TreeViewControl.NodeMenuCustomizations>
+                <dxb:BarButtonItem Content="新建文件夹"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/folder.svg'}"
+                                   IsEnabled="{Binding Path=Row.Row,Converter={StaticResource ExplorerNodeType2BoolConverter_ProjectOrFolder}}"
+                                   Command="{Binding ElementName=uc, Path=DataContext.AddFolderCommand}" CommandParameter="{Binding Path=Row.Row}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="新建文件" 
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/unknow.svg'}"
+                                   IsEnabled="{Binding Path=Row.Row,Converter={StaticResource ExplorerNodeType2BoolConverter_ProjectOrFolder}}"></dxb:BarButtonItem>
+                <dxb:BarItemSeparator></dxb:BarItemSeparator>
+                <dxb:BarButtonItem Content="剪切" KeyGesture="Ctrl+X"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/cut.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.CutCommand}" 
+                                   CommandParameter="{Binding ElementName=tvc,Path=SelectedItems}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="复制" KeyGesture="Ctrl+C"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/copy.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.CopyCommand}" 
+                                   CommandParameter="{Binding ElementName=tvc,Path=SelectedItems}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="粘贴" KeyGesture="Ctrl+V"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/paste.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.PasteCommand}" 
+                                   CommandParameter="{Binding Path=Row.Row}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="删除" KeyGesture="Delete"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/delete.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.DeleteCommand}"
+                                   CommandParameter="{Binding ElementName=tvc,Path=SelectedItems}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="重命名" KeyGesture="F2" 
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/rename.svg'}"
+                                   Command="{Binding ElementName=uc, Path=DataContext.NodeEditingCommand}"></dxb:BarButtonItem>
+                <dxb:BarItemSeparator></dxb:BarItemSeparator>
+                <dxb:BarButtonItem Content="复制完整路径"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/copy_path.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.CopyFullPathCommand}" 
+                                   CommandParameter="{Binding Path=Row.Row}"></dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="在资源管理器中打开"
+                                   Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/open_in_windows.svg'}"
+                                   Command="{Binding ElementName=uc,Path=DataContext.OpenInWindowsCommand}" 
+                                   CommandParameter="{Binding Path=Row.Row}"></dxb:BarButtonItem>
+            </dxg:TreeViewControl.NodeMenuCustomizations>
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="NodeDoubleClick" Command="{Binding Path=NodeDoubleClickCommand}" PassEventArgsToCommand="True"></dxmvvm:EventToCommand>
-                <dxmvvm:KeyToCommand KeyGesture="F2" Command="{Binding Path=NodeEditingCommand}"></dxmvvm:KeyToCommand>
+                <dxmvvm:EventToCommand EventName="DropRecord" Command="{Binding Path=DropCommand}" PassEventArgsToCommand="True"></dxmvvm:EventToCommand>
             </dxmvvm:Interaction.Behaviors>
         </dxg:TreeViewControl>
     </Grid>

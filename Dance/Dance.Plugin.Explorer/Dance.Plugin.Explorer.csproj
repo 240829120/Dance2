@@ -8,8 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Icons\copy.svg" />
+    <None Remove="Themes\Icons\copy_path.svg" />
+    <None Remove="Themes\Icons\cut.svg" />
+    <None Remove="Themes\Icons\delete.svg" />
     <None Remove="Themes\Icons\folder.svg" />
+    <None Remove="Themes\Icons\open_in_windows.svg" />
+    <None Remove="Themes\Icons\paste.svg" />
     <None Remove="Themes\Icons\project.svg" />
+    <None Remove="Themes\Icons\rename.svg" />
     <None Remove="Themes\Icons\txt.svg" />
     <None Remove="Themes\Icons\unknow.svg" />
   </ItemGroup>
@@ -20,8 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Themes\Icons\copy.svg" />
+    <Resource Include="Themes\Icons\copy_path.svg" />
+    <Resource Include="Themes\Icons\cut.svg" />
+    <Resource Include="Themes\Icons\delete.svg" />
     <Resource Include="Themes\Icons\folder.svg" />
+    <Resource Include="Themes\Icons\open_in_windows.svg" />
+    <Resource Include="Themes\Icons\paste.svg" />
     <Resource Include="Themes\Icons\project.svg" />
+    <Resource Include="Themes\Icons\rename.svg" />
     <Resource Include="Themes\Icons\txt.svg" />
     <Resource Include="Themes\Icons\unknow.svg" />
   </ItemGroup>

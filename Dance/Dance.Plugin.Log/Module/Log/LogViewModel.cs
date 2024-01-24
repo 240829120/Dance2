@@ -22,7 +22,7 @@ namespace Dance.Plugin.Log
         /// </summary>
         private void DanceLog_Logging(object? sender, DanceLogEventArgs e)
         {
-            if (this.View is not LogView view)
+            if (this.View is not LogView view || view.edit == null)
                 return;
 
             view.edit.AppendText(e.Content);

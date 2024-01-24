@@ -1,18 +1,20 @@
-﻿using DevExpress.Mvvm.UI.Interactivity;
+﻿using Dance.Wpf;
+using DevExpress.Mvvm.UI.Interactivity;
 using DevExpress.Xpf.Editors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Dance.Framework
+namespace Dance.Plugin.Explorer
 {
     /// <summary>
-    /// 文本编辑框可见时选中全部行为
+    /// 文件名文本编辑器可见性改变行为
     /// </summary>
-    public class TextEditorIsVisibleSelectAllBehavior : Behavior<TextEdit>
+    public class FileNameTextEditorIsVisibleBehavior : Behavior<TextEdit>
     {
         protected override void OnAttached()
         {
@@ -43,8 +45,20 @@ namespace Dance.Framework
             if (sender is not TextEdit edit || e.NewValue is not bool value || !value)
                 return;
 
-            edit.Focus();
-            edit.SelectAll();
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                edit.Focus();
+                int index = edit.EditValue?.ToString()?.IndexOf('.') ?? -1;
+                if (index <= 0)
+                {
+                    edit.SelectAll();
+                }
+                else
+                {
+                    edit.Select(0, index);
+                }
+
+            }, System.Windows.Threading.DispatcherPriority.Background);
         }
     }
 }
