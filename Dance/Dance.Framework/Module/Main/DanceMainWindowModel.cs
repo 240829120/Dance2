@@ -199,7 +199,7 @@ namespace Dance.Framework
 
                 this.Layouts.Add(new()
                 {
-                    Key = info.ID.Key,
+                    BindableName = $"Panel_{info.Key.MD5}",
                     Caption = info.Name,
                     ToolTip = info.Name,
                     AllowClose = info.AllowClose,

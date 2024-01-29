@@ -13,12 +13,12 @@ namespace Dance.Plugin.Project
     /// <param name="id">插件ID</param>
     /// <param name="name">名称</param>
     /// <param name="categoryGroup">分类分组</param>
-    public class ProjectPluginInfo(DancePluginID id, string name, string categoryGroup) : IDancePluginInfo
+    public class ProjectPluginInfo(DancePluginKey id, string name, string categoryGroup) : IDancePluginInfo
     {
         /// <summary>
         /// 插件ID
         /// </summary>
-        public DancePluginID ID { get; } = id;
+        public DancePluginKey Key { get; } = id;
 
         /// <summary>
         /// 名称

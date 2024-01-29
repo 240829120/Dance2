@@ -4,12 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dance.Plugin.Log"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:edit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             d:DataContext="{d:DesignInstance Type=local:LogViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="Txt" ShowLineNumbers="False" WordWrap="False" Background="Transparent" Foreground="White"
                          IsReadOnly="True" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <dxb:BarManager.DXContextMenu>
+                <dxb:PopupMenu>
+                    <dxb:PopupMenu.Items>
+                        <dxb:BarButtonItem Content="复制" KeyGesture="Ctrl+C"
+                                           Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Log;component/Themes/Icons/copy.svg'}"
+                                           Command="{Binding Path=CopyCommand}"/>
+                        <dxb:BarButtonItem Content="清理"
+                                           Glyph="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Log;component/Themes/Icons/clear.svg'}"
+                                           Command="{Binding Path=ClearCommand}"/>
+                    </dxb:PopupMenu.Items>
+                </dxb:PopupMenu>
+            </dxb:BarManager.DXContextMenu>
         </edit:TextEditor>
     </Grid>
 </UserControl>

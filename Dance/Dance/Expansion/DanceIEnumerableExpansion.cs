@@ -110,12 +110,37 @@ namespace Dance
         }
 
         /// <summary>
+        /// 循环
+        /// </summary>
+        /// <typeparam name="T">数据项类型</typeparam>
+        /// <param name="items">项集合</param>
+        /// <param name="action">行为</param>
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
+        {
+            foreach (T item in items)
+            {
+                action(item);
+            }
+        }
+
+        /// <summary>
         /// 转化为 ObservableCollection
         /// </summary>
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="items">数据集合</param>
         /// <returns>ObservableCollection</returns>
         public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> items)
+        {
+            return new(items);
+        }
+
+        /// <summary>
+        /// 转化为 DanceObservableCollection
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="items">数据集合</param>
+        /// <returns>DanceObservableCollection</returns>
+        public static DanceObservableCollection<T> ToDanceObservableCollection<T>(this IEnumerable<T> items)
         {
             return new(items);
         }

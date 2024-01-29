@@ -31,7 +31,7 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Plugin;component/Themes/Icons/search.svg', Size='12,12'}"></Image>
+                                <Image Source="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Plugin;component/Themes/Icons/plugin.svg', Size='12,12'}"></Image>
                                 <TextBlock Text="{Binding .}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,5,0"></TextBlock>
                                 <Image Source="{dx:SvgImageSource Uri='pack://application:,,,/Dance.Plugin.Plugin;component/Themes/Icons/drop-down.svg', Size='14,14'}" Grid.Column="2"></Image>
                             </Grid>

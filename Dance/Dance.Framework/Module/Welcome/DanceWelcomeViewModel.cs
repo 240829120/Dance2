@@ -3,6 +3,7 @@ using Dance.Wpf;
 using log4net.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -88,12 +89,18 @@ namespace Dance.Framework
             this.ProgressValue = 0;
             this.ProgressMessage = "准备初始化";
 
+#if DEBUG
+            Debug.WriteLine("================================================================================================================================================================================");
+#endif
             // 加载插件
             foreach (Assembly assembly in DanceDomain.Current.PluginBuilder.PluginAssemblies)
             {
                 DanceDomain.Current.PluginBuilder.LoadPlugin(assembly);
             }
 
+#if DEBUG
+            Debug.WriteLine("================================================================================================================================================================================");
+#endif
             for (int i = 0; i < DanceDomain.Current.PluginBuilder.PluginDomains.Count; i++)
             {
                 DancePluginDomain pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains[i];
@@ -105,6 +112,9 @@ namespace Dance.Framework
                 await Task.Delay(50);
             }
 
+#if DEBUG
+            Debug.WriteLine("================================================================================================================================================================================");
+#endif
             // 准备启动主界面
             this.ProgressValue = 1;
             this.ProgressMessage = "准备启动";

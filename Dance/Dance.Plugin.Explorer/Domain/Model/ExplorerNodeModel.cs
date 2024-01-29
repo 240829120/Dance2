@@ -278,7 +278,7 @@ namespace Dance.Plugin.Explorer
             {
                 foreach (var folder in Directory.GetDirectories(this.Path))
                 {
-                    if (ExplorerManager.ExtensionFilters.Any(p => folder.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                    if (ExplorerManager.FileNameFilters.Any(p => System.IO.Path.GetFileName(folder).Equals(p, StringComparison.OrdinalIgnoreCase)))
                         continue;
 
                     this.Items.Add(new(ExplorerNodeType.Folder, folder, this));
@@ -287,6 +287,9 @@ namespace Dance.Plugin.Explorer
                 foreach (var file in Directory.GetFiles(this.Path))
                 {
                     if (ExplorerManager.ExtensionFilters.Any(p => file.EndsWith(p, StringComparison.OrdinalIgnoreCase)))
+                        continue;
+
+                    if (ExplorerManager.FileNameFilters.Any(p => System.IO.Path.GetFileName(file).Equals(p, StringComparison.OrdinalIgnoreCase)))
                         continue;
 
                     this.Items.Add(new(ExplorerNodeType.File, file, this));

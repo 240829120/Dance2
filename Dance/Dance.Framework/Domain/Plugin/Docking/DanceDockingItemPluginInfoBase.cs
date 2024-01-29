@@ -11,12 +11,12 @@ namespace Dance.Framework.Plugin
     /// </summary>
     /// <param name="id">插件ID</param>
     /// <param name="viewType">视图类型</param>
-    public abstract class DanceDockingItemPluginInfoBase(DancePluginID id, string name, Type viewType) : IDancePluginInfo
+    public abstract class DanceDockingItemPluginInfoBase(DancePluginKey id, string name, Type viewType) : IDancePluginInfo
     {
         /// <summary>
         /// 插件ID
         /// </summary>
-        public DancePluginID ID { get; } = id;
+        public DancePluginKey Key { get; } = id;
 
         /// <summary>
         /// 名称

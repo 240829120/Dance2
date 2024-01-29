@@ -25,7 +25,7 @@
 
     <Grid>
         <dxg:TreeViewControl x:Name="tvc" ExpandStateFieldName="IsExpanded"
-                             ShowSearchPanel="True"
+                             ShowSearchPanel="True" SortFieldName="FileName"
                              ItemsSource="{Binding Path=Nodes,Mode=OneWay}"
                              SelectedItem="{Binding Path=SelectedNode,Mode=TwoWay}"
                              TreeDerivationMode="ChildNodesSelector"

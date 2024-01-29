@@ -11,16 +11,18 @@ namespace Dance.Framework
     /// </summary>
     public class DanceDockItemViewModelBase : DanceViewModel
     {
-        #region Key -- 键
+        #region BindableName -- 绑定名称
 
-        private string? key;
+        private string? bindableName;
         /// <summary>
-        /// 键
+        /// 绑定名称
+        /// <see cref="DancePanelEntity.BindableName"/>
+        /// <see cref="DancePanelEntity.BindableName"/>
         /// </summary>
-        public string? Key
+        public string? BindableName
         {
-            get { return key; }
-            set { this.SetProperty(ref key, value); }
+            get { return bindableName; }
+            set { this.SetProperty(ref bindableName, value); }
         }
 
         #endregion

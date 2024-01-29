@@ -12,12 +12,12 @@ namespace Dance.Plugin.Explorer
     /// </summary>
     /// <param name="id">插件ID</param>
     /// <param name="name">插件名称</param>
-    public class ExplorerNodePluginInfo(DancePluginID id, string name) : IDancePluginInfo
+    public class ExplorerNodePluginInfo(DancePluginKey id, string name) : IDancePluginInfo
     {
         /// <summary>
         /// 插件ID
         /// </summary>
-        public DancePluginID ID { get; } = id;
+        public DancePluginKey Key { get; } = id;
 
         /// <summary>
         /// 名称

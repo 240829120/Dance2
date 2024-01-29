@@ -25,9 +25,9 @@
         <GroupBox Header="插件" Margin="10,10,5,10">
             <dxg:GridControl Name="grid" Grid.Column="0" ItemsSource="{Binding Path=PluginInfos}" ShowBorder="False">
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="ID.NameSpace" Header="命名空间" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
-                    <dxg:GridColumn FieldName="ID.Group" Header="分组" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
-                    <dxg:GridColumn FieldName="ID.ID" Header="编号" ReadOnly="True" Width="200" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Key.NameSpace" Header="命名空间" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Key.Group" Header="分组" ReadOnly="True" Width="120" AllowAutoFilter="False" ></dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Key.ID" Header="编号" ReadOnly="True" Width="200" AllowAutoFilter="False" ></dxg:GridColumn>
                     <dxg:GridColumn FieldName="Name" Header="名称" ReadOnly="True" Width="200" AllowAutoFilter="False"></dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>

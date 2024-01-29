@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance
+namespace Dance.Framework
 {
     /// <summary>
-    /// 插件信息
+    /// 文档类型
     /// </summary>
-    public interface IDancePluginInfo
+    public enum DanceDocumentType
     {
         /// <summary>
-        /// 插件键
+        /// 文件文档
         /// </summary>
-        DancePluginKey Key { get; }
+        File,
 
         /// <summary>
-        /// 名称
+        /// 面板文档
         /// </summary>
-        string Name { get; }
+        Panel
     }
 }

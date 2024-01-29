@@ -32,7 +32,7 @@ namespace Dance.Plugin.Explorer
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            ExplorerNodePluginInfo info = new(new DancePluginID("Dance", "Explorer", "DefaultNode"), "默认文件节点");
+            ExplorerNodePluginInfo info = new(new DancePluginKey("Dance", "Explorer", "DefaultNode"), "默认文件节点");
             info.Infos.Add(new ExplorerInfo(".txt", this.CacheManager.GetImage("pack://application:,,,/Dance.Plugin.Explorer;component/Themes/Icons/txt.svg")));
 
             return info;

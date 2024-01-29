@@ -18,7 +18,7 @@ namespace Dance.WpfTest
         {
             return new DanceLayoutViewPluginInfo(new("TEST", "Layout", "test111"), "测试面板1", typeof(TestLayoutView1))
             {
-                AllowClose = false
+                AllowClose = true
             };
         }
     }

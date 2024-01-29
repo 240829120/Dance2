@@ -25,6 +25,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Dock\Dance.Plugin.Dock.csproj" />
+		<ProjectReference Include="..\Dance.Plugin.Document\Dance.Plugin.Document.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Explorer\Dance.Plugin.Explorer.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Help\Dance.Plugin.Help.csproj" />
 		<ProjectReference Include="..\Dance.Plugin.Log\Dance.Plugin.Log.csproj" />

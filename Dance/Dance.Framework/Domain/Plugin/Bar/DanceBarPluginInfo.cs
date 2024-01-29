@@ -12,12 +12,12 @@ namespace Dance.Framework
     /// </summary>
     /// <param name="id">插件编号</param>
     /// <param name="name">名称</param>
-    public class DanceBarPluginInfo(DancePluginID id, string name) : IDancePluginInfo
+    public class DanceBarPluginInfo(DancePluginKey id, string name) : IDancePluginInfo
     {
         /// <summary>
         /// 插件编号
         /// </summary>
-        public DancePluginID ID { get; } = id;
+        public DancePluginKey Key { get; } = id;
 
         /// <summary>
         /// 名称

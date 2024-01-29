@@ -35,6 +35,11 @@ namespace Dance.Plugin.Project
         /// </summary>
         public ProjectPluginInfo PluginInfo { get; } = pluginInfo;
 
+        /// <summary>
+        /// 缓存上下文
+        /// </summary>
+        public ProjectCacheContext CacheContext { get; } = new(workPath);
+
         #region Name -- 名称
 
         private string? name;
@@ -62,5 +67,17 @@ namespace Dance.Plugin.Project
         }
 
         #endregion
+
+        // ===================================================================================================
+        // **** Override ****
+        // ===================================================================================================
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        protected override void Destroy()
+        {
+            this.CacheContext?.Dispose();
+        }
     }
 }

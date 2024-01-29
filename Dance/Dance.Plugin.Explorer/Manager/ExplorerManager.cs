@@ -1,4 +1,5 @@
-﻿using Dance.Plugin.Project;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Dance.Plugin.Project;
 using Dance.Wpf;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,11 @@ namespace Dance.Plugin.Explorer
         /// 扩展名过滤器
         /// </summary>
         public List<string> ExtensionFilters { get; } = [ProjectOptions.ProjectExtension];
+
+        /// <summary>
+        /// 文件名过滤器
+        /// </summary>
+        public List<string> FileNameFilters { get; } = [ProjectOptions.ProjectCacheFileName];
 
         /// <summary>
         /// 节点集合
@@ -134,6 +140,8 @@ namespace Dance.Plugin.Explorer
             {
                 parentNode.Items.Add(new(ExplorerNodeType.File, e.FullPath, parentNode));
             }
+
+            DanceDomain.Current.Messenger.Send(new FileCreateMsg(e.FullPath));
         }
 
         /// <summary>
@@ -160,6 +168,8 @@ namespace Dance.Plugin.Explorer
                 return;
 
             parentNode.Items.Remove(node);
+
+            DanceDomain.Current.Messenger.Send(new FileDeleteMsg(e.FullPath));
         }
 
         /// <summary>
@@ -186,6 +196,8 @@ namespace Dance.Plugin.Explorer
                 return;
 
             node.InitPath(e.FullPath);
+
+            DanceDomain.Current.Messenger.Send(new FileRenameMsg(e.FullPath, e.OldFullPath));
         }
 
         /// <summary>

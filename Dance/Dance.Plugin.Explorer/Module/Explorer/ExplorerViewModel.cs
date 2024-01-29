@@ -133,7 +133,20 @@ namespace Dance.Plugin.Explorer
             if (e == null || this.SelectedNode == null || this.SelectedNode.IsEditing || e.ChangedButton != MouseButton.Left)
                 return;
 
-            this.SelectedNode.IsExpanded = !this.SelectedNode.IsExpanded;
+            if (this.SelectedNode.NodeType == ExplorerNodeType.File)
+            {
+                FileOpeningMsg openingMsg = new(this.SelectedNode.Path);
+                DanceDomain.Current.Messenger.Send(openingMsg);
+                if (openingMsg.IsCancel)
+                    return;
+
+                FileOpendMsg opendMsg = new(this.SelectedNode.Path);
+                DanceDomain.Current.Messenger.Send(opendMsg);
+            }
+            else
+            {
+                this.SelectedNode.IsExpanded = !this.SelectedNode.IsExpanded;
+            }
 
             await Task.CompletedTask;
         }

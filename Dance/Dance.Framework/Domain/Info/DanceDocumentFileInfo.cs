@@ -7,31 +7,23 @@ using System.Threading.Tasks;
 namespace Dance.Framework
 {
     /// <summary>
-    /// 文档视图模型
+    /// 文件文档信息
     /// </summary>
-    public class DanceDocumentViewModel : DanceDockItemViewModelBase
+    /// <param name="path">文件路径</param>
+    public class DanceDocumentFileInfo(string path) : DanceDocumentInfoBase
     {
-        #region PluginInfo -- 插件信息
-
-        private DanceDocumentViewPluginInfo? pluginInfo;
         /// <summary>
-        /// 插件信息
+        /// 文档类型
         /// </summary>
-        public DanceDocumentViewPluginInfo? PluginInfo
-        {
-            get { return pluginInfo; }
-            set { this.SetProperty(ref pluginInfo, value); }
-        }
-
-        #endregion
+        public override DanceDocumentType DocumentType => DanceDocumentType.File;
 
         #region Path -- 文件路径
 
-        private string? path;
+        private string path = path;
         /// <summary>
         /// 文件路径
         /// </summary>
-        public string? Path
+        public string Path
         {
             get { return path; }
             set { this.SetProperty(ref path, value); }

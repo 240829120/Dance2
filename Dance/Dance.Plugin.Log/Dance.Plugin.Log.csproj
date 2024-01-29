@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Icons\clear.svg" />
+    <None Remove="Themes\Icons\copy.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dance.Framework\Dance.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Icons\clear.svg" />
+    <Resource Include="Themes\Icons\copy.svg" />
   </ItemGroup>
 
 </Project>

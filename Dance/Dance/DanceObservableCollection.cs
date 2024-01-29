@@ -17,6 +17,17 @@ namespace Dance
     public class DanceObservableCollection<T> : ObservableCollection<T>
     {
         /// <summary>
+        /// 类别
+        /// </summary>
+        public DanceObservableCollection() { }
+
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="collection">数据项</param>
+        public DanceObservableCollection(IEnumerable<T> collection) : base(collection) { }
+
+        /// <summary>
         /// <inheritdoc cref="IDanceHistoryManager"/>
         /// </summary>
         public IDanceHistoryManager? HistoryManager { get; set; }

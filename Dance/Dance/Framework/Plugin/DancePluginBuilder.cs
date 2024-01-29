@@ -95,7 +95,7 @@ namespace Dance
                     DancePluginDomain domain = new(lifescope, info);
                     this.pluginDomains.Add(domain);
 
-                    Debug.WriteLine($"注册插件 {info.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+                    Debug.WriteLine($"{"注册插件",-10} ==============> NameSpace: {info.Key.NameSpace,-20} Group: {info.Key.Group,-20} ID: {info.Key.ID,-20} -- {stopwatch.ElapsedMilliseconds}ms");
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +140,7 @@ namespace Dance
                     domain.Lifescope.Initialize();
                     domain.IsInitialized = true;
 
-                    Debug.WriteLine($"初始化插件 {domain.PluginInfo.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+                    Debug.WriteLine($"{"初始化插件",-10} ==============> NameSpace: {domain.PluginInfo.Key.NameSpace,-20} Group: {domain.PluginInfo.Key.Group,-20} ID: {domain.PluginInfo.Key.ID,-20} -- {stopwatch.ElapsedMilliseconds}ms");
                 }
                 catch (Exception ex)
                 {
@@ -174,12 +174,15 @@ namespace Dance
 #if DEBUG
             Stopwatch stopwatch = new();
 
+            Debug.WriteLine("====================================================================");
             foreach (DancePluginDomain domain in this.PluginDomains)
             {
                 stopwatch.Restart();
                 domain.Dispose();
-                Debug.WriteLine($"注册插件 {domain.PluginInfo.ID.Key}".PadRight(20) + $"  -- {stopwatch.ElapsedMilliseconds}ms");
+
+                Debug.WriteLine($"{"销毁插件",-10} ==============> NameSpace: {domain.PluginInfo.Key.NameSpace,-20} Group: {domain.PluginInfo.Key.Group,-20} ID: {domain.PluginInfo.Key.ID,-20} -- {stopwatch.ElapsedMilliseconds}ms");
             }
+            Debug.WriteLine("====================================================================");
 #else
             foreach (DancePluginDomain domain in this.PluginDomains)
             {

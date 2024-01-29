@@ -40,8 +40,4 @@
     <Resource Include="Themes\Icons\unknow.svg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Message\" />
-  </ItemGroup>
-
 </Project>

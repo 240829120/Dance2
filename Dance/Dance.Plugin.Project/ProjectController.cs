@@ -2,6 +2,7 @@
 using Dance.Framework;
 using Dance.Wpf;
 using DevExpress.Charts.Native;
+using DevExpress.Mvvm.Native;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -270,7 +271,7 @@ namespace Dance.Plugin.Project
                 {
                     Name = vm.ProjectName,
                     Detail = vm.ProjectDetail,
-                    PluginKey = vm.SelectedProjectCategory.PluginInfo.ID.Key,
+                    PluginMD5 = vm.SelectedProjectCategory.PluginInfo.Key.MD5,
                     PluginName = vm.SelectedProjectCategory.PluginInfo.Name
                 };
 
@@ -381,10 +382,10 @@ namespace Dance.Plugin.Project
             if (this.ProjectManager.Current != null)
                 return false;
 
-            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo.ID.Key == config.PluginKey);
+            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo.Key.MD5 == config.PluginMD5);
             if (pluginDomain == null || pluginDomain.PluginInfo is not ProjectPluginInfo pluginInfo)
             {
-                log.Error($"未找到项目插件: {config.PluginKey}");
+                log.Error($"未找到项目插件: {config.PluginName}");
                 return false;
             }
 

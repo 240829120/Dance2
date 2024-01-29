@@ -22,9 +22,9 @@ namespace Dance.Plugin.Project
         public string? Detail { get; set; }
 
         /// <summary>
-        /// 项目插件key
+        /// 项目插件MD5
         /// </summary>
-        public string? PluginKey { get; set; }
+        public string? PluginMD5 { get; set; }
 
         /// <summary>
         /// 插件名称

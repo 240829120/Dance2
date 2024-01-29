@@ -177,7 +177,7 @@
     <!-- Layout -->
     <Style TargetType="{x:Type dxdo:LayoutPanel}">
         <Setter Property="FloatOnDoubleClick" Value="False"></Setter>
-        <Setter Property="BindableName" Value="{Binding Key}" />
+        <Setter Property="BindableName" Value="{Binding Path=BindableName}" />
         <Setter Property="Caption" Value="{Binding Path=Caption}"></Setter>
         <!--<Setter Property="CaptionImage" Value="{Binding Path=CaptionImage}"></Setter>-->
         <Setter Property="ToolTip" Value="{Binding Path=ToolTip}"></Setter>
