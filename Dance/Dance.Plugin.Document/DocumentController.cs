@@ -32,11 +32,6 @@ namespace Dance.Plugin.Document
         /// </summary>
         private readonly IProjectManager ProjectManager = DanceDomain.Current.LifeScope.Resolve<IProjectManager>();
 
-        /// <summary>
-        /// 消息管理器
-        /// </summary>
-        private readonly IDanceMessageManager MessageManager = DanceDomain.Current.LifeScope.Resolve<IDanceMessageManager>();
-
         // ===================================================================================================
         // **** Message ****
         // ===================================================================================================
@@ -56,6 +51,8 @@ namespace Dance.Plugin.Document
             project.Messenger.Register<FileDeleteMsg>(this, this.OnFileDelete);
             project.Messenger.Register<FileOpeningMsg>(this, this.OnFileOpening);
             project.Messenger.Register<FileOpendMsg>(this, this.OnFileOpend);
+            project.Messenger.Register<FileClosingMsg>(this, this.OnFileClosing);
+            project.Messenger.Register<FileClosedMsg>(this, this.OnFileClosed);
 
             DanceMainWindowModel vm = DanceDomain.Current.LifeScope.Resolve<DanceMainWindowModel>();
             var list = project.CacheContext.OpendDocuments.FindAll();
@@ -68,16 +65,22 @@ namespace Dance.Plugin.Document
                 if (pluginDomain == null || pluginDomain.PluginInfo is not DanceDocumentViewPluginInfo pluginInfo)
                     return;
 
-                vm.Documents.Add(new DanceDocumentViewModel()
-                {
-                    BindableName = p.BindableName,
-                    Caption = System.IO.Path.GetFileName(p.Path),
-                    PluginInfo = pluginInfo,
-                    ViewType = pluginInfo.ViewType,
-                    ToolTip = System.IO.Path.GetFileName(p.Path),
-                    Path = p.Path,
-                    AllowClose = p.AllowClose,
-                });
+                if (string.IsNullOrWhiteSpace(pluginInfo.ViewModelType.FullName))
+                    return;
+
+                DanceDocumentViewModel? document = pluginInfo.ViewModelType.Assembly.CreateInstance(pluginInfo.ViewModelType.FullName) as DanceDocumentViewModel;
+                if (document == null)
+                    return;
+
+                document.BindableName = p.BindableName;
+                document.Caption = System.IO.Path.GetFileName(p.Path);
+                document.ToolTip = document.Caption;
+                document.PluginInfo = pluginInfo;
+                document.ViewType = pluginInfo.ViewType;
+                document.Path = p.Path;
+                document.AllowClose = p.AllowClose;
+
+                vm.Documents.Add(document);
             });
         }
 
@@ -156,26 +159,32 @@ namespace Dance.Plugin.Document
                 return;
 
             DanceMainWindowModel vm = DanceDomain.Current.LifeScope.Resolve<DanceMainWindowModel>();
-            if (vm.Documents.Any(p => p.Path == msg.Path))
+            DanceDocumentViewModel? old = vm.Documents.FirstOrDefault(p => p.Path == msg.Path);
+            if (old != null)
+            {
+                old.IsActive = true;
                 return;
+            }
 
             string extension = System.IO.Path.GetExtension(msg.Path);
-            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo is DocumentPluginInfo info && info.Infos.Any(p => string.Equals(p.Extension, extension, StringComparison.OrdinalIgnoreCase)));
-            if (pluginDomain == null || pluginDomain.PluginInfo is not DanceDocumentViewPluginInfo pluginInfo)
+            DancePluginDomain? pluginDomain = DanceDomain.Current.PluginBuilder.PluginDomains.FirstOrDefault(p => p.PluginInfo is DanceDocumentViewPluginInfo info && info.Extensions.Any(p => string.Equals(p, extension, StringComparison.OrdinalIgnoreCase)));
+            if (pluginDomain == null || pluginDomain.PluginInfo is not DanceDocumentViewPluginInfo pluginInfo || string.IsNullOrWhiteSpace(pluginInfo.ViewModelType.FullName))
                 return;
 
-            DanceDocumentViewModel document = new()
-            {
-                BindableName = $"",
-                Caption = System.IO.Path.GetFileName(msg.Path),
-                PluginInfo = pluginInfo,
-                ViewType = pluginInfo.ViewType,
-                ToolTip = System.IO.Path.GetFileName(msg.Path),
-                Path = msg.Path,
-                AllowClose = true,
-            };
+            DanceDocumentViewModel? document = pluginInfo.ViewModelType.Assembly.CreateInstance(pluginInfo.ViewModelType.FullName) as DanceDocumentViewModel;
+            if (document == null)
+                return;
+
+            document.BindableName = $"Document_{Guid.NewGuid().ToString().Replace("-", string.Empty)}";
+            document.Caption = System.IO.Path.GetFileName(msg.Path);
+            document.ToolTip = document.Caption;
+            document.PluginInfo = pluginInfo;
+            document.ViewType = pluginInfo.ViewType;
+            document.Path = msg.Path;
+            document.AllowClose = true;
 
             vm.Documents.Add(document);
+
             project.CacheContext.OpendDocuments.Insert(new OpendDocumentEntity()
             {
                 BindableName = document.BindableName,
@@ -185,6 +194,38 @@ namespace Dance.Plugin.Document
                 PluginGroup = pluginInfo.Key.Group,
                 PluginID = pluginInfo.Key.ID,
             });
+        }
+
+        #endregion
+
+        #region FileClosingMsg -- 文件关闭之前消息
+
+        /// <summary>
+        /// 文件关闭之前消息
+        /// </summary>
+        private void OnFileClosing(object sender, FileClosingMsg msg)
+        {
+            // nothing todo.
+        }
+
+        #endregion
+
+        #region FileClosedMsg -- 文件关闭之后消息
+
+        /// <summary>
+        /// 文件关闭之后消息
+        /// </summary>
+        private void OnFileClosed(object sender, FileClosedMsg msg)
+        {
+            ProjectDomain? project = this.ProjectManager.Current;
+            if (project == null)
+                return;
+
+            OpendDocumentEntity? entity = project.CacheContext.OpendDocuments.FindOne(p => p.Path == msg.Path);
+            if (entity == null)
+                return;
+
+            project.CacheContext.OpendDocuments.Delete(entity.ID);
         }
 
         #endregion

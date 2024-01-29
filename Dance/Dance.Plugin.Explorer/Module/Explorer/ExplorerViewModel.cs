@@ -133,15 +133,19 @@ namespace Dance.Plugin.Explorer
             if (e == null || this.SelectedNode == null || this.SelectedNode.IsEditing || e.ChangedButton != MouseButton.Left)
                 return;
 
+            ProjectDomain? project = this.ProjectManager.Current;
+            if (project == null)
+                return;
+
             if (this.SelectedNode.NodeType == ExplorerNodeType.File)
             {
                 FileOpeningMsg openingMsg = new(this.SelectedNode.Path);
-                DanceDomain.Current.Messenger.Send(openingMsg);
+                project.Messenger.Send(openingMsg);
                 if (openingMsg.IsCancel)
                     return;
 
                 FileOpendMsg opendMsg = new(this.SelectedNode.Path);
-                DanceDomain.Current.Messenger.Send(opendMsg);
+                project.Messenger.Send(opendMsg);
             }
             else
             {

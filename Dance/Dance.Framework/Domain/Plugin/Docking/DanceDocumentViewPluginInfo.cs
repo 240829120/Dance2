@@ -10,14 +10,21 @@ namespace Dance.Framework
     /// <summary>
     /// 文档视图插件信息
     /// </summary>
-    /// <param name="id">插件编号</param>
+    /// <param name="key">插件Key</param>
     /// <param name="name">名称</param>
     /// <param name="viewType">视图类型</param>
-    public class DanceDocumentViewPluginInfo(DancePluginKey id, string name, Type viewType, DanceDocumentInfoBase info) : DanceDockingItemPluginInfoBase(id, name, viewType)
+    /// <param name="viewModelType">视图模型类型</param>
+    /// <param name="extensions">支持的文件扩展名</param>
+    public class DanceDocumentViewPluginInfo(DancePluginKey key, string name, Type viewType, Type viewModelType, params string[] extensions) : DanceDockingItemPluginInfoBase(key, name, viewType)
     {
         /// <summary>
-        /// 文档信息
+        /// 视图模型类型
         /// </summary>
-        public DanceDocumentInfoBase Info { get; } = info;
+        public Type ViewModelType { get; } = viewModelType;
+
+        /// <summary>
+        /// 支持的文件扩展名
+        /// </summary>
+        public List<string> Extensions { get; } = new(extensions);
     }
 }

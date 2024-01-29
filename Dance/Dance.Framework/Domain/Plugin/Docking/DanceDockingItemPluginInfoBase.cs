@@ -9,14 +9,14 @@ namespace Dance.Framework.Plugin
     /// <summary>
     /// Docking项插件信息基类
     /// </summary>
-    /// <param name="id">插件ID</param>
+    /// <param name="key">插件Key</param>
     /// <param name="viewType">视图类型</param>
-    public abstract class DanceDockingItemPluginInfoBase(DancePluginKey id, string name, Type viewType) : IDancePluginInfo
+    public abstract class DanceDockingItemPluginInfoBase(DancePluginKey key, string name, Type viewType) : IDancePluginInfo
     {
         /// <summary>
         /// 插件ID
         /// </summary>
-        public DancePluginKey Key { get; } = id;
+        public DancePluginKey Key { get; } = key;
 
         /// <summary>
         /// 名称

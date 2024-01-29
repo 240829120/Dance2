@@ -48,7 +48,7 @@ namespace Dance.Plugin.Explorer
         /// <summary>
         /// 文件名过滤器
         /// </summary>
-        public List<string> FileNameFilters { get; } = [ProjectOptions.ProjectCacheFileName];
+        public List<string> FileNameFilters { get; } = [ProjectOptions.ProjectCacheFileName, ProjectOptions.ProjectCacheLogFileName];
 
         /// <summary>
         /// 节点集合

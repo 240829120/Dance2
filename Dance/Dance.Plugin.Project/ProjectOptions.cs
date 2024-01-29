@@ -22,6 +22,11 @@ namespace Dance.Plugin.Project
         public static string ProjectCacheFileName { get; set; } = "cache.db";
 
         /// <summary>
+        /// 项目缓存日志文件
+        /// </summary>
+        public static string ProjectCacheLogFileName { get; set; } = "cache-log.db";
+
+        /// <summary>
         /// 最近使用项目个数
         /// </summary>
         public static int RecentlyUsedProjectCount { get; set; } = 10;

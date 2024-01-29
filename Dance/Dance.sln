@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Panel", "10-Panel", "{CC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Plugin.Log", "Dance.Plugin.Log\Dance.Plugin.Log.csproj", "{3DA1306C-A427-443B-B545-BCA4DAAD2CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Plugin.Document", "Dance.Plugin.Document\Dance.Plugin.Document.csproj", "{75CFBE53-4A97-470C-94A4-6B1F40666F52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Plugin.Document", "Dance.Plugin.Document\Dance.Plugin.Document.csproj", "{75CFBE53-4A97-470C-94A4-6B1F40666F52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20-Document", "20-Document", "{E560D80C-C3E2-4EEA-94BE-E1276769ED26}"
 EndProject

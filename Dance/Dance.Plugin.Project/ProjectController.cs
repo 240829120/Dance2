@@ -423,6 +423,7 @@ namespace Dance.Plugin.Project
                 return false;
 
             ProjectClosedMsg closedMsg = new(this.ProjectManager.Current);
+            this.ProjectManager.Current.Dispose();
             this.ProjectManager.Current = null;
             DanceDomain.Current.Messenger.Send(closedMsg);
 
